@@ -1,4 +1,4 @@
-package gui;
+package game;
 
 /**
  * Created by david on 06/11/15.

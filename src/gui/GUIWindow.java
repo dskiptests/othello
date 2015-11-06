@@ -1,11 +1,13 @@
 package gui;
 
 import PlayerHandler.PlayerHandler;
+import game.*;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
+import java.util.LinkedList;
 
 public class GUIWindow {
 
@@ -28,15 +30,13 @@ public class GUIWindow {
     }
 
     public void CreateUI() {
-        JFrame window = new JFrame("Othello");
+        JFrame window = new JFrame("Omega-Othello");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setBounds(200, 200, 800, 700);
         window.setLayout(new BorderLayout());
-
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(CreateDisplay(), BorderLayout.CENTER);
         panel.add(CreateMenu(), BorderLayout.EAST);
-
         window.add(panel, BorderLayout.CENTER);
         window.setVisible(true);
 
@@ -103,10 +103,12 @@ public class GUIWindow {
                         if (board.getBoard()[row][col] == DISK.EMPTY) {
                             if (board.doFlip(row, col , false)) {
                                 board.doFlip(row, col , true);
-                                board.placeDisk(row, col);
+
+                                //TODO: Här sker placeringen av ny disk
+                                board.placeDisk(new Move(row, col));
                                 board.nextTurn();
                             }else if (!board.doFlip(row,col , false)){
-                                GUIConsole.display("Invalid Move la...u dumb ass !!");
+                                GUIConsole.display("Not a valid move: ");
                             }
                             updateStatus();
                             update();
@@ -158,6 +160,7 @@ public class GUIWindow {
     }
 
     public void update() {
+        LinkedList<Move> legalMoves = new LinkedList<Move>();
         for (int i = 0; i < board.getBoard().length; i++) {
             for (int j = 0; j < board.getBoard()[i].length; j++) {
                 panelBoard[i][j].removeAll();
@@ -171,13 +174,16 @@ public class GUIWindow {
                     setPicture("Green", i, j);
                 }
                 if (board.doFlip(i, j , false)) {
-                    System.out.println("row : " + i + "   col : " + j + " fjbdjfsdbfjdsf") ;
+                    legalMoves.add(new Move(i,j));
                     picture = createImageIcon("./legalSlot.png");
                     JLabel picLabel = new JLabel((picture));
                     panelBoard[i][j].add(picLabel);
                 }
             }
         }
+        String moves = "";
+        for(Move m : legalMoves) {moves +=  m.toString() + " ";}
+//        System.out.println("Available moves: " + moves);
         int slotsLeft = board.chkWinner();
 
         if (slotsLeft == 0){
@@ -197,7 +203,7 @@ public class GUIWindow {
 
 
         board = new GameBoard();
-        this.playerHandler.newGame(board);
+
 
         update();
         slotsPanel.updateUI();

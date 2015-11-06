@@ -1,5 +1,8 @@
 package gui;
+import game.*;
 
+import java.util.LinkedList;
+import java.util.Random;
 
 public class GameBoard {
 
@@ -21,27 +24,51 @@ public class GameBoard {
             }
         }
 
-        placeDisk(3, 3);
+        placeDisk(new Move(3, 3));
         nextTurn();
-        placeDisk(3, 4);
+        placeDisk(new Move(3, 4));
         nextTurn();
-        placeDisk(4, 4);
+        placeDisk(new Move(4, 4));
         nextTurn();
-        placeDisk(4, 3);
+        placeDisk(new Move(4, 3));
         nextTurn();
+    }
+
+
+    private String getBoardAsString() {
+
+        for(int row = 0; row < xBoard.length; row ++ ){
+            String print = "";
+            for(int col = 0; col < xBoard.length; col++) {
+                print += "(" + printDisk(xBoard[row][col]) + ") ";
+            }
+
+            System.out.println(print);
+
+        }
+
+        return "";
+    }
+
+    private DISK printDisk(DISK disk) {
+        if(disk.toString().equals("EMPTY")) return DISK.EMPTY;
+
+        return disk;
     }
 
 
 
 
 
+    public void placeDisk(Move move) {
+        getBoardAsString();
 
-    public void placeDisk(int row, int col) {
+        System.out.println("Player insists on move: " + move.row + " " + move.column);
 
         if (currentPlayerX.getColor() == DISK.BLACK) {
-            xBoard[row][col] = DISK.BLACK;
+            xBoard[move.row][move.column] = DISK.BLACK;
         } else if (currentPlayerX.getColor() == DISK.WHITE) {
-            xBoard[row][col] = DISK.WHITE;
+            xBoard[move.row][move.column] = DISK.WHITE;
         }
     }
 
@@ -50,6 +77,7 @@ public class GameBoard {
     }
 
     public void nextTurn() {
+
         currentPlayerX = (currentPlayerX == player1) ? player2 : player1;
     }
 
@@ -98,9 +126,38 @@ public class GameBoard {
 //        return flippable;
 //    }
 
-    public boolean doFlip(int currentRow, int currentCol, boolean flippable) {
 
-        System.out.println(currentRow + " " + currentCol + " " + flippable);
+
+
+
+    public void newMove(Move move) {
+        doFlip(move.row, move.column, true);
+
+
+    }
+
+    public LinkedList<Move> getAllLegalMoves() {
+        LinkedList<Move> moves = new LinkedList<Move>();
+        String m = "";
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (xBoard[i][j] == this.currentPlayerX.getColor()) {
+                    moves.add(new Move(i,j));
+                    m+= new Move(i,j) + " ";
+                }
+
+
+            }
+        }
+        System.out.println("All legal moves: " + m);
+
+        return moves;
+    }
+
+    public boolean doFlip(int currentRow, int currentCol, boolean doMove) {
+
+
+        getAllLegalMoves();
 
         boolean isValid = false;
         for (int chkRow = -1; chkRow < 2; chkRow++) {
@@ -123,14 +180,16 @@ public class GameBoard {
                             }
 
                             if (xBoard[nRow][nCol] == this.currentPlayerX.getColor()) {
-                                if (flippable) {
-                                    for (int flipDistance = 1; flipDistance < range; flipDistance++) {
-                                        int finalRow = currentRow + flipDistance * chkRow;
-                                        int finalCol = currentCol + flipDistance * chkCol;
+                                    if (doMove) {
+                                        for (int flipDistance = 1; flipDistance < range; flipDistance++) {
+                                            int finalRow = currentRow + flipDistance * chkRow;
+                                            int finalCol = currentCol + flipDistance * chkCol;
 
-                                        xBoard[finalRow][finalCol] = this.currentPlayerX.getColor();
+                                            xBoard[finalRow][finalCol] = this.currentPlayerX.getColor();
+                                        }
                                     }
-                                }
+//                                System.out.println("Valid: " + xBoard[nRow][nCol] + ", for player: " + this.currentPlayerX.getColor() + " " + nRow + ", " + nCol + " " + run);
+
                                 isValid = true;
                                 break;
                             }
@@ -144,13 +203,7 @@ public class GameBoard {
     }
 
 
-    public String getBoardAsString() {
-        StringBuilder sb = new StringBuilder();
 
-
-
-        return sb.toString();
-    }
 
     public int chkWinner() {
         int slotsLeft = 0;
