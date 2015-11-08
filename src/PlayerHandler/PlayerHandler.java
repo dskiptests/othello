@@ -5,12 +5,7 @@ import game.Move;
 import gui.GameBoard;
 import player.Player;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class PlayerHandler {
 
@@ -52,21 +47,25 @@ public class PlayerHandler {
 
 
 
-        Callable player = new Player();
+        Player player = new Player();
+        ExecutorService service = Executors.newFixedThreadPool(1);
+
+        player.arne(new GameBoard());
+
+        Future<String> futureResult = service.submit(player);
+        String result = null;
+        long start = System.currentTimeMillis();
+        try{
+            result = futureResult.get(2000, TimeUnit.MILLISECONDS);
+        }catch(TimeoutException e){
+            System.out.println("No response after one second");
+            futureResult.cancel(true);
+        }
+        System.out.println(result);
+        service.shutdown();
 
 
-        ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
 
-
-        ScheduledFuture sf = scheduledPool.schedule(player, 1l, TimeUnit.SECONDS);
-
-        String value = (String) sf.get();
-
-        System.out.println("Callable returned"+value);
-
-        scheduledPool.shutdownNow();
-
-        System.out.println("Is ScheduledThreadPool shutting down? "+scheduledPool.isShutdown());
     }
 
 
