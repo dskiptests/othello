@@ -2,6 +2,7 @@ package gui;
 
 import PlayerHandler.PlayerHandler;
 import game.*;
+import player.Player;
 
 import java.awt.*;
 import javax.swing.*;
@@ -100,7 +101,7 @@ public class GUIWindow {
                 final int col = j;
                 slots.addMouseListener(new MouseListener() {
                     public void mouseClicked(MouseEvent me) {
-                        if (board.getBoard()[row][col] == DISK.EMPTY) {
+                        if (board.getBoard()[row][col] == COLOR.EMPTY) {
                             if (board.doFlip(row, col , false)) {
                                 board.doFlip(row, col , true);
 
@@ -160,17 +161,20 @@ public class GUIWindow {
     }
 
     public void update() {
+
+        board.getAllLegalMoves();
+        PlayerHandler playerHandler = new PlayerHandler();
         LinkedList<Move> legalMoves = new LinkedList<Move>();
         for (int i = 0; i < board.getBoard().length; i++) {
             for (int j = 0; j < board.getBoard()[i].length; j++) {
                 panelBoard[i][j].removeAll();
-                if (board.getBoard()[i][j] == DISK.BLACK) {
+                if (board.getBoard()[i][j] == COLOR.BLACK) {
                     setPicture("Black", i, j);
                 }
-                if (board.getBoard()[i][j] == DISK.WHITE) {
+                if (board.getBoard()[i][j] == COLOR.WHITE) {
                     setPicture("White", i, j);
                 }
-                if (board.getBoard()[i][j] == DISK.EMPTY) {
+                if (board.getBoard()[i][j] == COLOR.EMPTY) {
                     setPicture("Green", i, j);
                 }
                 if (board.doFlip(i, j , false)) {
@@ -214,7 +218,7 @@ public class GUIWindow {
     public void updateStatus() {
         wCount = 0;
         bCount = 0;
-        if (board.getCurrentPlayerX().getColor() == DISK.BLACK) {
+        if (board.getCurrentPlayerX().getColor() == COLOR.BLACK) {
             txtCurrentPlayer.setText("Black");
         } else {
             txtCurrentPlayer.setText("White");
@@ -222,10 +226,10 @@ public class GUIWindow {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (board.getBoard()[i][j] == DISK.WHITE) {
+                if (board.getBoard()[i][j] == COLOR.WHITE) {
                     wCount++;
                 }
-                if (board.getBoard()[i][j] == DISK.BLACK) {
+                if (board.getBoard()[i][j] == COLOR.BLACK) {
                     bCount++;
                 }
             }

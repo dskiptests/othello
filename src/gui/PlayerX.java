@@ -3,19 +3,19 @@ import game.*;
 
 
 public class PlayerX {
-    private DISK color;
+    private COLOR color;
 
 
-    public PlayerX(DISK color){
+    public PlayerX(COLOR color){
         this.color = color;
 
     }
 
-    public DISK getColor(){
+    public COLOR getColor(){
         return this.color;
     }
 
-    public void setColor(DISK color){
+    public void setColor(COLOR color){
         this.color = color;
     }
 

@@ -3,7 +3,7 @@ package game;
 /**
  * Created by david on 06/11/15.
  */
-public enum DISK {
+public enum COLOR {
     BLACK , WHITE , EMPTY;
 }
 
