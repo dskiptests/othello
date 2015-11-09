@@ -21,6 +21,7 @@ public class GUIWindow {
     private JLabel txtBlackScore = new JLabel(" __ ");
     private int wCount = 0;
     private int bCount = 0;
+    private Game game;
 
 
     private final PlayerHandler playerHandler;
@@ -163,7 +164,9 @@ public class GUIWindow {
     public void update() {
 
         board.getAllLegalMoves();
-        PlayerHandler playerHandler = new PlayerHandler();
+        game.next();
+
+
         LinkedList<Move> legalMoves = new LinkedList<Move>();
         for (int i = 0; i < board.getBoard().length; i++) {
             for (int j = 0; j < board.getBoard()[i].length; j++) {
@@ -205,7 +208,7 @@ public class GUIWindow {
     public void restart() {
 
 
-
+        game = new Game();
         board = new GameBoard();
 
 

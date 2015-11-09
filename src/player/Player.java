@@ -2,36 +2,40 @@ package player;
 
 
 import game.Game;
+import game.Move;
 import gui.GameBoard;
 
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.Callable;
 
-public class Player implements Callable<String> {
+public abstract class Player implements Callable<Move> {
 
 
-    GameBoard board;
+    public GameBoard board;
+    public LinkedList<Move> availableMoves;
 
     @Override
-    public String call() throws Exception {
-        System.out.println("Ny");
-        StringBuilder builder = new StringBuilder();
-        Random random = new Random();
+    public Move call() throws Exception {
+        Move move = null;
         try{
-            for(int i=0;i<Integer.MAX_VALUE;++i){
-                builder.append("a");
-                Thread.sleep(1);
-            }
+            move = nextMove();
         }catch(Exception e){
-            return "arne";
-
+            e.printStackTrace();
         }
-        return "mega";
+        return move;
     }
 
+    /*
+    * This Method initializes the player when a new game starts. Time slot = 20 s.
+    */
+    public abstract void initialize();
 
-    public void arne(GameBoard board) {
-        System.out.println("Arne M");
-        this.board = board;
-    }
+
+    /*
+     * This method is called when it is the players turn to make a move. Time slot = 2 s.
+     * If the player is not able to return a move within the given time slot, a random
+     * move is choosen from the list of available moves.
+     */
+    public abstract Move nextMove();
 }
