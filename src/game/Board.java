@@ -1,88 +1,60 @@
-package gui;
-import game.*;
+package game;
+import player.Player;
 
 import java.util.LinkedList;
 
-public class GameBoard {
+public class Board {
 
-    private COLOR[][] xBoard = new COLOR[8][8];
-    private PlayerX player1 = new PlayerX(COLOR.BLACK);
-    private PlayerX player2 = new PlayerX(COLOR.WHITE);
-    private PlayerX currentPlayerX = player1;
+   public final int SIZE = 8;
+    private final COLOR[][] boardMatrix = new COLOR[SIZE][SIZE];
+    public Player currentPlayer;
 
-    public GameBoard() {
-        NewGame();
+
+    public Board(Player firstPlayer) {
+        this.currentPlayer = firstPlayer;
+        setUpNewGame();
     }
 
-    private void NewGame() {
-        // create a new gameBoard  , all positions removed , score restart ;
+    private void setUpNewGame() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                xBoard[i][j] = COLOR.EMPTY;
-
+                boardMatrix[i][j] = COLOR.EMPTY;
             }
         }
 
-        placeDisk(new Move(3, 3));
-        nextTurn();
-        placeDisk(new Move(3, 4));
-        nextTurn();
-        placeDisk(new Move(4, 4));
-        nextTurn();
-        placeDisk(new Move(4, 3));
-        nextTurn();
+        boardMatrix[3][3] = COLOR.WHITE;
+        boardMatrix[4][4] = COLOR.WHITE;
+        boardMatrix[3][4] = COLOR.BLACK;
+        boardMatrix[4][3] = COLOR.BLACK;
     }
 
 
-    private String getBoardAsString() {
-
-        for(int row = 0; row < xBoard.length; row ++ ){
-            String print = "";
-            for(int col = 0; col < xBoard.length; col++) {
-                print += "(" + printDisk(xBoard[row][col]) + ") ";
+    @Override
+    public String toString() {
+        String returnString = "";
+        for(int row = 0; row < SIZE; row ++ ){
+            for(int col = 0; col < SIZE; col++) {
+                returnString += "(" + boardMatrix[row][col] + ") ";
             }
-
-            System.out.println(print);
-
         }
-
-        return "";
+        return returnString;
     }
-
-    private COLOR printDisk(COLOR COLOR) {
-        if(COLOR.toString().equals("EMPTY")) return COLOR.EMPTY;
-
-        return COLOR;
-    }
-
-
-
-
 
     public void placeDisk(Move move) {
 
-        System.out.println("Player insists on move: " + move.row + " " + move.column);
+        System.out.println("Player " + currentPlayer.NAME + " insists on move: " + move.row + " " + move.column);
 
-        if (currentPlayerX.getColor() == COLOR.BLACK) {
-            xBoard[move.row][move.column] = COLOR.BLACK;
-        } else if (currentPlayerX.getColor() == COLOR.WHITE) {
-            xBoard[move.row][move.column] = COLOR.WHITE;
-        }
-        getBoardAsString();
+        boardMatrix[move.row][move.column] = currentPlayer.getColor();
 
     }
 
     public COLOR[][] getBoard() {
-        return xBoard;
+        return boardMatrix;
     }
 
-    public void nextTurn() {
 
-        currentPlayerX = (currentPlayerX == player1) ? player2 : player1;
-    }
-
-    public PlayerX getCurrentPlayerX() {
-        return currentPlayerX;
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public boolean chkSlot(int currentRow, int currentCol) {
@@ -99,7 +71,7 @@ public class GameBoard {
                 int xCol = currentCol + chkCol;
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
-                    if ((xBoard[xRow][xCol]) == (this.currentPlayerX.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
+                    if ((boardMatrix[xRow][xCol]) == (this.currentPlayer.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
                         for (int range = 0; range < 8; range++) {
                             int nRow = currentRow + range * chkRow;
                             int nCol = currentCol + range * chkCol;
@@ -107,7 +79,7 @@ public class GameBoard {
                                 continue;
                             }
 
-                            if (xBoard[nRow][nCol] == this.currentPlayerX.getColor()) {
+                            if (boardMatrix[nRow][nCol] == this.currentPlayer.getColor()) {
                                 flippable = true;
                                 break;
 
@@ -125,18 +97,6 @@ public class GameBoard {
     }
 
 
-
-
-
-    public void newMove(Move move) {
-        doFlip(move.row, move.column, true);
-
-
-    }
-
-
-
-
     public boolean isMoveLegal(Move move) {
         boolean isValid = false;
         for (int chkRow = -1; chkRow < 2; chkRow++) {
@@ -149,7 +109,7 @@ public class GameBoard {
                 int xCol = move.column + chkCol;
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
-                    if ((xBoard[xRow][xCol]) == (this.currentPlayerX.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
+                    if ((boardMatrix[xRow][xCol]) == (this.currentPlayer.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
                         for (int range = 0; range < 8; range++) {
 
                             int nRow = move.row + range * chkRow;
@@ -158,7 +118,7 @@ public class GameBoard {
                                 continue;
                             }
 
-                            if (xBoard[nRow][nCol] == this.currentPlayerX.getColor()) {
+                            if (boardMatrix[nRow][nCol] == this.currentPlayer.getColor()) {
 
                                 isValid = true;
                                 break;
@@ -178,19 +138,22 @@ public class GameBoard {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (isMoveLegal(new Move(i, j))) {
-                    if(xBoard[i][j] == COLOR.EMPTY)
-                        System.out.println(new Move(i,j) + " is a legal move for " + this.currentPlayerX.getColor());
+                    if(boardMatrix[i][j] == COLOR.EMPTY) {
+                        moves.add(new Move(i,j));
+                    }
                 }
 
 
             }
         }
-        System.out.println("All legal moves: " + m);
-
         return moves;
     }
 
-    public boolean doFlip(int currentRow, int currentCol, boolean doMove) {
+    public boolean doFlip(Move move, boolean doMove) {
+        return doFlip(move.row, move.column, doMove);
+    }
+
+    private boolean doFlip(int currentRow, int currentCol, boolean doMove) {
 
         boolean isValid = false;
         for (int chkRow = -1; chkRow < 2; chkRow++) {
@@ -198,12 +161,11 @@ public class GameBoard {
                 if (chkRow == 0 && chkCol == 0) {
                     continue;
                 }
-
                 int xRow = currentRow + chkRow;
                 int xCol = currentCol + chkCol;
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
-                    if ((xBoard[xRow][xCol]) == (this.currentPlayerX.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
+                    if ((boardMatrix[xRow][xCol]) == (this.currentPlayer.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
                         for (int range = 0; range < 8; range++) {
 
                             int nRow = currentRow + range * chkRow;
@@ -212,13 +174,13 @@ public class GameBoard {
                                 continue;
                             }
 
-                            if (xBoard[nRow][nCol] == this.currentPlayerX.getColor()) {
+                            if (boardMatrix[nRow][nCol] == this.currentPlayer.getColor()) {
                                 if (doMove) {
                                     for (int flipDistance = 1; flipDistance < range; flipDistance++) {
                                         int finalRow = currentRow + flipDistance * chkRow;
                                         int finalCol = currentCol + flipDistance * chkCol;
 
-                                        xBoard[finalRow][finalCol] = this.currentPlayerX.getColor();
+                                        boardMatrix[finalRow][finalCol] = this.currentPlayer.getColor();
                                     }
                                 }
                                 isValid = true;
@@ -240,7 +202,7 @@ public class GameBoard {
         int slotsLeft = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (xBoard[i][j] == COLOR.EMPTY) {
+                if (boardMatrix[i][j] == COLOR.EMPTY) {
                     slotsLeft++;
                 }
 

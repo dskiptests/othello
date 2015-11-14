@@ -1,8 +1,6 @@
 package gui;
 
-import PlayerHandler.PlayerHandler;
 import game.*;
-import player.Player;
 
 import java.awt.*;
 import javax.swing.*;
@@ -12,8 +10,10 @@ import java.util.LinkedList;
 
 public class GUIWindow {
 
+    private static final Color RED = new Color(140,40,40);
+    private static final Color GREEN = new Color(0, 100, 0);
+
     private ImageIcon picture;
-    private GameBoard board = new GameBoard();
     private JPanel slotsPanel = new JPanel(new GridLayout(8, 8));
     private JPanel[][] panelBoard = new JPanel[8][8];
     private JLabel txtCurrentPlayer = new JLabel("Black");
@@ -24,15 +24,15 @@ public class GUIWindow {
     private Game game;
 
 
-    private final PlayerHandler playerHandler;
+
 
     public GUIWindow() {
-        playerHandler = new PlayerHandler();
+
         CreateUI();
     }
 
     public void CreateUI() {
-        JFrame window = new JFrame("Omega-Othello");
+        JFrame window = new JFrame("Othello");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setBounds(200, 200, 800, 700);
         window.setLayout(new BorderLayout());
@@ -56,8 +56,16 @@ public class GUIWindow {
                 restart();
             }
         });
-        panel.setBorder(border);
         panel.add(newGame);
+        Border border2 = BorderFactory.createTitledBorder("Pizza Toppings");
+        panel.setBorder(border2);
+        JCheckBox check = new JCheckBox("Anchovies");
+
+
+        panel.add(check, check);
+        panel.setBorder(border);
+
+
 
         return panel;
     }
@@ -69,24 +77,45 @@ public class GUIWindow {
         JLabel txtBlack = new JLabel("Black : ");
 
         TitledBorder border = new TitledBorder("Display");
-        JButton passButton = new JButton("Pass");
-        JLabel txtCurrent = new JLabel("   Current PlayerX: ");
+        JButton actionButton = new JButton("Turn!");
+        JLabel txtCurrent = new JLabel("   Current Player: ");
 
         JLabel blackPic = new JLabel();
         JLabel whitePic = new JLabel();
         mainPanel.setBorder(border);
-        passButton.addActionListener(new ActionListener() {
 
+
+
+        actionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                board.nextTurn();
-                update();
-                updateStatus();
+
+                Move m = game.next();
+                if(m == null) {
+                    game.switchPlayer();
+
+                }
+                else if (game.board.getBoard()[m.row][m.column] == COLOR.EMPTY) {
+
+                    if (game.board.doFlip(m, false)) {
+                        game.board.doFlip(m, true);
+                        game.board.placeDisk(m);
+                    } else if (!game.isLegalMove(new Move(m.row, m.column))) {
+                        GUIConsole.display("Not a valid move: ");
+                    }
+
+                    updateStatus();
+                    update();
+
+
+                }
+
             }
+
         });
 
         panel2.add(txtWhite);
         panel2.add(txtWhiteScore);
-        panel2.add(passButton);
+        panel2.add(actionButton);
         panel2.add(txtBlack);
         panel2.add(txtBlackScore);
         panel2.add(txtCurrent);
@@ -97,21 +126,25 @@ public class GUIWindow {
                 Border black = BorderFactory.createLineBorder(Color.black);
                 final JPanel slots = new JPanel();
                 slots.setBorder(black);
-                slots.setBackground(new Color(0, 100, 0));
+                slots.setBackground(GREEN);
                 final int row = i;
                 final int col = j;
                 slots.addMouseListener(new MouseListener() {
                     public void mouseClicked(MouseEvent me) {
-                        if (board.getBoard()[row][col] == COLOR.EMPTY) {
-                            if (board.doFlip(row, col , false)) {
-                                board.doFlip(row, col , true);
+                        if (game.board.getBoard()[row][col] == COLOR.EMPTY) {
+                            Move m = game.next();
 
-                                //TODO: Här sker placeringen av ny disk
-                                board.placeDisk(new Move(row, col));
-                                board.nextTurn();
-                            }else if (!board.doFlip(row,col , false)){
+                            if(m == null) {
+                                game.switchPlayer();
+
+                            }
+                            else if (game.board.doFlip(m, false)) {
+                                game.board.doFlip(m, true);
+                                game.board.placeDisk(m);
+                            } else if (!game.isLegalMove(new Move(row, col))) {
                                 GUIConsole.display("Not a valid move: ");
                             }
+
                             updateStatus();
                             update();
                         }
@@ -124,11 +157,11 @@ public class GUIWindow {
                     }
                     public void mouseEntered(MouseEvent me) {
 //                        throw new UnsupportedOperationException("Not supported yet.");
-                        slots.setBackground(new Color(34, 139,34));
+                        slots.setBackground(RED);
                     }
                     public void mouseExited(MouseEvent me) {
 //                        throw new UnsupportedOperationException("Not supported yet.");
-                        slots.setBackground(new Color(0, 100, 0));
+                        slots.setBackground(GREEN);
                     }
                 });
                 slotsPanel.add(slots);
@@ -157,30 +190,29 @@ public class GUIWindow {
 
         } else {
             panelBoard[row][col].removeAll();
-            panelBoard[row][col].setBackground(new Color(0, 100, 0));
+            panelBoard[row][col].setBackground(GREEN);
         }
     }
 
     public void update() {
 
-        board.getAllLegalMoves();
-        game.next();
 
+        game.board.getAllLegalMoves();
 
         LinkedList<Move> legalMoves = new LinkedList<Move>();
-        for (int i = 0; i < board.getBoard().length; i++) {
-            for (int j = 0; j < board.getBoard()[i].length; j++) {
+        for (int i = 0; i < game.board.getBoard().length; i++) {
+            for (int j = 0; j < game.board.getBoard()[i].length; j++) {
                 panelBoard[i][j].removeAll();
-                if (board.getBoard()[i][j] == COLOR.BLACK) {
+                if (game.board.getBoard()[i][j] == COLOR.BLACK) {
                     setPicture("Black", i, j);
                 }
-                if (board.getBoard()[i][j] == COLOR.WHITE) {
+                if (game.board.getBoard()[i][j] == COLOR.WHITE) {
                     setPicture("White", i, j);
                 }
-                if (board.getBoard()[i][j] == COLOR.EMPTY) {
+                if (game.board.getBoard()[i][j] == COLOR.EMPTY) {
                     setPicture("Green", i, j);
                 }
-                if (board.doFlip(i, j , false)) {
+                if (game.isLegalMove(new Move(i, j))) {
                     legalMoves.add(new Move(i,j));
                     picture = createImageIcon("./legalSlot.png");
                     JLabel picLabel = new JLabel((picture));
@@ -190,10 +222,9 @@ public class GUIWindow {
         }
         String moves = "";
         for(Move m : legalMoves) {moves +=  m.toString() + " ";}
-//        System.out.println("Available moves: " + moves);
-        int slotsLeft = board.chkWinner();
 
-        if (slotsLeft == 0){
+
+        if(game.isFinished()) {
             if (wCount > bCount){
                 GUIConsole.display("The winner is : Player2 (White)");
             }else if(wCount < bCount){
@@ -202,16 +233,14 @@ public class GUIWindow {
                 GUIConsole.display("Draw .... dan tan tan");
             }
         }
+
+
         slotsPanel.updateUI();
     }
 
     public void restart() {
 
-
         game = new Game();
-        board = new GameBoard();
-
-
         update();
         slotsPanel.updateUI();
         updateStatus();
@@ -221,18 +250,18 @@ public class GUIWindow {
     public void updateStatus() {
         wCount = 0;
         bCount = 0;
-        if (board.getCurrentPlayerX().getColor() == COLOR.BLACK) {
-            txtCurrentPlayer.setText("Black");
-        } else {
-            txtCurrentPlayer.setText("White");
-        }
+
+        String text = game.board.getCurrentPlayer().NAME + " " + game.board.getCurrentPlayer().getColor();
+
+        txtCurrentPlayer.setText(text);
+
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (board.getBoard()[i][j] == COLOR.WHITE) {
+                if (game.board.getBoard()[i][j] == COLOR.WHITE) {
                     wCount++;
                 }
-                if (board.getBoard()[i][j] == COLOR.BLACK) {
+                if (game.board.getBoard()[i][j] == COLOR.BLACK) {
                     bCount++;
                 }
             }
