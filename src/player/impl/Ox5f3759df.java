@@ -9,6 +9,8 @@ import game.COLOR;
 
 public class Ox5f3759df extends Player
 {
+    private COLOR oppCOLOR;
+
 	class Node
 	{
 		Node parent = null;
@@ -59,6 +61,11 @@ public class Ox5f3759df extends Player
 	@Override
 	public void newGame()
 	{
+        if (this.COLOR == game.COLOR.BLACK) {
+            this.oppCOLOR = game.COLOR.WHITE;
+        } else {
+            this.oppCOLOR = game.COLOR.BLACK;
+        }
 	}
 
 	@Override
@@ -124,10 +131,63 @@ public class Ox5f3759df extends Player
 		while (node != null);
 	}
 
-	private double evaluate(Board board)
-	{
-		return 0;
-	}
+    // returns end game evaluation (our score) (normalized to 0.0-1.0)
+    private double evaluate(Board board) {
+
+        double myScore, oppScore, numEmpty;
+        myScore = oppScore = numEmpty = 0.0d;
+
+        COLOR[][] cm = board.getColorMatrix();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (cm[i][j] == game.COLOR.EMPTY) {
+                    numEmpty++;
+                } else if (cm[i][j] == this.COLOR) {
+                    myScore++;
+                } else {
+                    oppScore++;
+                }
+            }
+        }
+
+        if (myScore < oppScore) {
+            return myScore/64;
+        } else if (myScore > oppScore) {
+            return (myScore + numEmpty)/64;
+        } else if (myScore == oppScore) {
+            return myScore/64;
+        }
+        return 0.0d;
+    }
+
+    // returns reward for current board state (not normalized)
+    private double evaluateMove(Board board) {
+        double myScore, oppScore;
+        myScore = oppScore = 0.0d;
+
+        int[][] weights = {{20, -3, 11, 8, 8, 11, -3, 20},
+                {-3, -7, -4, 1, 1, -4, -7, -3},
+                {11, -4,  2, 2, 2,  2, -4, 11},
+                { 8,  1,  2,-3,-3,  2,  1,  8},
+                { 8,  1,  2,-3,-3,  2,  1,  8},
+                {11, -4,  2, 2, 2,  2, -4, 11},
+                {-3, -7, -4, 1, 1, -4, -7, -3},
+                {20, -3, 11, 8, 8, 11, -3, 20}};
+
+        COLOR[][] cm = board.getColorMatrix();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (cm[i][j] == this.COLOR) {
+                    myScore += weights[i][j];
+                } else if (cm[i][j] == this.oppCOLOR) {
+                    oppScore += weights[i][j];
+                }
+            }
+        }
+        return myScore-oppScore;
+    }
 
 	private Node select(Board board, Node node)
 	{
