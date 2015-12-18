@@ -109,6 +109,10 @@ public class DeepOthello extends Player{
 
         Position worstEnemyPosition = null;
         int enemyMinMax = Integer.MAX_VALUE;
+
+        int maxDiff = Integer.MIN_VALUE;
+
+
         for(Position p : this.availablePositions) {
 
             Board tempBoard = this.currentBoard.copy();
@@ -117,15 +121,29 @@ public class DeepOthello extends Player{
 
             tempBoard.placeDisk(this.COLOR, p);
 
+            int nOurColorBefore = 0;
+            int nOurColorAfter = 0;
+            for (int i = 0; i < 8; i++){
+                for (int j = 0; j < 8; j++) {
+                    if(this.currentBoard.getColorMatrix()[i][j] == this.COLOR) nOurColorBefore++;
+                    if(tempBoard.getColorMatrix()[i][j] == this.COLOR) nOurColorAfter++;
+                }
+            }
+            int diff = nOurColorAfter-nOurColorBefore;
 
-            int enemyMax = calculateMaxValue(tempBoard.getAllLegalMoves(oppositeColor));
-
-            if (enemyMax < enemyMinMax - ourCurrentValue * 10) {
-                enemyMinMax = enemyMax;
+            if (diff > maxDiff) {
+                maxDiff = diff;
                 worstEnemyPosition = p;
             }
 
 
+            //int enemyMax = calculateMaxValue(tempBoard.getAllLegalMoves(oppositeColor));
+            int enemyMax = calculateBoardValue(tempBoard.getAllLegalMoves(oppositeColor));
+
+            if (enemyMax < enemyMinMax) {
+                enemyMinMax = enemyMax;
+                worstEnemyPosition = p;
+            }
 
             /*
             int maxEnemyValue = -1000;
