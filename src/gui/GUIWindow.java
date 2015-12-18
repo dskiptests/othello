@@ -145,7 +145,6 @@ public class GUIWindow {
     private void turn() {
         Position m = game.next();
         if (m == null) {
-            game.switchPlayer();
             return;
         }
         game.flip(m);

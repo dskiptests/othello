@@ -40,7 +40,7 @@ public class TerribleTerry extends Player {
                 return m;
             }
         }
-
+        
         return new Position(this.availablePositions.get(random.nextInt(availablePositions.size())));
     }
 }

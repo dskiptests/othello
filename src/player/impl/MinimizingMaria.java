@@ -8,13 +8,13 @@ import player.Board;
 import java.util.Random;
 
 
-public class SimpleSimon extends Player {
+public class MinimizingMaria extends Player {
 
 
     private Random random;
     private int boardSize;
 
-    public SimpleSimon(game.COLOR color) {
+    public MinimizingMaria(game.COLOR color) {
         super(color);
     }
 

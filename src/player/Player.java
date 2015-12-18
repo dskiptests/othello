@@ -3,7 +3,6 @@ package player;
 
 import game.COLOR;
 import game.Position;
-
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
 
@@ -12,8 +11,9 @@ public abstract class Player implements Callable<Position> {
 
     public Board currentBoard;
     public LinkedList<Position> availablePositions;
+
     public final COLOR COLOR;
-    public final String NAME = getClass().getSimpleName();
+    public final String NAME = this.getClass().getSimpleName();
 
     @Override
     public Position call() throws Exception {

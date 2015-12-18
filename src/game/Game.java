@@ -3,6 +3,7 @@ package game;
 
 import player.Player;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class Game {
@@ -74,12 +75,8 @@ public class Game {
         return 0 == this.gameBoard.chkWinner();
     }
 
-    public void switchPlayer() {
-
-    }
 
     public boolean flip(Position m) {
-        
         Player p = playerHandler.getCurrentPlayer();
         if(isLegalMove(p, m)) {
             this.gameBoard.doFlip(p,m,true);

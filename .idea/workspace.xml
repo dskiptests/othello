@@ -2,39 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca1089c6-a383-4b37-8a61-84a7781ea288" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/Position.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/othello/game/Board.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/othello/game/Move.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/othello/player/InterruptTimerTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/othello/player/RandomStrategy.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/othello/player/Strategy.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/Move.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/player/InterruptTimerTask.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/player/RandomStrategy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/player/Strategy.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/game/Board.java" afterPath="$PROJECT_DIR$/src/game/GameBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/game/COLOR.class" afterPath="$PROJECT_DIR$/out/production/othello/game/COLOR.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUI.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$1.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$2.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$3.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/game/Game.class" afterPath="$PROJECT_DIR$/out/production/othello/game/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/player/Player.class" afterPath="$PROJECT_DIR$/out/production/othello/player/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/game/PlayerHandler.class" afterPath="$PROJECT_DIR$/out/production/othello/game/PlayerHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/player/impl/RandomRichard.class" afterPath="$PROJECT_DIR$/out/production/othello/player/impl/RandomRichard.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/player/impl/SimpleSimon.class" afterPath="$PROJECT_DIR$/out/production/othello/player/impl/SimpleSimon.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/player/impl/TerribleTerry.class" afterPath="$PROJECT_DIR$/out/production/othello/player/impl/TerribleTerry.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/COLOR.java" afterPath="$PROJECT_DIR$/src/game/COLOR.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/GUI.java" afterPath="$PROJECT_DIR$/src/gui/GUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/GUIWindow.java" afterPath="$PROJECT_DIR$/src/gui/GUIWindow.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/Game.java" afterPath="$PROJECT_DIR$/src/game/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/Player.java" afterPath="$PROJECT_DIR$/src/player/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/PlayerHandler.java" afterPath="$PROJECT_DIR$/src/game/PlayerHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/impl/RandomRichard.java" afterPath="$PROJECT_DIR$/src/player/impl/RandomRichard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/impl/SimpleSimon.java" afterPath="$PROJECT_DIR$/src/player/impl/SimpleSimon.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/impl/TerribleTerry.java" afterPath="$PROJECT_DIR$/src/player/impl/TerribleTerry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="othello.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -61,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/src/gui/GUIWindow.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="293" column="39" selection-start-line="293" selection-start-column="39" selection-end-line="293" selection-end-column="39" />
+              <caret line="149" column="15" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -71,12 +42,22 @@
         <entry file="file://$PROJECT_DIR$/src/player/Player.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
+              <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#641#642#0" expanded="true" />
-                <element signature="e#675#676#0" expanded="true" />
+                <element signature="e#646#647#0" expanded="true" />
+                <element signature="e#680#681#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TerribleTerry.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/player/impl/TerribleTerry.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.72817135">
+              <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,49 +97,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.66898954">
-              <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/GameBoard.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="136" column="64" selection-start-line="136" selection-start-column="64" selection-end-line="136" selection-end-column="64" />
+              <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RandomRichard.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/player/impl/RandomRichard.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="60" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleSimon.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/player/impl/SimpleSimon.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#374#375#0" expanded="true" />
+                <element signature="e#440#441#0" expanded="true" />
+                <element signature="e#477#478#0" expanded="true" />
+                <element signature="e#537#538#0" expanded="true" />
+                <element signature="e#1539#1540#0" expanded="true" />
+                <element signature="e#1601#1602#0" expanded="true" />
+                <element signature="e#1929#1930#0" expanded="true" />
+                <element signature="e#1983#1984#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -212,7 +165,6 @@
         <option value="$PROJECT_DIR$/src/game/Board.java" />
         <option value="$PROJECT_DIR$/src/player/PlayerBoard.java" />
         <option value="$PROJECT_DIR$/src/game/Position.java" />
-        <option value="$PROJECT_DIR$/src/player/impl/TerribleTerry.java" />
         <option value="$PROJECT_DIR$/src/player/impl/EdgeEddie.java" />
         <option value="$PROJECT_DIR$/src/game/PlayerHandler.java" />
         <option value="$PROJECT_DIR$/src/player/impl/SimpleSimon.java" />
@@ -220,10 +172,11 @@
         <option value="$PROJECT_DIR$/src/player/Players.java" />
         <option value="$PROJECT_DIR$/src/player/PlayerFactory.java" />
         <option value="$PROJECT_DIR$/src/game/GameBoard.java" />
-        <option value="$PROJECT_DIR$/src/player/Player.java" />
-        <option value="$PROJECT_DIR$/src/gui/GUIWindow.java" />
         <option value="$PROJECT_DIR$/src/player/impl/RandomRichard.java" />
         <option value="$PROJECT_DIR$/src/game/Game.java" />
+        <option value="$PROJECT_DIR$/src/gui/GUIWindow.java" />
+        <option value="$PROJECT_DIR$/src/player/Player.java" />
+        <option value="$PROJECT_DIR$/src/player/impl/TerribleTerry.java" />
       </list>
     </option>
   </component>
@@ -746,12 +699,12 @@
       <workItem from="1450359066959" duration="10246000" />
       <workItem from="1450431275425" duration="205000" />
       <workItem from="1450432784027" duration="867000" />
-      <workItem from="1450434743607" duration="8251000" />
+      <workItem from="1450434743607" duration="10958000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98088000" />
+    <option name="totallyTimeSpent" value="100795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="23" width="1920" height="1142" extended-state="6" />
@@ -765,7 +718,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32933334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15333334" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3952381" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32933334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18423855" sideWeight="0.80190474" order="0" side_tool="false" content_ui="combo" />
@@ -861,6 +814,14 @@
           <caret line="32" column="62" selection-start-line="32" selection-start-column="62" selection-end-line="32" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#374#375#0" expanded="true" />
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#477#478#0" expanded="true" />
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#1539#1540#0" expanded="true" />
+            <element signature="e#1601#1602#0" expanded="true" />
+            <element signature="e#1929#1930#0" expanded="true" />
+            <element signature="e#1983#1984#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -893,8 +854,8 @@
           <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
+            <element signature="e#680#681#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -937,8 +898,8 @@
           <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
+            <element signature="e#680#681#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -981,8 +942,8 @@
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
+            <element signature="e#680#681#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1144,14 +1105,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/player/impl/TerribleTerry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/player/impl/EdgeEddie.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.4705882">
@@ -1191,32 +1144,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/player/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/game/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.43786296">
+          <caret line="136" column="64" selection-start-line="136" selection-start-column="64" selection-end-line="136" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#675#676#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/player/impl/RandomRichard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36585367">
+          <caret line="23" column="60" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/player/impl/SimpleSimon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.4425087">
           <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/GameBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="136" column="64" selection-start-line="136" selection-start-column="64" selection-end-line="136" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1226,28 +1177,46 @@
     <entry file="file://$PROJECT_DIR$/src/gui/GUIWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="293" column="39" selection-start-line="293" selection-start-column="39" selection-end-line="293" selection-end-column="39" />
+          <caret line="149" column="15" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="15" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/player/impl/RandomRichard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="60" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66898954">
-          <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#374#375#0" expanded="true" />
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#477#478#0" expanded="true" />
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#1539#1540#0" expanded="true" />
+            <element signature="e#1601#1602#0" expanded="true" />
+            <element signature="e#1929#1930#0" expanded="true" />
+            <element signature="e#1983#1984#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/player/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
+            <element signature="e#680#681#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/player/impl/TerribleTerry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72817135">
+          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
