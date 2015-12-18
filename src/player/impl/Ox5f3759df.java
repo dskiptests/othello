@@ -118,7 +118,6 @@ public class Ox5f3759df extends Player
 				{
 					if (!board.placeDisk(currentColor, node.pos))
 						throw new RuntimeException("invalid move?");
-					board.boardMatrix[node.pos.column][node.pos.row] = currentColor;
 				}
 				currentColor = reverseColor(currentColor);
 			}
