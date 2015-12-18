@@ -12,7 +12,7 @@ public class PlayerFactory {
 
 
 
-    public final static String[] availablePlayers = {"EdgeEddie", "RandomRichard", "SimpleSimon", "TerribleTerry"};
+    public final static String[] availablePlayers = {"EdgeEddie", "RandomRichard", "MinimizingMaria", "TerribleTerry"};
 
 
     public Player newPlayer(String name, COLOR color) {
@@ -21,7 +21,7 @@ public class PlayerFactory {
         switch (name) {
             case "EdgeEddie":       return new EdgeEddie(color);
             case "RandomRichard":   return new RandomRichard(color);
-            case "SimpleSimon":     return new MinimizingMaria(color);
+            case "MinimizingMaria":     return new MinimizingMaria(color);
             case "TerribleTerry":   return new TerribleTerry(color);
         }
 

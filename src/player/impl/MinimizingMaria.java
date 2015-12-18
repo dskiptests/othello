@@ -26,16 +26,6 @@ public class MinimizingMaria extends Player {
         this.boardSize = 8;
     }
 
-
-    private boolean coordinateIsACorner(Position position) {
-        int row = position.row % (this.boardSize - 1);
-        int col = position.column % (this.boardSize - 1);
-
-        if(row == 0 && col == 0) return true;
-
-        return false;
-    }
-
     @Override
     public Position nextMove() {
 
@@ -46,7 +36,7 @@ public class MinimizingMaria extends Player {
         int maxNumberOfMoves = Integer.MAX_VALUE;
         for(Position p : this.availablePositions) {
 
-            Board tempBoard = this.currentBoard.getNewBoard();
+            Board tempBoard = this.currentBoard.copy();
             tempBoard.placeDisk(this.COLOR, p);
             int numberOfMovesForOpponent = tempBoard.getAllLegalMoves(oppositeColor).size();
 

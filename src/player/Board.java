@@ -114,7 +114,7 @@ public class Board {
     }
 
 
-    public Board getNewBoard() {
+    public Board copy() {
         return new Board(getColorMatrix());
     }
 
