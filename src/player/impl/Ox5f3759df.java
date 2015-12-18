@@ -38,7 +38,13 @@ public class Ox5f3759df extends Player
 		{
 			return reward/visits;
 		}
-
+		
+		//upper confidence bound
+		double ucb()
+		{
+			return avgReward() + Math.sqrt(Math.log(parent.avgReward()));
+		}
+		
 		public boolean expanded()
 		{
 			return children != null;
@@ -106,10 +112,16 @@ public class Ox5f3759df extends Player
 		
 		return select(rootBoard, root).pos;
 	}
-
+	
 	private void backpropagate(Board board, Node node, double score)
 	{
-		
+		do
+		{
+			node.visits++;
+			node.reward += score;
+			node = node.parent;
+		}
+		while (node != null);
 	}
 
 	private double evaluate(Board board)
@@ -119,6 +131,17 @@ public class Ox5f3759df extends Player
 
 	private Node select(Board board, Node node)
 	{
-		return node.children[0];
+		Node best = node.children[0];
+		double bestUCB = best.ucb();
+		for (int i=1; i<node.children.length; i++)
+		{
+			double ucb = node.children[i].ucb();
+			if (bestUCB < ucb)
+			{
+				best = node.children[i];
+				bestUCB = ucb;
+			}
+		}
+		return best;
 	}
 }
