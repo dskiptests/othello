@@ -93,11 +93,12 @@ public class Ox5f3759df extends Player
 			
 			while (!board.gameIsFinished())
 			{
+				boolean wasExpanded = node.expanded();
 				if (!node.expanded()) //expand?
 				{
 					LinkedList<Position> moves = board.getAllLegalMoves(currentColor);
 					if (moves == null || moves.isEmpty())
-						node.children = new Node[1]; //null, can't move
+						node.children = new Node[]{new Node(node, null)}; //null move, can't move
 					else
 					{
 						node.children = new Node[moves.size()];
@@ -108,8 +109,17 @@ public class Ox5f3759df extends Player
 				}
 				
 				node = select(board, node);
-				if (!board.placeDisk(currentColor, node.pos))
-					throw new RuntimeException("invalid move?");
+				
+				if (!wasExpanded)
+					break;
+				
+				//selection
+				if (node.pos != null)
+				{
+					if (!board.placeDisk(currentColor, node.pos))
+						throw new RuntimeException("invalid move?");
+					board.boardMatrix[node.pos.column][node.pos.row] = currentColor;
+				}
 				currentColor = reverseColor(currentColor);
 			}
 			
