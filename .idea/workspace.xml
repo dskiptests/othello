@@ -2,29 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca1089c6-a383-4b37-8a61-84a7781ea288" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/othello/player/Skumtomtarna$RetValue.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/othello/player/Skumtomtarna.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/player/Skumtomtarna.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/player/Board.class" afterPath="$PROJECT_DIR$/out/production/othello/player/Board.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$1.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$2.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$3.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$4.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$5.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$6.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow.class" afterPath="$PROJECT_DIR$/out/production/othello/gui/GUIWindow.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/player/impl/MinimizingMaria.class" afterPath="$PROJECT_DIR$/out/production/othello/player/impl/MinimizingMaria.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/othello/player/PlayerFactory.class" afterPath="$PROJECT_DIR$/out/production/othello/player/PlayerFactory.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/player/impl/chattanooga_flowmasters/ChattanoogaPlayer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/player/PlayerFactory.java" afterPath="$PROJECT_DIR$/src/player/PlayerFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/othello.iml" afterPath="$PROJECT_DIR$/othello.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="othello.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,8 +67,8 @@
       <file leaf-file-name="PlayerFactory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/player/PlayerFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36790925">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.56239873">
+              <caret line="31" column="48" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -544,7 +524,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102256000" />
+    <option name="totallyTimeSpent" value="102358000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="842" extended-state="6" />
@@ -1035,8 +1015,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/player/PlayerFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36790925">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.56239873">
+          <caret line="31" column="48" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
