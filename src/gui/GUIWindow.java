@@ -36,7 +36,8 @@ public class GUIWindow {
     private Player whitePlayer;
     private Player blackPlayer;
     private PlayerFactory playerFactory = new PlayerFactory();
-
+    private String whiteString;
+    private String blackString;
 
 
     private Player newPlayer(String name, COLOR color) {
@@ -45,11 +46,12 @@ public class GUIWindow {
 
 
     private void setWhitePlayer(String name) {
-
+        this.whiteString = name;
         this.whitePlayer = newPlayer(name, WHITE);
     }
 
     private void setBlackPlayer(String name) {
+        this.blackString = name;
         this.blackPlayer = newPlayer(name, BLACK);
     }
 
@@ -155,7 +157,7 @@ public class GUIWindow {
 
     private void restartInAutoMode() {
         restart();
-        for(int i = 0; i <  100; i++) {
+        for(int i = 0; i <  200; i++) {
             turn();
             if(game.isFinished()) break;
         }
@@ -272,10 +274,15 @@ public class GUIWindow {
     }
 
     public void restart() {
+       playerFactory = new PlayerFactory();
+
+        if(whiteString == null)  setWhitePlayer("EdgeEddie");
+        if(blackString == null)  setBlackPlayer("EdgeEddie");
+
+        whitePlayer = playerFactory.newPlayer(whiteString, WHITE);
+        blackPlayer = playerFactory.newPlayer(blackString, BLACK);
 
 
-        if(whitePlayer == null)  setWhitePlayer("EdgeEddie");
-        if(blackPlayer == null)  setBlackPlayer("EdgeEddie");
 
         game = new Game(whitePlayer, blackPlayer);
         updateGameBoard();
