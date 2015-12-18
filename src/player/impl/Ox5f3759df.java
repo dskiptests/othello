@@ -1,6 +1,7 @@
 package player.impl;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import game.Position;
 import player.Board;
@@ -10,6 +11,7 @@ import game.COLOR;
 public class Ox5f3759df extends Player
 {
     private COLOR oppCOLOR;
+    private Random rand = new Random();
 
 	class Node
 	{
@@ -130,6 +132,23 @@ public class Ox5f3759df extends Player
 		
 		return select(rootBoard, root).pos;
 	}
+
+	private double playout(Board board, game.COLOR currentColor)
+	{
+		int i = 0;
+		while (!board.gameIsFinished() || i > 60)
+		{
+			LinkedList<Position> moves = board.getAllLegalMoves(currentColor);
+			if (moves != null && !moves.isEmpty())
+			{
+				if (!board.placeDisk(currentColor, moves.get(rand.nextInt(moves.size()))))
+					throw new RuntimeException("invalid move?");
+			}
+			currentColor = reverseColor(currentColor);
+			i++;
+		}
+		return evaluate(board);
+	}
 	
 	private char colorChar(game.COLOR c)
 	{
@@ -146,7 +165,7 @@ public class Ox5f3759df extends Player
 		}
 		while (node != null);
 	}
-
+	
     // returns end game evaluation (our score) (normalized to 0.0-1.0)
     private double evaluate(Board board) {
 
@@ -170,7 +189,7 @@ public class Ox5f3759df extends Player
         if (myScore < oppScore) {
             return myScore/64;
         } else if (myScore > oppScore) {
-            return (myScore + numEmpty)/64;
+            return (myScore)/64;
         } else if (myScore == oppScore) {
             return myScore/64;
         }
