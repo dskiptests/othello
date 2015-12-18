@@ -7,21 +7,21 @@ import player.impl.MinimizingMaria;
 import player.impl.RandomRichard;
 import player.impl.TerribleTerry;
 import player.impl.chattanooga_flowmasters.ChattanoogaPlayer;
+import player.impl.*;
 
 
 public class PlayerFactory {
 
 
+    public final static String[] availablePlayers = {"DeepOthello", "EdgeEddie", "RandomRichard", "MinimizingMaria", "ForThello", "TerribleTerry", "Skumtomtarna","ChattanoogaFlowmasters"};
 
-
-
-    public final static String[] availablePlayers = {"DeepOthello", "EdgeEddie", "RandomRichard", "MinimizingMaria", "TerribleTerry", "Skumtomtarna","ChattanoogaFlowmasters"};
 
 
     public Player newPlayer(String name, COLOR color) {
         Player player = null;
 
         switch (name) {
+
             case "EdgeEddie":
                 return new EdgeEddie(color);
             case "RandomRichard":
@@ -36,6 +36,7 @@ public class PlayerFactory {
                 return new Skumtomtarna(color);
             case "ChattanoogaFlowmasters":
                 return new ChattanoogaPlayer(color);
+            case "ForThello" : return new ForThello(color);
         }
 
         return player;
