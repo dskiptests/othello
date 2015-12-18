@@ -85,7 +85,7 @@ public class Ox5f3759df extends Player
 
 	private Position nextMove(Board rootBoard, Node root, long timeout)
 	{
-		while (timeout < System.currentTimeMillis())
+		while (timeout > System.currentTimeMillis())
 		{
 			Board board = rootBoard.copy();
 			Node node = root;
@@ -108,6 +108,8 @@ public class Ox5f3759df extends Player
 				}
 				
 				node = select(board, node);
+				if (!board.placeDisk(currentColor, node.pos))
+					throw new RuntimeException("invalid move?");
 				currentColor = reverseColor(currentColor);
 			}
 			
@@ -118,6 +120,11 @@ public class Ox5f3759df extends Player
 		}
 		
 		return select(rootBoard, root).pos;
+	}
+	
+	private char colorChar(game.COLOR c)
+	{
+		return c==COLOR.BLACK?'x':c==COLOR.WHITE?'o':'.';
 	}
 	
 	private void backpropagate(Board board, Node node, double score)
