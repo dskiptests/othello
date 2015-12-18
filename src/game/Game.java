@@ -3,66 +3,94 @@ package game;
 
 import player.Player;
 
-import player.impl.SimpleSimon;
-import player.impl.RandomRichard;
-
 import java.util.LinkedList;
 
 public class Game {
 
 
-    public Board board;
+    private GameBoard gameBoard;
     private PlayerHandler playerHandler;
     private boolean finished;
 
-    public Game() {
 
-        newGame(2000);
+
+
+    public Game(Player whitePlayer, Player blackPlayer) {
+        newGame(2000, blackPlayer, whitePlayer);
+
+    }
+
+    public Player getNextTurn() {
+        return this.playerHandler.getCurrentPlayerForGUI();
+    }
+
+    public Player getNextPlayer() {
+        return this.playerHandler.getCurrentPlayer();
+    }
+
+    public LinkedList<Position> getAllLegalMoves() {
+        return this.gameBoard.getAllLegalMoves(playerHandler.getCurrentPlayer());
     }
 
 
+    public LinkedList<Position> getSlotsToColor() {
+        return this.gameBoard.getAllLegalMoves(playerHandler.getPreviousPlayer());
+    }
 
+    public Position next() {
+        playerHandler.turn();
 
-
-    public Move next() {
-        System.out.println(".");
-
-
-        Player currentPlayer = playerHandler.getCurrentPlayer();
-        System.out.println("CURRENT PLAYER: " + currentPlayer.getColor() + ", NAME: " + currentPlayer.NAME + " " + playerHandler.turn);
-
-        this.board.currentPlayer = currentPlayer;
-        LinkedList<Move> legalMovesForCurrentPlayer = this.board.getAllLegalMoves();
-        System.out.println("Legal moves returned: " + legalMovesForCurrentPlayer.size());
+        LinkedList<Position> legalMovesForCurrentPlayer = this.gameBoard.getAllLegalMoves(playerHandler.getCurrentPlayer());
         if(legalMovesForCurrentPlayer.size() < 1 ) return null;
 
+        Position position = playerHandler.getNextPlayerMove(gameBoard, legalMovesForCurrentPlayer);
 
-
-        Move move = playerHandler.getNextPlayerMove(board, legalMovesForCurrentPlayer);
-
-        return move;
+        return position;
 
     }
 
-    public void newGame(long timeslot) {
-        Player player1 = new SimpleSimon(COLOR.WHITE);
-        Player player2 = new RandomRichard(COLOR.BLACK);
+    public void newGame(long timeslot, Player player1, Player player2) {
         this.playerHandler = new PlayerHandler(player1, player2, timeslot);
         playerHandler.restart();
-        this.board = new Board(playerHandler.getCurrentPlayer());
+        this.gameBoard = new GameBoard(playerHandler.getCurrentPlayer());
 
     }
 
 
-    public boolean isLegalMove(Move move) {
-        return board.doFlip(move, false);
+    public boolean isLegalMove(Player player, Position position) {
+        return gameBoard.isLegalMove(player, position);
     }
+
+    public boolean isLegalMove(Position position) {
+        return gameBoard.doFlip(playerHandler.getCurrentPlayer(), position, false);
+    }
+
+    public boolean isAvailable(Position position) {
+        return gameBoard.doFlip(playerHandler.getCurrentPlayerForGUI(), position, false);
+    }
+
 
     public boolean isFinished() {
-        return 0 == this.board.chkWinner();
+        return 0 == this.gameBoard.chkWinner();
     }
 
     public void switchPlayer() {
-       playerHandler.turn = (playerHandler.turn + 1) % 2;
+
     }
+
+    public boolean flip(Position m) {
+        
+        Player p = playerHandler.getCurrentPlayer();
+        if(isLegalMove(p, m)) {
+            this.gameBoard.doFlip(p,m,true);
+            this.gameBoard.placeDisk(p,m);
+            return true;
+        }
+        return false;
+    }
+
+    public COLOR colorOfPosition(Position position) {
+        return gameBoard.getPosition(position);
+    }
+
 }

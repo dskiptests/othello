@@ -3,17 +3,17 @@ import player.Player;
 
 import java.util.LinkedList;
 
-public class Board {
+public class GameBoard {
 
-   public final int SIZE = 8;
+    public final int SIZE = 8;
     private final COLOR[][] boardMatrix = new COLOR[SIZE][SIZE];
-    public Player currentPlayer;
 
 
-    public Board(Player firstPlayer) {
-        this.currentPlayer = firstPlayer;
+
+    public GameBoard(Player firstPlayer) {
         setUpNewGame();
     }
+
 
     private void setUpNewGame() {
         for (int i = 0; i < 8; i++) {
@@ -40,11 +40,10 @@ public class Board {
         return returnString;
     }
 
-    public void placeDisk(Move move) {
+    public void placeDisk(Player player, Position position) {
 
-        System.out.println("Player " + currentPlayer.NAME + " insists on move: " + move.row + " " + move.column);
 
-        boardMatrix[move.row][move.column] = currentPlayer.getColor();
+        boardMatrix[position.row][position.column] = player.COLOR;
 
     }
 
@@ -53,51 +52,21 @@ public class Board {
     }
 
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
+    public COLOR[][] copy() {
+        COLOR[][] matrix = new COLOR[SIZE][SIZE];
 
-    public boolean chkSlot(int currentRow, int currentCol) {
-        boolean flippable = false;
-
-        for (int chkRow = -1; chkRow < 2; chkRow++) {
-            for (int chkCol = -1; chkCol < 2; chkCol++) {
-
-                if (chkRow == 0 && chkCol == 0) {
-                    continue;
-                }
-
-                int xRow = currentRow + chkRow;
-                int xCol = currentCol + chkCol;
-
-                if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
-                    if ((boardMatrix[xRow][xCol]) == (this.currentPlayer.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
-                        for (int range = 0; range < 8; range++) {
-                            int nRow = currentRow + range * chkRow;
-                            int nCol = currentCol + range * chkCol;
-                            if (nRow < 0 || nRow > 7 || nCol < 0 || nCol > 7) {
-                                continue;
-                            }
-
-                            if (boardMatrix[nRow][nCol] == this.currentPlayer.getColor()) {
-                                flippable = true;
-                                break;
-
-                            }
-
-                        }
-
-                    }
-                }
-
-
+        for(int i = 0; i < SIZE; i++) {
+            for(int j = 0; j < SIZE; j++) {
+                matrix[i][j] = this.boardMatrix[i][j];
             }
         }
-        return flippable;
+        return matrix;
     }
 
 
-    public boolean isMoveLegal(Move move) {
+
+
+    public boolean isLegalMove(Player player, Position position) {
         boolean isValid = false;
         for (int chkRow = -1; chkRow < 2; chkRow++) {
             for (int chkCol = -1; chkCol < 2; chkCol++) {
@@ -105,20 +74,20 @@ public class Board {
                     continue;
                 }
 
-                int xRow = move.row + chkRow;
-                int xCol = move.column + chkCol;
+                int xRow = position.row + chkRow;
+                int xCol = position.column + chkCol;
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
-                    if ((boardMatrix[xRow][xCol]) == (this.currentPlayer.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
+                    if ((boardMatrix[xRow][xCol]) == (player.COLOR == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
                         for (int range = 0; range < 8; range++) {
 
-                            int nRow = move.row + range * chkRow;
-                            int nCol = move.column + range * chkCol;
+                            int nRow = position.row + range * chkRow;
+                            int nCol = position.column + range * chkCol;
                             if (nRow < 0 || nRow > 7 || nCol < 0 || nCol > 7) {
                                 continue;
                             }
 
-                            if (boardMatrix[nRow][nCol] == this.currentPlayer.getColor()) {
+                            if (boardMatrix[nRow][nCol] == player.COLOR) {
 
                                 isValid = true;
                                 break;
@@ -128,32 +97,33 @@ public class Board {
                 }
             }
         }
-
         return isValid;
     }
 
-    public LinkedList<Move> getAllLegalMoves() {
-        LinkedList<Move> moves = new LinkedList<Move>();
+    public LinkedList<Position> getAllLegalMoves(Player player) {
+        LinkedList<Position> positions = new LinkedList<Position>();
         String m = "";
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (isMoveLegal(new Move(i, j))) {
+                if (isLegalMove(player, new Position(i, j))) {
                     if(boardMatrix[i][j] == COLOR.EMPTY) {
-                        moves.add(new Move(i,j));
+                        positions.add(new Position(i,j));
                     }
                 }
 
 
             }
         }
-        return moves;
+        return positions;
     }
 
-    public boolean doFlip(Move move, boolean doMove) {
-        return doFlip(move.row, move.column, doMove);
+    public boolean doFlip(Player player, Position position, boolean doMove) {
+        return doFlip(player, position.row, position.column, doMove);
     }
 
-    private boolean doFlip(int currentRow, int currentCol, boolean doMove) {
+    private boolean doFlip(Player player, int currentRow, int currentCol, boolean doMove) {
+
+
 
         boolean isValid = false;
         for (int chkRow = -1; chkRow < 2; chkRow++) {
@@ -165,7 +135,7 @@ public class Board {
                 int xCol = currentCol + chkCol;
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
-                    if ((boardMatrix[xRow][xCol]) == (this.currentPlayer.getColor() == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
+                    if ((boardMatrix[xRow][xCol]) == (player.COLOR == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
                         for (int range = 0; range < 8; range++) {
 
                             int nRow = currentRow + range * chkRow;
@@ -174,13 +144,13 @@ public class Board {
                                 continue;
                             }
 
-                            if (boardMatrix[nRow][nCol] == this.currentPlayer.getColor()) {
+                            if (boardMatrix[nRow][nCol] == player.COLOR) {
                                 if (doMove) {
                                     for (int flipDistance = 1; flipDistance < range; flipDistance++) {
                                         int finalRow = currentRow + flipDistance * chkRow;
                                         int finalCol = currentCol + flipDistance * chkCol;
 
-                                        boardMatrix[finalRow][finalCol] = this.currentPlayer.getColor();
+                                        boardMatrix[finalRow][finalCol] = player.COLOR;
                                     }
                                 }
                                 isValid = true;
@@ -210,5 +180,14 @@ public class Board {
             }
         }
         return slotsLeft;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public COLOR getPosition(Position position) {
+        return getBoard()[position.row][position.column];
     }
 }

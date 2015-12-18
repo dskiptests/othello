@@ -2,84 +2,127 @@ package game;
 import player.*;
 
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.*;
 
 public class PlayerHandler {
 
     private final Player[] players;
-    public int turn;
+    private int turn;
     public final long TIMESLOT;
+    private Map<Player, Long> time;
+    private boolean noReturnFromPlayer;
 
 
     public Player getCurrentPlayer() {
+
+        return players[turn];
+    }
+
+
+    public Player getCurrentPlayerForGUI() {
+        return players[(turn+1) % 2];
+
+    }
+
+
+    public Player turn() {
+        turn = (turn+1) % 2;
         return players[turn];
     }
 
     public PlayerHandler(Player player1, Player player2, long timeslot) {
         this.TIMESLOT = timeslot;
         this.players = new Player[]{player1, player2};
-        this.turn = 0;
+        this.turn = 1;
+        this.time = new HashMap<Player, Long>();
 
-        for(Player p : players) p.initialize();
+        time.put(player1, 0l);
+        time.put(player2, 0l);
+
+        for(Player p : players) p.newGame();
 
     }
 
-    public Move getNextPlayerMove(Board currentBoard, LinkedList<Move> legalMoves) {
-        if(legalMoves.size() < 1) {
-            turn = (turn+1) % 2;
-            return null;
-        }
+    public Position getNextPlayerMove(GameBoard currentGameBoard, LinkedList<Position> legalPositions) {
+        noReturnFromPlayer = true;
 
         Player currentPlayer = players[turn];
-        currentPlayer.currentBoard = currentBoard;
-        currentPlayer.availableMoves = legalMoves;
-        Move playerMove = getMove(currentPlayer);
+        currentPlayer.currentBoard = new Board(currentGameBoard.copy());
+        currentPlayer.availablePositions = copy(legalPositions);
+        Position playerPosition = getMove(currentPlayer);
 
-
-        turn = (turn+1) % 2;
-        if(playerMoveIsLegal(legalMoves, playerMove)) {
-            return playerMove;
+        if(playerMoveIsLegal(legalPositions, playerPosition)) {
+            return playerPosition;
         }
 
-        return chooseARandomMove(legalMoves);
+        if(noReturnFromPlayer) this.setTimeLeft(currentPlayer,0l);
+
+        return chooseARandomMove(legalPositions);
     }
 
-    private boolean playerMoveIsLegal(LinkedList<Move> legalMoves, Move move) {
-        if(move == null) return false;
-        if(!legalMoves.contains(move)) return false;
+    private LinkedList<Position> copy(LinkedList<Position> legalPositions) {
+        LinkedList<Position> copied = new LinkedList<Position>();
+        for(Position p : legalPositions) {
+            copied.add(new Position(p.row,p.column));
+        }
+        return copied;
+    }
+
+    private boolean playerMoveIsLegal(LinkedList<Position> legalPositions, Position position) {
+        if(position == null) return false;
+        if(!legalPositions.contains(position)) return false;
         return true;
     }
 
 
-    private Move chooseARandomMove(LinkedList<Move> moves) {
-
-        if(moves.size() < 1) return null;
-        return moves.getFirst();
+    private Position chooseARandomMove(LinkedList<Position> positions) {
+        if(positions.size() < 1) return null;
+        return positions.getFirst();
     }
 
 
-    private Move getMove(Player player) {
+    private Position getMove(Player player) {
 
         ExecutorService service = Executors.newFixedThreadPool(1);
-        Future<Move> futureResult = service.submit(player);
-        Move result = null;
+        Future<Position> futureResult = service.submit(player);
+        Position result = null;
+        final long availableTime = TIMESLOT + getSavedTime(player);
+        long timeBox = 0l;
 
         try{
-            result = futureResult.get(TIMESLOT, TimeUnit.MILLISECONDS);
-        }catch(Exception e){
-            System.out.println("No response after one second");
+            timeBox = System.currentTimeMillis();
+            result = futureResult.get(availableTime, TimeUnit.MILLISECONDS);
+            timeBox = System.currentTimeMillis() - timeBox;
+            noReturnFromPlayer = false;
+        }catch(Throwable t){
             futureResult.cancel(true);
-            e.printStackTrace();
+            t.printStackTrace();
         }
+        long diff = 0l;
+        if(Math.abs(timeBox) < availableTime) diff = availableTime - timeBox;
+        setTimeLeft(player, diff);
         service.shutdown();
-
-
         return result;
     }
 
 
     public void restart() {
         turn = 0;
+    }
+
+    public Player getPreviousPlayer() {
+        return players[(turn + 1) % 2];
+    }
+
+    public void setTimeLeft(Player player, long l) {
+
+        this.time.put(player, l);
+    }
+
+    public long getSavedTime(Player p) {
+        return this.time.get(p);
     }
 }

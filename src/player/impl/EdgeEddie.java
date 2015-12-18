@@ -2,19 +2,16 @@ package player.impl;
 
 import game.Position;
 import player.Player;
-import game.COLOR;
-import player.Board;
 
 import java.util.Random;
 
 
-public class SimpleSimon extends Player {
-
+public class EdgeEddie extends Player {
 
     private Random random;
     private int boardSize;
 
-    public SimpleSimon(game.COLOR color) {
+    public EdgeEddie(game.COLOR color) {
         super(color);
     }
 
@@ -36,31 +33,34 @@ public class SimpleSimon extends Player {
         return false;
     }
 
+
     @Override
     public Position nextMove() {
-
         int randomIndex = random.nextInt(availablePositions.size());
         Position choosenPosition = this.availablePositions.get(randomIndex);
-        COLOR oppositeColor = getOppositeColor();
 
-        int maxNumberOfMoves = Integer.MAX_VALUE;
+        for(Position m : this.availablePositions) {
+            if(coordinateIsACorner(m)) {
+                choosenPosition = m;
+            }
+        }
+
         for(Position p : this.availablePositions) {
-
-            Board tempBoard = this.currentBoard.getNewBoard();
-            tempBoard.placeDisk(this.COLOR, p);
-            int numberOfMovesForOpponent = tempBoard.getAllLegalMoves(oppositeColor).size();
-
-            if(numberOfMovesForOpponent < maxNumberOfMoves) {
-                choosenPosition = new Position(p);
+            if(coordinateIsOnTheEdge(p)) {
+                choosenPosition = p;
             }
         }
 
 
-        return choosenPosition;
+        return new Position(choosenPosition);
     }
 
-    private COLOR getOppositeColor() {
-        if(this.COLOR == game.COLOR.WHITE) return game.COLOR.BLACK;
-        return COLOR.WHITE;
+    private boolean coordinateIsOnTheEdge(Position position) {
+        int row = position.row % (this.boardSize - 1);
+        int col = position.column % (this.boardSize - 1);
+
+        if(row == 0 || col == 0) return true;
+
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 package player.impl;
 
-import game.Move;
+import game.Position;
 import player.*;
 
 import java.util.Random;
@@ -17,15 +17,15 @@ public class TerribleTerry extends Player {
     }
 
     @Override
-    public void initialize() {
+    public void newGame() {
         System.out.println(NAME + " is alive! :)");
         this.random = new Random();
     }
 
-    private boolean coordinateIsATerribleMove(Move move) {
+    private boolean coordinateIsATerribleMove(Position position) {
         int boardSize = 8;
-        int row = (move.row - 1) % (boardSize - 3);
-        int col = (move.column - 1) % (boardSize - 3);
+        int row = (position.row - 1) % (boardSize - 3);
+        int col = (position.column - 1) % (boardSize - 3);
 
         if(row == 0 && col == 0) return true;
 
@@ -33,15 +33,15 @@ public class TerribleTerry extends Player {
     }
 
     @Override
-    public Move nextMove() {
+    public Position nextMove() {
 
-        for(Move m : this.availableMoves) {
+        for(Position m : this.availablePositions) {
             if(coordinateIsATerribleMove(m)) {
                 return m;
             }
         }
 
-        return this.availableMoves.get(random.nextInt(availableMoves.size()));
+        return new Position(this.availablePositions.get(random.nextInt(availablePositions.size())));
     }
 }
 
