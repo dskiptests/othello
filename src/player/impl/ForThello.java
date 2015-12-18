@@ -73,6 +73,19 @@ public class ForThello extends Player {
             tempBoard.placeDisk(color, p);
             turnsData.CoinsFlipped += NumberOfCoinsGainedPerMove(oldBoard,tempBoard);
 
+            if (color == this.COLOR) {
+                if ((p.row % 7) == 0 && (p.column % 7) == 0)
+                    turnsData.CoinsFlipped += 1000;
+                if ((p.row == 1 && p.column == 0) || (p.row == 1 && p.column == 1) || (p.row == 0 && p.column == 1))
+                    turnsData.CoinsFlipped -= 100;
+                if ((p.row == 0 && p.column == 6) || (p.row == 1) && (p.column == 6) || (p.row == 1) && (p.column == 7))
+                    turnsData.CoinsFlipped -= 100;
+                if ((p.row == 6 && p.column == 0) || (p.row == 6) && (p.column ==1) || (p.row == 7) && (p.column == 1))
+                    turnsData.CoinsFlipped -= 100;
+                if ((p.row == 6 && p.column == 6) || (p.row == 7) && (p.column ==6) || (p.row == 6) && (p.column == 7))
+                    turnsData.CoinsFlipped -= 100;
+            }
+
             if ( turnsData.Depth < 4){
                 algoMove(tempBoard,turnsData);
             }
