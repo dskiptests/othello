@@ -157,6 +157,8 @@ public class Board {
             }
         }
 
+        if(isValid) boardMatrix[position.row][position.column] = color;
+
         return isValid;
     }
 
