@@ -1,1 +1,1 @@
-Grand Prix d’Omegapoint d'Othello
+# Grand Prix d’Omegapoint d'Othello
