@@ -3,8 +3,8 @@ package player;
 
 import game.COLOR;
 import player.impl.EdgeEddie;
-import player.impl.RandomRichard;
 import player.impl.MinimizingMaria;
+import player.impl.RandomRichard;
 import player.impl.TerribleTerry;
 import player.impl.chattanooga_flowmasters.ChattanoogaPlayer;
 
