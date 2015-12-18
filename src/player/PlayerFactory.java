@@ -2,10 +2,8 @@ package player;
 
 
 import game.COLOR;
-import player.impl.EdgeEddie;
-import player.impl.RandomRichard;
-import player.impl.MinimizingMaria;
-import player.impl.TerribleTerry;
+import player.impl.*;
+import player.impl.forthello;
 
 
 public class PlayerFactory {
@@ -19,6 +17,7 @@ public class PlayerFactory {
         Player player = null;
 
         switch (name) {
+            case "forthello": return new forthello(color);
             case "EdgeEddie":       return new EdgeEddie(color);
             case "RandomRichard":   return new RandomRichard(color);
             case "MinimizingMaria":     return new MinimizingMaria(color);
