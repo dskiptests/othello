@@ -2,23 +2,21 @@ package player;
 
 
 import game.COLOR;
-import player.impl.EdgeEddie;
-import player.impl.RandomRichard;
-import player.impl.MinimizingMaria;
-import player.impl.TerribleTerry;
+import player.impl.*;
 
 
 public class PlayerFactory {
 
 
 
-    public final static String[] availablePlayers = {"EdgeEddie", "RandomRichard", "MinimizingMaria", "TerribleTerry"};
+    public final static String[] availablePlayers = {"EdgeEddie", "RandomRichard", "MinimizingMaria", "TerribleTerry" ,"ForThello"};
 
 
     public Player newPlayer(String name, COLOR color) {
         Player player = null;
 
         switch (name) {
+            case "ForThello" : return new ForThello(color);
             case "EdgeEddie":       return new EdgeEddie(color);
             case "RandomRichard":   return new RandomRichard(color);
             case "MinimizingMaria":     return new MinimizingMaria(color);

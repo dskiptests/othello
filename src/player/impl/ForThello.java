@@ -8,6 +8,7 @@ import player.Player;
 import game.COLOR;
 import player.Board;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -21,8 +22,8 @@ public class ForThello extends Player {
     public List<TurnsData> listTurnsData;
 
     public ForThello(game.COLOR color) {
-        listTurnsData = new List<TurnsData>();
         super(color);
+        listTurnsData = new ArrayList<TurnsData>();
     }
 
 
@@ -102,7 +103,7 @@ public class ForThello extends Player {
 
         }
         Position bestPosition;
-        bestPosition = listTurnsData;
+        bestPosition = listTurnsData.get(0).FirstMove;
         int bestScore = 0;
         for(TurnsData t: listTurnsData){
 
@@ -112,7 +113,7 @@ public class ForThello extends Player {
             }
         }
 
-
+        choosenPosition = bestPosition;
         return choosenPosition;
     }
     private COLOR getOppositeColor() {
@@ -121,7 +122,7 @@ public class ForThello extends Player {
     }
 }
 
-public class TurnsData {
+class TurnsData {
 
     public int CoinsFlipped;
     public int Depth;
