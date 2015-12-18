@@ -135,7 +135,13 @@ public class ForThello extends Player {
                 bestScore = t.CoinsFlipped;
                 bestPosition = t.FirstMove;
             }
+
+            // TODO: if t.FirstMove == corner:
+            if ( (t.FirstMove.row % 8 == 0) && (t.FirstMove.column % 8 == 0) )
+                return t.FirstMove;
+            // DOIT!!!!
         }
+
 
         choosenPosition = bestPosition;
         return choosenPosition;
