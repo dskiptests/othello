@@ -12,7 +12,7 @@ public class PlayerFactory {
 
 
 
-    public final static String[] availablePlayers = {"EdgeEddie", "RandomRichard", "MinimizingMaria", "TerribleTerry"};
+    public final static String[] availablePlayers = {"DeepOthello", "EdgeEddie", "RandomRichard", "MinimizingMaria", "TerribleTerry"};
 
 
     public Player newPlayer(String name, COLOR color) {
@@ -23,6 +23,8 @@ public class PlayerFactory {
             case "RandomRichard":   return new RandomRichard(color);
             case "MinimizingMaria":     return new MinimizingMaria(color);
             case "TerribleTerry":   return new TerribleTerry(color);
+            case "DeepOthello":   return new TerribleTerry(color);
+
         }
 
         return player;
