@@ -6,13 +6,14 @@ import player.impl.EdgeEddie;
 import player.impl.RandomRichard;
 import player.impl.MinimizingMaria;
 import player.impl.TerribleTerry;
+import player.impl.chattanooga_flowmasters.ChattanoogaPlayer;
 
 
 public class PlayerFactory {
 
 
 
-    public final static String[] availablePlayers = {"EdgeEddie", "RandomRichard", "MinimizingMaria", "TerribleTerry"};
+    public final static String[] availablePlayers = {"EdgeEddie", "RandomRichard", "MinimizingMaria", "TerribleTerry", "ChattanoogaFlowmasters"};
 
 
     public Player newPlayer(String name, COLOR color) {
@@ -23,6 +24,7 @@ public class PlayerFactory {
             case "RandomRichard":   return new RandomRichard(color);
             case "MinimizingMaria":     return new MinimizingMaria(color);
             case "TerribleTerry":   return new TerribleTerry(color);
+            case "ChattanoogaFlowmasters":  return new ChattanoogaPlayer(color);
         }
 
         return player;
