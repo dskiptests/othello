@@ -75,7 +75,7 @@ public class ForThello extends Player {
 
             if (color == this.COLOR) {
                 if ((p.row % 7) == 0 && (p.column % 7) == 0)
-                    turnsData.CoinsFlipped += 1000;
+                    turnsData.CoinsFlipped += 10000;
                 if ((p.row == 1 && p.column == 0) || (p.row == 1 && p.column == 1) || (p.row == 0 && p.column == 1))
                     turnsData.CoinsFlipped -= 100;
                 if ((p.row == 0 && p.column == 6) || (p.row == 1) && (p.column == 6) || (p.row == 1) && (p.column == 7))
@@ -87,7 +87,7 @@ public class ForThello extends Player {
             }
             if (color == getOppositeColor()) {
                 if ((p.row % 7) == 0 && (p.column % 7) == 0)
-                    turnsData.CoinsFlipped -= 1000;
+                    turnsData.CoinsFlipped -= 10000;
                 if ((p.row == 1 && p.column == 0) || (p.row == 1 && p.column == 1) || (p.row == 0 && p.column == 1))
                     turnsData.CoinsFlipped += 100;
                 if ((p.row == 0 && p.column == 6) || (p.row == 1) && (p.column == 6) || (p.row == 1) && (p.column == 7))
