@@ -6,7 +6,7 @@ package player.agents;
 import game.GameBoard;
 import game.Position;
 import player.Player;
-import game.COLOR;
+import game.Color;
 import player.agents.forthello.TurnsData;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ public class ForThello extends Player {
     private int boardSize;
     public List<TurnsData> listTurnsData;
 
-    public ForThello(game.COLOR color) {
+    public ForThello(Color color) {
         super(color);
-        listTurnsData = new ArrayList<TurnsData>();
+
     }
 
 
@@ -33,6 +33,7 @@ public class ForThello extends Player {
         this.random = new Random();
         System.out.println(NAME + " is alive! :)");
         this.boardSize = 8;
+        listTurnsData = new ArrayList<TurnsData>();
     }
 
     public int NumberOfCoinsGainedPerMove(GameBoard current, GameBoard next) {
@@ -57,7 +58,7 @@ public class ForThello extends Player {
         turnsData.Depth ++;
         GameBoard oldBoard = board.copyBoard();
         LinkedList<Position> availableMoves;
-        COLOR color;
+        Color color;
         if (turnsData.Depth == 1 || turnsData.Depth == 3){
             availableMoves = oldBoard.getAllLegalPositions(this.COLOR);
             color = this.COLOR;
@@ -102,7 +103,7 @@ public class ForThello extends Player {
 
         int randomIndex = random.nextInt(currentLegalPositions.size());
         Position choosenPosition = this.currentLegalPositions.get(randomIndex);
-        COLOR oppositeColor = getOppositeColor();
+        Color oppositeColor = getOppositeColor();
 
         int maxNumberOfMoves = Integer.MAX_VALUE;
         for(Position p : this.currentLegalPositions) {
@@ -130,9 +131,9 @@ public class ForThello extends Player {
         choosenPosition = bestPosition;
         return choosenPosition;
     }
-    private COLOR getOppositeColor() {
-        if(this.COLOR == game.COLOR.WHITE) return game.COLOR.BLACK;
-        return COLOR.WHITE;
+    private Color getOppositeColor() {
+        if(this.COLOR == Color.WHITE) return Color.BLACK;
+        return Color.WHITE;
     }
 }
 

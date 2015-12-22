@@ -5,9 +5,9 @@ package game;
  */
 public class Disk {
 
-    public final COLOR color;
+    public final Color color;
 
-    public Disk(COLOR color) {
+    public Disk(Color color) {
         this.color = color;
 
 

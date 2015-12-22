@@ -1,6 +1,6 @@
 package player.agents;
 
-import game.Position;
+import game.*;
 import player.Player;
 
 
@@ -9,38 +9,68 @@ public class StableDiskSally extends Player {
     private int[][] scoreMatrix;
 
 
-    public StableDiskSally(game.COLOR color) {
+    public StableDiskSally(Color color) {
         super(color);
     }
 
     @Override
     public void newGame() {
-        scoreMatrix = new int[][]   {{  30, -25, 10, 10},
-                                    {  -25, -25, 7,  1},
-                                    {   10,  7,  5,  1},
-                                    {   10,  1,  1,  1}};
+        scoreMatrix = new int[][]
+                {{  40,     1,      15,     3},
+                {   1,      0,      3,      3},
+                {   15,     3,      5,      3},
+                {   3,      3,      3,      3}};
     }
 
     @Override
     public Position nextMove() throws InterruptedException {
-
         int maxScore = Integer.MIN_VALUE;
         Position returnPosition = null;
 
-        for(Position p : this.currentLegalPositions) {
-            System.out.println(p + " " + getScoreForPosition(p));
-            if(getScoreForPosition(p) > maxScore) {
+        for(Position pos : this.currentLegalPositions) {
+            int naiveRank = getNaiveScoreForPosition(pos);
+            int neighbourRank = getNeighbourScoreForPosition(pos);
+            int score = (naiveRank+ neighbourRank);
 
-                maxScore = getScoreForPosition(p);
-                returnPosition = p;
+            System.out.println(pos + " " + getNaiveScoreForPosition(pos) + " " + getNeighbourScoreForPosition(pos));
+
+            if(score > maxScore) {
+                maxScore = score;
+                returnPosition = pos;
             }
         }
-        System.out.println("Returning " + returnPosition + " " + getScoreForPosition(returnPosition));
+
         return returnPosition;
     }
 
+    private int getNeighbourScoreForPosition(Position position) {
+        position = convertPosition(position);
+        int x = position.row;
+        int y = position.column;
+        Color[][] m = this.currentBoard.copyMatrix();
 
-    private int getScoreForPosition(Position position) {
+        if(x > 3) x = 4;
+        else x = 0;
+        if(y > 3) y = 4;
+        else y = 0;
+
+        int score = 0;
+        for(int i = x; i < x+4; i++) {
+            for(int j = y; j < y+4; j++) {
+                if(m[i][j] == this.COLOR) score++;
+            }
+        }
+
+        return score;
+    }
+
+
+    private int getNaiveScoreForPosition(Position position) {
+        position = convertPosition(position);
+        return scoreMatrix[position.row][position.column];
+    }
+
+    private Position convertPosition(Position position) {
         int x = position.row;
         int y = position.column;
 
@@ -48,9 +78,10 @@ public class StableDiskSally extends Player {
         if(x > size - 1) x = (size-1) - (x % size);
         if(y > size- 1) y = (size-1) - (y % size);
 
-       // System.out.println(position.row + " --> " + x + ", " + position.column + " --> " + y);
-        return scoreMatrix[x][y];
+        return new Position(x,y);
     }
+
+
 
 
 

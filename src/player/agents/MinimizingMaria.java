@@ -3,7 +3,7 @@ package player.agents;
 import game.GameBoard;
 import game.Position;
 import player.Player;
-import game.COLOR;
+import game.Color;
 
 import java.util.Random;
 
@@ -14,7 +14,7 @@ public class MinimizingMaria extends Player {
     private Random random;
     private int boardSize;
 
-    public MinimizingMaria(game.COLOR color) {
+    public MinimizingMaria(Color color) {
         super(color);
     }
 
@@ -31,7 +31,7 @@ public class MinimizingMaria extends Player {
 
         int randomIndex = random.nextInt(currentLegalPositions.size());
         Position choosenPosition = this.currentLegalPositions.get(randomIndex);
-        COLOR oppositeColor = getOppositeColor();
+        Color oppositeColor = getOppositeColor();
 
         int maxNumberOfMoves = Integer.MAX_VALUE;
         for(Position p : this.currentLegalPositions) {
@@ -49,8 +49,8 @@ public class MinimizingMaria extends Player {
         return choosenPosition;
     }
 
-    private COLOR getOppositeColor() {
-        if(this.COLOR == game.COLOR.WHITE) return game.COLOR.BLACK;
+    private Color getOppositeColor() {
+        if(this.COLOR == Color.WHITE) return Color.BLACK;
         return COLOR.WHITE;
     }
 }

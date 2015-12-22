@@ -1,6 +1,7 @@
 package gui;
 
 import game.*;
+import game.Color;
 import player.Player;
 import player.PlayerFactory;
 
@@ -10,12 +11,12 @@ import javax.swing.border.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 
-import static game.COLOR.*;
+import static game.Color.*;
 
 public class GUIWindow {
 
-    private static final Color GREEN = new Color(0, 100, 0);
-    private static final Color LIGHT_GREEN = new Color(30, 140, 30);
+    private static final java.awt.Color GREEN = new java.awt.Color(0, 100, 0);
+    private static final java.awt.Color LIGHT_GREEN = new java.awt.Color(30, 140, 30);
     private static final String TURN = "Turn!";
     private final JLabel txtWhite = new JLabel("White : ");
     private final JLabel txtBlack = new JLabel("Black : ");
@@ -39,7 +40,7 @@ public class GUIWindow {
     private String blackString = null;
 
 
-    private Player newPlayer(String name, COLOR color) {
+    private Player newPlayer(String name, Color color) {
       return playerFactory.newPlayer(name, color);
     }
 
@@ -171,7 +172,7 @@ public class GUIWindow {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                Border black = BorderFactory.createLineBorder(Color.black);
+                Border black = BorderFactory.createLineBorder(java.awt.Color.black);
                 final JPanel slots = new JPanel();
                 slots.setBorder(black);
                 slots.setBackground(GREEN);
@@ -185,7 +186,7 @@ public class GUIWindow {
         return mainPanel;
     }
 
-    public void setPicture(COLOR color, Position position) {
+    public void setPicture(Color color, Position position) {
 
         JPanel currentPanel = panelBoard[position.row][position.column];
         currentPanel.removeAll();
@@ -220,7 +221,7 @@ public class GUIWindow {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 JPanel currentSlot = panelBoard[i][j];
                 currentSlot.removeAll();
-                COLOR colorOfPosition = game.colorOfPosition(new Position(i,j));
+                Color colorOfPosition = game.colorOfPosition(new Position(i,j));
                 switch (colorOfPosition) {
                     case BLACK:
                         panelBoard[i][j].setBackground(GREEN);
@@ -275,7 +276,7 @@ public class GUIWindow {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                COLOR positionColor = game.colorOfPosition(new Position(i,j));
+                Color positionColor = game.colorOfPosition(new Position(i,j));
                 if (positionColor == WHITE) {
                     wCount++;
                 }

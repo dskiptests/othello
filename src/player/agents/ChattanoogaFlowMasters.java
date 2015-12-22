@@ -1,5 +1,5 @@
 package player.agents;
-import game.COLOR;
+import game.Color;
 import game.GameBoard;
 import game.Position;
 import player.Player;
@@ -23,7 +23,7 @@ public class ChattanoogaFlowMasters extends Player {
                     {-25, -25,  1, 1, 1,  1, -25, -25},
                     { 30, -25, 10, 5, 5, 10, -25,  30}};
 
-    public ChattanoogaFlowMasters(COLOR color) {
+    public ChattanoogaFlowMasters(Color color) {
         super(color);
     }
 
@@ -63,7 +63,7 @@ public class ChattanoogaFlowMasters extends Player {
         int friendlyStones = 0;
         int enemyStones = 0;
         double K1 = 1;
-        if (this.COLOR == game.COLOR.BLACK) {
+        if (this.COLOR == Color.BLACK) {
             K1 = 0.5;
             friendlyStones = stonesCount.getLeft();
             enemyStones = stonesCount.getRight();
@@ -114,12 +114,12 @@ public class ChattanoogaFlowMasters extends Player {
     private ImmutablePair<Integer, Integer> getStoneCount(GameBoard board) {
         Integer blackCount = 0;
         Integer whiteCount = 0;
-        COLOR[][] colorMatrix = board.getBoardMatrix();
+        Color[][] colorMatrix = board.getBoardMatrix();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (colorMatrix[i][j] == game.COLOR.WHITE) {
+                if (colorMatrix[i][j] == Color.WHITE) {
                     whiteCount++;
-                } else if (colorMatrix[i][j] == game.COLOR.BLACK) {
+                } else if (colorMatrix[i][j] == Color.BLACK) {
                     blackCount++;
                 }
             }

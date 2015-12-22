@@ -1,5 +1,5 @@
 package player.agents;
-import game.COLOR;
+import game.Color;
 import game.GameBoard;
 import game.Position;
 import player.Player;
@@ -12,7 +12,7 @@ import java.util.Random;
  * Created by DeepOthello on 18/12/2015.
  */
 public class DeepOthello extends Player{
-    public DeepOthello(game.COLOR color) {
+    public DeepOthello(Color color) {
         super(color);
     }
 
@@ -108,7 +108,7 @@ public class DeepOthello extends Player{
     @Override
     public Position nextMove() throws InterruptedException {
 
-        COLOR oppositeColor = getOppositeColor();
+        Color oppositeColor = getOppositeColor();
 
         Position worstEnemyPosition = null;
         int enemyMinMax = Integer.MAX_VALUE;
@@ -206,8 +206,8 @@ public class DeepOthello extends Player{
 
 
 
-    private COLOR getOppositeColor() {
-        if(this.COLOR == game.COLOR.WHITE) return game.COLOR.BLACK;
+    private Color getOppositeColor() {
+        if(this.COLOR == Color.WHITE) return Color.BLACK;
         return COLOR.WHITE;
     }
 }

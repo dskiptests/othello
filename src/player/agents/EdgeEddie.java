@@ -1,5 +1,6 @@
 package player.agents;
 
+import game.Color;
 import game.Position;
 import player.Player;
 
@@ -11,7 +12,7 @@ public class EdgeEddie extends Player {
     private Random random;
     private int boardSize;
 
-    public EdgeEddie(game.COLOR color) {
+    public EdgeEddie(Color color) {
         super(color);
     }
 

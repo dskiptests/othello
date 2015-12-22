@@ -1,7 +1,7 @@
 package player;
 
 
-import game.COLOR;
+import game.Color;
 import game.GameBoard;
 import game.Position;
 import java.util.LinkedList;
@@ -13,7 +13,7 @@ public abstract class Player implements Callable<Position> {
     public GameBoard currentBoard;
     public LinkedList<Position> currentLegalPositions;
 
-    public final COLOR COLOR;
+    public final Color COLOR;
     public final String NAME = this.getClass().getSimpleName();
 
     @Override
@@ -27,7 +27,7 @@ public abstract class Player implements Callable<Position> {
         return position;
     }
 
-    public Player(COLOR color) {
+    public Player(Color color) {
         this.COLOR = color;
     }
 

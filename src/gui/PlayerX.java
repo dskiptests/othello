@@ -3,19 +3,19 @@ import game.*;
 
 
 public class PlayerX {
-    private COLOR color;
+    private Color color;
 
 
-    public PlayerX(COLOR color){
+    public PlayerX(Color color){
         this.color = color;
 
     }
 
-    public COLOR getColor(){
+    public Color getColor(){
         return this.color;
     }
 
-    public void setColor(COLOR color){
+    public void setColor(Color color){
         this.color = color;
     }
 

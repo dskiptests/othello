@@ -1,4 +1,5 @@
 package player.agents;
+import game.Color;
 import game.Position;
 import player.Player;
 
@@ -9,7 +10,7 @@ public class RandomRichard extends Player {
 
     Random random;
 
-    public RandomRichard(game.COLOR color) {
+    public RandomRichard(Color color) {
         super(color);
     }
 

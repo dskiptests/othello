@@ -1,5 +1,5 @@
 package player.agents;
-import game.COLOR;
+import game.Color;
 import game.GameBoard;
 import game.Position;
 import player.Player;
@@ -10,13 +10,13 @@ import java.util.LinkedList;
  * Created by martinpettersson on 18/12/15.
  */
 public class Skumtomtarna extends Player {
-    private COLOR ourColor;
-    private COLOR enemyColor;
+    private Color ourColor;
+    private Color enemyColor;
 
     private final int MAX_VAL = 10000000;
     private final int MIN_VAL = -10000000;
 
-    public Skumtomtarna(game.COLOR color) {
+    public Skumtomtarna(Color color) {
         super(color);
     }
 
@@ -34,7 +34,7 @@ public class Skumtomtarna extends Player {
         return ret.pos;
     }
 
-    private RetValue negamax(GameBoard board, int depth, COLOR color) {
+    private RetValue negamax(GameBoard board, int depth, Color color) {
 
         if (depth == 0 || board.gameIsFinished()) {
             //System.err.println(utility(board, color));
@@ -78,7 +78,7 @@ public class Skumtomtarna extends Player {
         }
     }
 
-    private double utility(GameBoard board, COLOR color) {
+    private double utility(GameBoard board, Color color) {
 
         //remember to do something with color
 
@@ -88,7 +88,7 @@ public class Skumtomtarna extends Player {
 
         double numOur = 0;
         double numEnemy = 0;
-        COLOR[][] bordMatrix = board.getBoardMatrix();
+        Color[][] bordMatrix = board.getBoardMatrix();
         for (int rows = 0; rows < bordMatrix.length; rows++) {
             for (int cols = 0; cols < bordMatrix[0].length; cols++) {
                 if (bordMatrix[rows][cols].equals(ourColor)) {

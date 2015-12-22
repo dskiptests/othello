@@ -1,7 +1,7 @@
 package player;
 
 
-import game.COLOR;
+import game.Color;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -22,7 +22,7 @@ public class PlayerFactory {
         getAgentClassesFromPackage();
     }
 
-    public Player newPlayer(String name, COLOR color) {
+    public Player newPlayer(String name, Color color) {
         Class c = playerMap.get(name);
         Player player = mapClassToPlayerObject(playerMap.get(name), color);
 
@@ -57,11 +57,11 @@ public class PlayerFactory {
 
     }
 
-    private Player mapClassToPlayerObject(Class<Player> c, COLOR color) {
+    private Player mapClassToPlayerObject(Class<Player> c, Color color) {
 
         Constructor<Player> cons = null;
         try {
-            cons = c.getConstructor(COLOR.class);
+            cons = c.getConstructor(Color.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

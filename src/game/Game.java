@@ -69,13 +69,13 @@ public class Game {
         }
     }
 
-    public COLOR colorOfPosition(Position position) {
+    public Color colorOfPosition(Position position) {
         return gameBoard.getPositionColor(position);
     }
 
 
 
-    private Player getPlayerByColor(COLOR white) {
+    private Player getPlayerByColor(Color white) {
         return null;
     }
 }

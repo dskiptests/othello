@@ -5,16 +5,16 @@ import java.util.LinkedList;
 public class GameBoard {
 
     public final int BOARD_SIZE = 8;
-    private final COLOR[][] boardMatrix;
+    private final Color[][] boardMatrix;
 
 
 
     public GameBoard() {
-        this.boardMatrix = new COLOR[BOARD_SIZE][BOARD_SIZE];
+        this.boardMatrix = new Color[BOARD_SIZE][BOARD_SIZE];
         setUpNewGame();
     }
 
-    public GameBoard(COLOR[][] boardMatrix) {
+    public GameBoard(Color[][] boardMatrix) {
         this.boardMatrix = boardMatrix;
     }
 
@@ -22,14 +22,14 @@ public class GameBoard {
     private void setUpNewGame() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                boardMatrix[i][j] = COLOR.EMPTY;
+                boardMatrix[i][j] = Color.EMPTY;
             }
         }
 
-        boardMatrix[3][3] = COLOR.WHITE;
-        boardMatrix[4][4] = COLOR.WHITE;
-        boardMatrix[3][4] = COLOR.BLACK;
-        boardMatrix[4][3] = COLOR.BLACK;
+        boardMatrix[3][3] = Color.WHITE;
+        boardMatrix[4][4] = Color.WHITE;
+        boardMatrix[3][4] = Color.BLACK;
+        boardMatrix[4][3] = Color.BLACK;
     }
 
 
@@ -46,13 +46,13 @@ public class GameBoard {
 
 
 
-    public COLOR[][] getBoardMatrix() {
+    public Color[][] getBoardMatrix() {
         return boardMatrix;
     }
 
 
-    public COLOR[][] copyMatrix() {
-        COLOR[][] matrix = new COLOR[BOARD_SIZE][BOARD_SIZE];
+    public Color[][] copyMatrix() {
+        Color[][] matrix = new Color[BOARD_SIZE][BOARD_SIZE];
         for(int i = 0; i < BOARD_SIZE; i++) {
             for(int j = 0; j < BOARD_SIZE; j++) {
                 matrix[i][j] = this.boardMatrix[i][j];
@@ -97,13 +97,13 @@ public class GameBoard {
 //        return isValid;
 //    }
 
-    public LinkedList<Position> getAllLegalPositions(COLOR color) {
+    public LinkedList<Position> getAllLegalPositions(Color color) {
         LinkedList<Position> legalPositions = new LinkedList<Position>();
         String m = "";
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (isLegalMove(color, new Position(i, j))) {
-                    if(boardMatrix[i][j] == COLOR.EMPTY) {
+                    if(boardMatrix[i][j] == Color.EMPTY) {
                         legalPositions.add(new Position(i, j));
                     }
                 }
@@ -112,11 +112,11 @@ public class GameBoard {
         return legalPositions;
     }
 
-    public void placeDisk(COLOR color, Position position) {
+    public void placeDisk(Color color, Position position) {
         flip(color, position, true);
     }
 
-    public int getNumberOfDisksInColor(COLOR color) {
+    public int getNumberOfDisksInColor(Color color) {
         int count = 0;
         for(int i = 0; i < BOARD_SIZE; i++) {
             for(int j = 0; j < BOARD_SIZE; j++) {
@@ -126,11 +126,11 @@ public class GameBoard {
         return count;
     }
 
-    public boolean isLegalMove(COLOR color, Position position) {
+    public boolean isLegalMove(Color color, Position position) {
         return flip(color, position, false);
     }
 
-    private boolean flip(COLOR color, Position position, boolean flip) {
+    private boolean flip(Color color, Position position, boolean flip) {
 
         boolean isValid = false;
         for (int chkRow = -1; chkRow < 2; chkRow++) {
@@ -142,7 +142,7 @@ public class GameBoard {
                 int xCol = position.column + chkCol;
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
-                    if ((boardMatrix[xRow][xCol]) == (color == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK)) {
+                    if ((boardMatrix[xRow][xCol]) == (color == Color.BLACK ? Color.WHITE : Color.BLACK)) {
                         for (int range = 0; range < 8; range++) {
 
                             int nRow = position.row + range * chkRow;
@@ -176,11 +176,11 @@ public class GameBoard {
 
 
     public boolean gameIsFinished() {
-        return (0 == getNumberOfDisksInColor(COLOR.EMPTY));
+        return (0 == getNumberOfDisksInColor(Color.EMPTY));
     }
 
 
-    public COLOR getPositionColor(Position position) {
+    public Color getPositionColor(Position position) {
         return getBoardMatrix()[position.row][position.column];
     }
 }

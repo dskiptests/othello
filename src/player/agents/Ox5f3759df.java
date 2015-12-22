@@ -6,11 +6,11 @@ import java.util.Random;
 import game.GameBoard;
 import game.Position;
 import player.Player;
-import game.COLOR;
+import game.Color;
 
 public class Ox5f3759df extends Player
 {
-	private COLOR oppCOLOR;
+	private Color oppCOLOR;
 	private Random rand = new Random();
 
 	class Node
@@ -55,7 +55,7 @@ public class Ox5f3759df extends Player
 		}
 	}
 
-	public Ox5f3759df(game.COLOR color)
+	public Ox5f3759df(Color color)
 	{
 		super(color);
 	}
@@ -63,10 +63,10 @@ public class Ox5f3759df extends Player
 	@Override
 	public void newGame()
 	{
-		if (this.COLOR == game.COLOR.BLACK) {
-			this.oppCOLOR = game.COLOR.WHITE;
+		if (this.COLOR == Color.BLACK) {
+			this.oppCOLOR = Color.WHITE;
 		} else {
-			this.oppCOLOR = game.COLOR.BLACK;
+			this.oppCOLOR = Color.BLACK;
 		}
 	}
 
@@ -78,11 +78,11 @@ public class Ox5f3759df extends Player
 		return nextMove(currentBoard, root, System.currentTimeMillis()+1500);
 	}
 
-	private static game.COLOR reverseColor(game.COLOR color) {
-		if (color == game.COLOR.BLACK)
-			return game.COLOR.WHITE;
+	private static Color reverseColor(Color color) {
+		if (color == Color.BLACK)
+			return Color.WHITE;
 		else
-			return game.COLOR.BLACK;
+			return Color.BLACK;
 	}
 
 	private Position nextMove(GameBoard rootBoard, Node root, long timeout)
@@ -91,7 +91,7 @@ public class Ox5f3759df extends Player
 		{
 			GameBoard board = rootBoard.copyBoard();
 			Node node = root;
-			game.COLOR currentColor = COLOR;
+			Color currentColor = COLOR;
 
 			while (!board.gameIsFinished())
 			{
@@ -136,7 +136,7 @@ public class Ox5f3759df extends Player
 		return select(rootBoard, root).pos;
 	}
 
-	private double playout(GameBoard board, game.COLOR currentColor)
+	private double playout(GameBoard board, Color currentColor)
 	{
 		int i = 0;
 		while (!board.gameIsFinished() || i > 60)
@@ -156,7 +156,7 @@ public class Ox5f3759df extends Player
 		return evaluate(board);
 	}
 
-	private char colorChar(game.COLOR c)
+	private char colorChar(Color c)
 	{
 		return c==COLOR.BLACK?'x':c==COLOR.WHITE?'o':'.';
 	}
@@ -178,11 +178,11 @@ public class Ox5f3759df extends Player
 		double myScore, oppScore, numEmpty;
 		myScore = oppScore = numEmpty = 0.0d;
 
-		COLOR[][] cm = board.getBoardMatrix();
+		Color[][] cm = board.getBoardMatrix();
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (cm[i][j] == game.COLOR.EMPTY) {
+				if (cm[i][j] == Color.EMPTY) {
 					numEmpty++;
 				} else if (cm[i][j] == this.COLOR) {
 					myScore++;
@@ -216,7 +216,7 @@ public class Ox5f3759df extends Player
 				{-3, -7, -4, 1, 1, -4, -7, -3},
 				{20, -3, 11, 8, 8, 11, -3, 20}};
 
-		COLOR[][] cm = board.getBoardMatrix();
+		Color[][] cm = board.getBoardMatrix();
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
