@@ -2,7 +2,6 @@ package player.agents;
 import game.COLOR;
 import game.GameBoard;
 import game.Position;
-import player.Board;
 import player.Player;
 
 import java.util.LinkedList;
@@ -117,7 +116,7 @@ public class DeepOthello extends Player{
         int maxDiff = Integer.MIN_VALUE;
 
 
-        for(Position p : this.availablePositions) {
+        for(Position p : this.currentLegalPositions) {
 
             GameBoard tempBoard = this.currentBoard.copyBoard();
             int ourCurrentValue = t[p.column][p.row];
@@ -174,8 +173,8 @@ public class DeepOthello extends Player{
 
         int bestValue = 0;
         Position bestPosition = null;
-        for (int i = 0; i < availablePositions.size(); i++){
-            Position choosenPosition = availablePositions.get(i);
+        for (int i = 0; i < currentLegalPositions.size(); i++){
+            Position choosenPosition = currentLegalPositions.get(i);
 
             int value = t[choosenPosition.column][choosenPosition.row];
             if(value > bestValue){

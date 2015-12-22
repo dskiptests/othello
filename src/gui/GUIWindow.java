@@ -33,27 +33,16 @@ public class GUIWindow {
     private Game game;
     private JButton actionButton;
 
-    private Player whitePlayer;
-    private Player blackPlayer;
+
     private PlayerFactory playerFactory = new PlayerFactory();
-    private String whiteString;
-    private String blackString;
+    private String whiteString = null;
+    private String blackString = null;
 
 
     private Player newPlayer(String name, COLOR color) {
       return playerFactory.newPlayer(name, color);
     }
 
-
-    private void setWhitePlayer(String name) {
-        this.whiteString = name;
-        this.whitePlayer = newPlayer(name, WHITE);
-    }
-
-    private void setBlackPlayer(String name) {
-        this.blackString = name;
-        this.blackPlayer = newPlayer(name, BLACK);
-    }
 
     public GUIWindow() {
 
@@ -104,10 +93,11 @@ public class GUIWindow {
         panel.setBorder(border2);
 
         JComboBox blackPlayers = new JComboBox(playerFactory.availablePlayers);
+        blackString = playerFactory.availablePlayers[0];
 
         blackPlayers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setBlackPlayer(blackPlayers.getSelectedItem().toString());
+                blackString = blackPlayers.getSelectedItem().toString();
             }
         });
 
@@ -117,11 +107,10 @@ public class GUIWindow {
         JTextField whiteText = new JTextField(WHITE.toString());
 
         JComboBox whitePlayers = new JComboBox(playerFactory.availablePlayers);
+        whiteString = playerFactory.availablePlayers[0];
         whitePlayers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String p = whitePlayers.getSelectedItem().toString();
-                setWhitePlayer(p);
-
+                whiteString = whitePlayers.getSelectedItem().toString();
             }
         });
 
@@ -171,12 +160,7 @@ public class GUIWindow {
         TitledBorder border = new TitledBorder(DISPLAY);
 
         JLabel txtCurrent = new JLabel("   Next turn: ");
-
-        JLabel blackPic = new JLabel();
-        JLabel whitePic = new JLabel();
         mainPanel.setBorder(border);
-
-
 
         panel2.add(txtWhite);
         panel2.add(txtWhiteScore);
@@ -226,15 +210,8 @@ public class GUIWindow {
         LinkedList<Position> legalPositions = game.getSlotsToColor();
         updateColorsOfSlots(legalPositions);
 
-        if(game.isFinished()) {
-            if (wCount > bCount){
-                GUIConsole.display("The winner is : Player2 (White)");
-            }else if(wCount < bCount){
-                GUIConsole.display("The winner is : Player1 (Black)");
-            }else{
-                GUIConsole.display("Draw .... dan tan tan");
-            }
-        }
+        if(game.isFinished()) GUIConsole.display("The winner is .... (this functionallity is not implemented yet..)");
+
         slotsPanel.updateUI();
     }
 
@@ -276,15 +253,11 @@ public class GUIWindow {
     public void restart() {
        playerFactory = new PlayerFactory();
 
-        if(whiteString == null)  setWhitePlayer("EdgeEddie");
-        if(blackString == null)  setBlackPlayer("EdgeEddie");
+        if(whiteString == null) whiteString = "EdgeEddie";
+        if(blackString == null) blackString = "EdgeEddie";
 
-        whitePlayer = playerFactory.newPlayer(whiteString, WHITE);
-        blackPlayer = playerFactory.newPlayer(blackString, BLACK);
+        game = new Game(playerFactory.newPlayer(whiteString, WHITE), playerFactory.newPlayer(blackString, BLACK));
 
-
-
-        game = new Game(whitePlayer, blackPlayer);
         updateGameBoard();
         slotsPanel.updateUI();
         updateGameStatusPanel();

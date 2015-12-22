@@ -51,7 +51,7 @@ public class PlayerHandler {
 
         Player currentPlayer = players[turn];
         currentPlayer.currentBoard = new GameBoard(currentGameBoard.copyMatrix());
-        currentPlayer.availablePositions = copy(legalPositions);
+        currentPlayer.currentLegalPositions = copy(legalPositions);
         Position playerPosition = getMove(currentPlayer);
 
         if(playerMoveIsLegal(legalPositions, playerPosition)) {

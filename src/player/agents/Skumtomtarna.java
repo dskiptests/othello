@@ -2,7 +2,6 @@ package player.agents;
 import game.COLOR;
 import game.GameBoard;
 import game.Position;
-import player.Board;
 import player.Player;
 
 import java.util.LinkedList;

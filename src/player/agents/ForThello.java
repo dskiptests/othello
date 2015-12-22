@@ -7,7 +7,6 @@ import game.GameBoard;
 import game.Position;
 import player.Player;
 import game.COLOR;
-import player.Board;
 import player.agents.forthello.TurnsData;
 
 import java.util.ArrayList;
@@ -101,12 +100,12 @@ public class ForThello extends Player {
     @Override
     public Position nextMove() {
 
-        int randomIndex = random.nextInt(availablePositions.size());
-        Position choosenPosition = this.availablePositions.get(randomIndex);
+        int randomIndex = random.nextInt(currentLegalPositions.size());
+        Position choosenPosition = this.currentLegalPositions.get(randomIndex);
         COLOR oppositeColor = getOppositeColor();
 
         int maxNumberOfMoves = Integer.MAX_VALUE;
-        for(Position p : this.availablePositions) {
+        for(Position p : this.currentLegalPositions) {
 
             TurnsData turnsData = new TurnsData(p);
 

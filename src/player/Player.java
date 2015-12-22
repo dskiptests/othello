@@ -11,7 +11,7 @@ public abstract class Player implements Callable<Position> {
 
 
     public GameBoard currentBoard;
-    public LinkedList<Position> availablePositions;
+    public LinkedList<Position> currentLegalPositions;
 
     public final COLOR COLOR;
     public final String NAME = this.getClass().getSimpleName();

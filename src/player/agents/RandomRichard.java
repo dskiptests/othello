@@ -20,8 +20,8 @@ public class RandomRichard extends Player {
     }
 
     @Override
-    public Position nextMove() throws InterruptedException {int randomIndex = random.nextInt(availablePositions.size());
-        return new Position(this.availablePositions.get(randomIndex));
+    public Position nextMove() throws InterruptedException {int randomIndex = random.nextInt(currentLegalPositions.size());
+        return new Position(this.currentLegalPositions.get(randomIndex));
     }
 }
 

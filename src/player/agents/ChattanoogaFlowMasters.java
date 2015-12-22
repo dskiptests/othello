@@ -2,7 +2,6 @@ package player.agents;
 import game.COLOR;
 import game.GameBoard;
 import game.Position;
-import player.Board;
 import player.Player;
 
 import java.util.*;
@@ -36,11 +35,11 @@ public class ChattanoogaFlowMasters extends Player {
     @Override
     public Position nextMove() throws InterruptedException {
 
-        List<ImmutablePair<Position, Double>> positionScores = new ArrayList<>(availablePositions.size());
+        List<ImmutablePair<Position, Double>> positionScores = new ArrayList<>(currentLegalPositions.size());
 
 
 
-        for (Position availablePosition : availablePositions) {
+        for (Position availablePosition : currentLegalPositions) {
             positionScores.add(new ImmutablePair<>(availablePosition, scorePosition(availablePosition, currentBoard)));
         }
 

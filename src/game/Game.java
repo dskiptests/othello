@@ -14,7 +14,6 @@ public class Game {
 
 
 
-
     public Game(Player whitePlayer, Player blackPlayer) {
         newGame(TIMESLOT, blackPlayer, whitePlayer);
 
@@ -74,4 +73,9 @@ public class Game {
         return gameBoard.getPositionColor(position);
     }
 
+
+
+    private Player getPlayerByColor(COLOR white) {
+        return null;
+    }
 }

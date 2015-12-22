@@ -2,8 +2,6 @@ package player;
 
 
 import game.COLOR;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -16,7 +14,6 @@ public class PlayerFactory {
 
 
     public String[] availablePlayers;
-
     private Map<String, Class> playerMap;
     private final String AGENT_PACKAGE = "player.agents";
 
@@ -26,19 +23,11 @@ public class PlayerFactory {
     }
 
     public Player newPlayer(String name, COLOR color) {
-
-        System.out.println("Requested player " + name);
-        System.out.println(playerMap.keySet());
-
-
         Class c = playerMap.get(name);
-        System.out.println("Class " + c.getSimpleName());
-
         Player player = mapClassToPlayerObject(playerMap.get(name), color);
 
         return player;
     }
-
 
     private void getAgentClassesFromPackage() {
         this.playerMap = new HashMap<String, Class>();
@@ -68,7 +57,6 @@ public class PlayerFactory {
 
     }
 
-
     private Player mapClassToPlayerObject(Class<Player> c, COLOR color) {
 
         Constructor<Player> cons = null;
@@ -92,8 +80,7 @@ public class PlayerFactory {
         return player;
     }
 
-    private static Class[] getClasses(String packageName)
-            throws ClassNotFoundException, IOException {
+    private static Class[] getClasses(String packageName) throws ClassNotFoundException, IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
         String path = packageName.replace('.', '/');

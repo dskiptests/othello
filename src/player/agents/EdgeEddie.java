@@ -36,16 +36,16 @@ public class EdgeEddie extends Player {
 
     @Override
     public Position nextMove() {
-        int randomIndex = random.nextInt(availablePositions.size());
-        Position choosenPosition = this.availablePositions.get(randomIndex);
+        int randomIndex = random.nextInt(currentLegalPositions.size());
+        Position choosenPosition = this.currentLegalPositions.get(randomIndex);
 
-        for(Position m : this.availablePositions) {
+        for(Position m : this.currentLegalPositions) {
             if(coordinateIsACorner(m)) {
                 choosenPosition = m;
             }
         }
 
-        for(Position p : this.availablePositions) {
+        for(Position p : this.currentLegalPositions) {
             if(coordinateIsOnTheEdge(p)) {
                 choosenPosition = p;
             }
@@ -60,7 +60,6 @@ public class EdgeEddie extends Player {
         int col = position.column % (this.boardSize - 1);
 
         if(row == 0 || col == 0) return true;
-
         return false;
     }
 }
