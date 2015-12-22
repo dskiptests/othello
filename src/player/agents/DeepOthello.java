@@ -19,7 +19,7 @@ public class DeepOthello extends Player{
 
 
     private Random random;
-    private int boardSize;
+    private final int BOARD_SIZE = 8;
     private int[][] t;
     int turnsPlayed = 0;
 
@@ -27,6 +27,9 @@ public class DeepOthello extends Player{
 
     @Override
     public void newGame() {
+
+        t = new int[BOARD_SIZE][BOARD_SIZE];
+        random = new Random();
 
         t[0][0] = 99;
         t[0][1] = -8;

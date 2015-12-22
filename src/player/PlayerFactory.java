@@ -7,71 +7,90 @@ import player.agents.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 
 public class PlayerFactory {
 
 
-    public final static String[] availablePlayers = {"DeepOthello", "EdgeEddie", "RandomRichard", "MinimizingMaria", "ForThello", "Skumtomtarna","ChattanoogaFlowmasters", "Ox5f3759df"};
+    public String[] availablePlayers;
+    private Map<String, Class> playerMap;
+    private final String PACKAGE = "player.agents";
 
 
-
-    public void findAllPlayersInDir(final File directory) {
-        for (final File fileEntry : directory.listFiles()) {
-                System.out.println(fileEntry.getName());
-        }
+    public PlayerFactory() {
+        getAgentsFromPackage();
     }
-
 
     public Player newPlayer(String name, COLOR color) {
 
+        System.out.println("Requested player " + name);
+        System.out.println(playerMap.keySet());
 
-        System.out.println("Trying to find all classes in package...");
+
+        Class c = playerMap.get(name);
+        System.out.println("Class " + c.getSimpleName());
+
+        Player player = mapClassToPlayerObject(playerMap.get(name), color);
+
+        return player;
+    }
+
+
+    private void getAgentsFromPackage() {
+        this.playerMap = new HashMap<String, Class>();
 
         Class[] classes = null;
         try {
-            classes = getClasses("player.impl");
+            classes = getClasses(PACKAGE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        List<String> playerList = new LinkedList<String>();
+
         for(Class c : classes) {
-            System.out.println("class: " + c.getSimpleName());
+            if(Player.class.isAssignableFrom(c)) {
+                this.playerMap.put(c.getSimpleName(), c);
+                playerList.add(c.getSimpleName());
+            }
         }
 
+        this.availablePlayers = new String[playerList.size()];
+        for(int i = 0; i < playerList.size(); i++) {
+            availablePlayers[i] = playerList.get(i);
+        }
+
+    }
+
+
+    private Player mapClassToPlayerObject(Class<Player> c, COLOR color) {
+
+        Constructor<Player> cons = null;
+        try {
+            cons = c.getConstructor(COLOR.class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         Player player = null;
-
-
-        switch (name) {
-
-            case "EdgeEddie":
-                return new EdgeEddie(color);
-            case "RandomRichard":
-                return new RandomRichard(color);
-            case "MinimizingMaria":
-                return new MinimizingMaria(color);
-            case "DeepOthello":
-                return new DeepOthello(color);
-            case "Skumtomtarna":
-                return new Skumtomtarna(color);
-            case "ChattanoogaFlowmasters":
-                return new ChattanoogaFlowMasters(color);
-            case "ForThello" :
-                return new ForThello(color);
-            case "Ox5f3759df" :
-                return new Ox5f3759df(color);
-
+        try {
+            player = (Player) cons.newInstance(color);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
+
 
         return player;
     }
-
 
     private static Class[] getClasses(String packageName)
             throws ClassNotFoundException, IOException {
