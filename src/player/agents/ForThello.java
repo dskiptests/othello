@@ -1,12 +1,13 @@
 /**
  * Created by ericleijonmarck on 2015-12-18.
  */
-package player.impl;
+package player.agents;
 
 import game.Position;
 import player.Player;
 import game.COLOR;
 import player.Board;
+import player.agents.forthello.TurnsData;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -135,16 +136,4 @@ public class ForThello extends Player {
     }
 }
 
-class TurnsData {
 
-    public int CoinsFlipped;
-    public int Depth;
-    public Position FirstMove;
-
-    public TurnsData(Position firstMove){
-        CoinsFlipped = 0;
-        Depth = 0;
-        FirstMove = firstMove;
-    }
-
-}

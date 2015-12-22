@@ -1,9 +1,8 @@
-package player.impl;
+package player.agents;
 import game.Position;
 import player.Player;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 
 public class RandomRichard extends Player {

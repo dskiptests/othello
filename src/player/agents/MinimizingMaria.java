@@ -1,4 +1,4 @@
-package player.impl;
+package player.agents;
 
 import game.Position;
 import player.Player;

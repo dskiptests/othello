@@ -1,7 +1,8 @@
-package player;
-
+package player.agents;
 import game.COLOR;
 import game.Position;
+import player.Board;
+import player.Player;
 
 import java.util.LinkedList;
 
@@ -46,7 +47,7 @@ public class Skumtomtarna extends Player {
         for (Position childNode : childNodes) {
             Board childBoard = board.copy();
             childBoard.placeDisk(color, childNode);
-            
+
             if (color.equals(COLOR.BLACK))
                 color = COLOR.WHITE;
             else
@@ -101,7 +102,7 @@ public class Skumtomtarna extends Player {
             }
 
         }
-       // System.err.println("Num our: " + numOur);
+        // System.err.println("Num our: " + numOur);
         double quote =  (numOur / numEnemy) * 10;
 
         if (board.gameIsFinished() && numOur > numEnemy) {
@@ -112,7 +113,7 @@ public class Skumtomtarna extends Player {
         else if (board.gameIsFinished() && numOur < numEnemy)
             quote -= 100000;
 
-       // System.err.println(colorSign*quote);
+        // System.err.println(colorSign*quote);
         return colorSign * quote;
 
     }

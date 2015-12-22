@@ -1,5 +1,4 @@
-package player.impl.chattanooga_flowmasters;
-
+package player.agents;
 import game.COLOR;
 import game.Position;
 import player.Board;
@@ -7,7 +6,7 @@ import player.Player;
 
 import java.util.*;
 
-public class ChattanoogaPlayer extends Player {
+public class ChattanoogaFlowMasters extends Player {
 
     private final double K2 = 1;
     private final double K3 = 1;
@@ -24,7 +23,7 @@ public class ChattanoogaPlayer extends Player {
                     {-25, -25,  1, 1, 1,  1, -25, -25},
                     { 30, -25, 10, 5, 5, 10, -25,  30}};
 
-    public ChattanoogaPlayer(COLOR color) {
+    public ChattanoogaFlowMasters(COLOR color) {
         super(color);
     }
 
@@ -99,7 +98,7 @@ public class ChattanoogaPlayer extends Player {
      *
      * @param position the position where the move is placed
      * @param board the board state before placing the stone
-     * @return An {@link player.impl.chattanooga_flowmasters.ChattanoogaPlayer.ImmutablePair} with LEFT being blacks stones and RIGHT being whites stones.
+     * @return An {@link ChattanoogaFlowMasters.ImmutablePair} with LEFT being blacks stones and RIGHT being whites stones.
      */
     private ImmutablePair<Integer, Integer> calculateNumberOfStonesAfterMove(final Position position, final Board board) {
         Board copyBoard = board.copy();
@@ -110,7 +109,7 @@ public class ChattanoogaPlayer extends Player {
     /**
      *
      * @param board - the current board
-     * @return - An {@link player.impl.chattanooga_flowmasters.ChattanoogaPlayer.ImmutablePair} with LEFT being blacks stones and RIGHT being whites stones.
+     * @return - An {@link ChattanoogaFlowMasters.ImmutablePair} with LEFT being blacks stones and RIGHT being whites stones.
      */
     private ImmutablePair<Integer, Integer> getStoneCount(Board board) {
         Integer blackCount = 0;
