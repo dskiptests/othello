@@ -1,5 +1,6 @@
 package player.agents;
 
+import game.GameBoard;
 import game.Position;
 import player.Player;
 import game.COLOR;
@@ -36,9 +37,9 @@ public class MinimizingMaria extends Player {
         int maxNumberOfMoves = Integer.MAX_VALUE;
         for(Position p : this.availablePositions) {
 
-            Board tempBoard = this.currentBoard.copy();
+            GameBoard tempBoard = this.currentBoard.copyBoard();
             tempBoard.placeDisk(this.COLOR, p);
-            int numberOfMovesForOpponent = tempBoard.getAllLegalMoves(oppositeColor).size();
+            int numberOfMovesForOpponent = tempBoard.getAllLegalPositions(oppositeColor).size();
 
             if(numberOfMovesForOpponent < maxNumberOfMoves) {
                 choosenPosition = new Position(p);

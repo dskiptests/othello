@@ -50,7 +50,7 @@ public class PlayerHandler {
         noReturnFromPlayer = true;
 
         Player currentPlayer = players[turn];
-        currentPlayer.currentBoard = new Board(currentGameBoard.copy());
+        currentPlayer.currentBoard = new GameBoard(currentGameBoard.copyMatrix());
         currentPlayer.availablePositions = copy(legalPositions);
         Position playerPosition = getMove(currentPlayer);
 

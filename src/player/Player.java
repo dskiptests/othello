@@ -2,6 +2,7 @@ package player;
 
 
 import game.COLOR;
+import game.GameBoard;
 import game.Position;
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
@@ -9,7 +10,7 @@ import java.util.concurrent.Callable;
 public abstract class Player implements Callable<Position> {
 
 
-    public Board currentBoard;
+    public GameBoard currentBoard;
     public LinkedList<Position> availablePositions;
 
     public final COLOR COLOR;

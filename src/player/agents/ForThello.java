@@ -3,6 +3,7 @@
  */
 package player.agents;
 
+import game.GameBoard;
 import game.Position;
 import player.Player;
 import game.COLOR;
@@ -35,16 +36,16 @@ public class ForThello extends Player {
         this.boardSize = 8;
     }
 
-    public int NumberOfCoinsGainedPerMove(Board current, Board next) {
+    public int NumberOfCoinsGainedPerMove(GameBoard current, GameBoard next) {
         int Coins  = 0;
         int NextCoins  = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (this.COLOR == current.getColorMatrix()[i][j]){
+                if (this.COLOR == current.getBoardMatrix()[i][j]){
                     Coins++;
                 }
 
-                if (this.COLOR == next.getColorMatrix()[i][j]){
+                if (this.COLOR == next.getBoardMatrix()[i][j]){
                     NextCoins ++;
                 }
             }
@@ -52,25 +53,25 @@ public class ForThello extends Player {
         return NextCoins - Coins;
     }
 
-    public void algoMove(Board board, TurnsData turnsData) {
+    public void algoMove(GameBoard board, TurnsData turnsData) {
 
         turnsData.Depth ++;
-        Board oldBoard = board.copy();
+        GameBoard oldBoard = board.copyBoard();
         LinkedList<Position> availableMoves;
         COLOR color;
         if (turnsData.Depth == 1 || turnsData.Depth == 3){
-            availableMoves = oldBoard.getAllLegalMoves(this.COLOR);
+            availableMoves = oldBoard.getAllLegalPositions(this.COLOR);
             color = this.COLOR;
         }
         else {
-            availableMoves = oldBoard.getAllLegalMoves(getOppositeColor());
+            availableMoves = oldBoard.getAllLegalPositions(getOppositeColor());
             color = getOppositeColor();
         }
-        availableMoves = oldBoard.getAllLegalMoves(this.COLOR);
+        availableMoves = oldBoard.getAllLegalPositions(this.COLOR);
 
         for(Position p : availableMoves) {
 
-            Board tempBoard = oldBoard.copy();
+            GameBoard tempBoard = oldBoard.copyBoard();
             tempBoard.placeDisk(color, p);
             turnsData.CoinsFlipped += NumberOfCoinsGainedPerMove(oldBoard,tempBoard);
 
@@ -109,7 +110,7 @@ public class ForThello extends Player {
 
             TurnsData turnsData = new TurnsData(p);
 
-            Board tempBoard = this.currentBoard.copy();
+            GameBoard tempBoard = this.currentBoard.copyBoard();
             tempBoard.placeDisk(this.COLOR, p);
             turnsData.CoinsFlipped += NumberOfCoinsGainedPerMove(this.currentBoard,tempBoard);
 

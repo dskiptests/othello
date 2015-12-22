@@ -1,5 +1,6 @@
 package player.agents;
 import game.COLOR;
+import game.GameBoard;
 import game.Position;
 import player.Board;
 import player.Player;
@@ -34,7 +35,7 @@ public class Skumtomtarna extends Player {
         return ret.pos;
     }
 
-    private RetValue negamax(Board board, int depth, COLOR color) {
+    private RetValue negamax(GameBoard board, int depth, COLOR color) {
 
         if (depth == 0 || board.gameIsFinished()) {
             //System.err.println(utility(board, color));
@@ -43,9 +44,9 @@ public class Skumtomtarna extends Player {
 
         double bestValue = -10000000;
         Position bestPos = null;
-        LinkedList<Position> childNodes = board.getAllLegalMoves(color);
+        LinkedList<Position> childNodes = board.getAllLegalPositions(color);
         for (Position childNode : childNodes) {
-            Board childBoard = board.copy();
+            GameBoard childBoard = board.copyBoard();
             childBoard.placeDisk(color, childNode);
 
             if (color.equals(COLOR.BLACK))
@@ -78,7 +79,7 @@ public class Skumtomtarna extends Player {
         }
     }
 
-    private double utility(Board board, COLOR color) {
+    private double utility(GameBoard board, COLOR color) {
 
         //remember to do something with color
 
@@ -88,7 +89,7 @@ public class Skumtomtarna extends Player {
 
         double numOur = 0;
         double numEnemy = 0;
-        COLOR[][] bordMatrix = board.getColorMatrix();
+        COLOR[][] bordMatrix = board.getBoardMatrix();
         for (int rows = 0; rows < bordMatrix.length; rows++) {
             for (int cols = 0; cols < bordMatrix[0].length; cols++) {
                 if (bordMatrix[rows][cols].equals(ourColor)) {

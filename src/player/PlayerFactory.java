@@ -2,7 +2,6 @@ package player;
 
 
 import game.COLOR;
-import player.agents.*;
 
 
 import java.io.File;
@@ -17,12 +16,13 @@ public class PlayerFactory {
 
 
     public String[] availablePlayers;
+
     private Map<String, Class> playerMap;
-    private final String PACKAGE = "player.agents";
+    private final String AGENT_PACKAGE = "player.agents";
 
 
     public PlayerFactory() {
-        getAgentsFromPackage();
+        getAgentClassesFromPackage();
     }
 
     public Player newPlayer(String name, COLOR color) {
@@ -40,12 +40,12 @@ public class PlayerFactory {
     }
 
 
-    private void getAgentsFromPackage() {
+    private void getAgentClassesFromPackage() {
         this.playerMap = new HashMap<String, Class>();
 
         Class[] classes = null;
         try {
-            classes = getClasses(PACKAGE);
+            classes = getClasses(AGENT_PACKAGE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

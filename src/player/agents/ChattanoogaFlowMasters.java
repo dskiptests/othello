@@ -1,5 +1,6 @@
 package player.agents;
 import game.COLOR;
+import game.GameBoard;
 import game.Position;
 import player.Board;
 import player.Player;
@@ -58,7 +59,7 @@ public class ChattanoogaFlowMasters extends Player {
     }
 
 
-    private double scorePosition(final Position position, final Board board) {
+    private double scorePosition(final Position position, final GameBoard board) {
         ImmutablePair<Integer, Integer> stonesCount = calculateNumberOfStonesAfterMove(position, board);
         int friendlyStones = 0;
         int enemyStones = 0;
@@ -100,8 +101,8 @@ public class ChattanoogaFlowMasters extends Player {
      * @param board the board state before placing the stone
      * @return An {@link ChattanoogaFlowMasters.ImmutablePair} with LEFT being blacks stones and RIGHT being whites stones.
      */
-    private ImmutablePair<Integer, Integer> calculateNumberOfStonesAfterMove(final Position position, final Board board) {
-        Board copyBoard = board.copy();
+    private ImmutablePair<Integer, Integer> calculateNumberOfStonesAfterMove(final Position position, final GameBoard board) {
+        GameBoard copyBoard = board.copyBoard();
         copyBoard.placeDisk(this.COLOR, position);
         return getStoneCount(copyBoard);
     }
@@ -111,10 +112,10 @@ public class ChattanoogaFlowMasters extends Player {
      * @param board - the current board
      * @return - An {@link ChattanoogaFlowMasters.ImmutablePair} with LEFT being blacks stones and RIGHT being whites stones.
      */
-    private ImmutablePair<Integer, Integer> getStoneCount(Board board) {
+    private ImmutablePair<Integer, Integer> getStoneCount(GameBoard board) {
         Integer blackCount = 0;
         Integer whiteCount = 0;
-        COLOR[][] colorMatrix = board.getColorMatrix();
+        COLOR[][] colorMatrix = board.getBoardMatrix();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (colorMatrix[i][j] == game.COLOR.WHITE) {

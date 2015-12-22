@@ -1,5 +1,6 @@
 package player.agents;
 import game.COLOR;
+import game.GameBoard;
 import game.Position;
 import player.Board;
 import player.Player;
@@ -118,7 +119,7 @@ public class DeepOthello extends Player{
 
         for(Position p : this.availablePositions) {
 
-            Board tempBoard = this.currentBoard.copy();
+            GameBoard tempBoard = this.currentBoard.copyBoard();
             int ourCurrentValue = t[p.column][p.row];
             //int ourBoardValue = t[p.column][p.row];
 
@@ -128,8 +129,8 @@ public class DeepOthello extends Player{
             int nOurColorAfter = 0;
             for (int i = 0; i < 8; i++){
                 for (int j = 0; j < 8; j++) {
-                    if(this.currentBoard.getColorMatrix()[i][j] == this.COLOR) nOurColorBefore++;
-                    if(tempBoard.getColorMatrix()[i][j] == this.COLOR) nOurColorAfter++;
+                    if(this.currentBoard.getBoardMatrix()[i][j] == this.COLOR) nOurColorBefore++;
+                    if(tempBoard.getBoardMatrix()[i][j] == this.COLOR) nOurColorAfter++;
                 }
             }
             int diff = nOurColorAfter-nOurColorBefore;
@@ -141,7 +142,7 @@ public class DeepOthello extends Player{
 
 
             //int enemyMax = calculateMaxValue(tempBoard.getAllLegalMoves(oppositeColor));
-            int enemyMax = calculateBoardValue(tempBoard.getAllLegalMoves(oppositeColor));
+            int enemyMax = calculateBoardValue(tempBoard.getAllLegalPositions(oppositeColor));
 
             if (enemyMax < enemyMinMax) {
                 enemyMinMax = enemyMax;

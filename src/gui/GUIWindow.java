@@ -145,7 +145,7 @@ public class GUIWindow {
 
 
     private void turn() {
-        Position m = game.next();
+        Position m = game.nextTurn();
         if (m == null) {
             return;
         }
@@ -256,7 +256,7 @@ public class GUIWindow {
                     case EMPTY:
                         setPicture(EMPTY, new Position(i, j));
 
-                        if (game.isAvailable(new Position(i, j))) {
+                        if (game.isLegal(new Position(i, j))) {
 
                             for(Position m : legalPositions){
                                 if(m.row == i || m.column == j) {

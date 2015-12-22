@@ -3,7 +3,6 @@ package game;
 
 import player.Player;
 
-import java.io.IOException;
 import java.util.LinkedList;
 
 public class Game {
@@ -11,13 +10,13 @@ public class Game {
 
     private GameBoard gameBoard;
     private PlayerHandler playerHandler;
-    private boolean finished;
+    private final long TIMESLOT = 2000;
 
 
 
 
     public Game(Player whitePlayer, Player blackPlayer) {
-        newGame(2000, blackPlayer, whitePlayer);
+        newGame(TIMESLOT, blackPlayer, whitePlayer);
 
     }
 
@@ -25,23 +24,14 @@ public class Game {
         return this.playerHandler.getCurrentPlayerForGUI();
     }
 
-    public Player getNextPlayer() {
-        return this.playerHandler.getCurrentPlayer();
-    }
-
-    public LinkedList<Position> getAllLegalMoves() {
-        return this.gameBoard.getAllLegalMoves(playerHandler.getCurrentPlayer());
-    }
-
-
     public LinkedList<Position> getSlotsToColor() {
-        return this.gameBoard.getAllLegalMoves(playerHandler.getPreviousPlayer());
+        return this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayerForGUI().COLOR);
     }
 
-    public Position next() {
-        playerHandler.turn();
+    public Position nextTurn() {
 
-        LinkedList<Position> legalMovesForCurrentPlayer = this.gameBoard.getAllLegalMoves(playerHandler.getCurrentPlayer());
+        playerHandler.turn();
+        LinkedList<Position> legalMovesForCurrentPlayer = this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayer().COLOR);
         if(legalMovesForCurrentPlayer.size() < 1 ) return null;
 
         Position position = playerHandler.getNextPlayerMove(gameBoard, legalMovesForCurrentPlayer);
@@ -53,41 +43,35 @@ public class Game {
     public void newGame(long timeslot, Player player1, Player player2) {
         this.playerHandler = new PlayerHandler(player1, player2, timeslot);
         playerHandler.restart();
-        this.gameBoard = new GameBoard(playerHandler.getCurrentPlayer());
+        this.gameBoard = new GameBoard();
 
     }
 
 
-    public boolean isLegalMove(Player player, Position position) {
-        return gameBoard.isLegalMove(player, position);
+    public boolean isLegalMove(Player player, Position newPosition) {
+        return gameBoard.isLegalMove(player.COLOR, newPosition);
     }
 
-    public boolean isLegalMove(Position position) {
-        return gameBoard.doFlip(playerHandler.getCurrentPlayer(), position, false);
-    }
 
-    public boolean isAvailable(Position position) {
-        return gameBoard.doFlip(playerHandler.getCurrentPlayerForGUI(), position, false);
+    public boolean isLegal(Position position) {
+        return gameBoard.isLegalMove(playerHandler.getCurrentPlayerForGUI().COLOR, position);
     }
 
 
     public boolean isFinished() {
-        return 0 == this.gameBoard.chkWinner();
+        return this.gameBoard.gameIsFinished();
     }
 
 
-    public boolean flip(Position m) {
-        Player p = playerHandler.getCurrentPlayer();
-        if(isLegalMove(p, m)) {
-            this.gameBoard.doFlip(p,m,true);
-            this.gameBoard.placeDisk(p,m);
-            return true;
+    public void flip(Position position) {
+        Player player = playerHandler.getCurrentPlayer();
+        if(isLegalMove(player, position)) {
+            this.gameBoard.placeDisk(player.COLOR,position);
         }
-        return false;
     }
 
     public COLOR colorOfPosition(Position position) {
-        return gameBoard.getPosition(position);
+        return gameBoard.getPositionColor(position);
     }
 
 }
