@@ -3,8 +3,10 @@ package player;
 
 import game.COLOR;
 import player.impl.EdgeEddie;
-import player.impl.MinimizingMaria;
+import player.impl.Ox5f3759df;
 import player.impl.RandomRichard;
+
+import player.impl.MinimizingMaria;
 import player.impl.TerribleTerry;
 import player.impl.chattanooga_flowmasters.ChattanoogaPlayer;
 import player.impl.*;
@@ -13,7 +15,10 @@ import player.impl.*;
 public class PlayerFactory {
 
 
-    public final static String[] availablePlayers = {"DeepOthello", "EdgeEddie", "RandomRichard", "MinimizingMaria", "ForThello", "TerribleTerry", "Skumtomtarna","ChattanoogaFlowmasters"};
+    public final static String[] availablePlayers = {"DeepOthello", "EdgeEddie", "RandomRichard", "MinimizingMaria", "ForThello", "Skumtomtarna","ChattanoogaFlowmasters", "Ox5f3759df"};
+
+
+
 
 
 
@@ -28,15 +33,17 @@ public class PlayerFactory {
                 return new RandomRichard(color);
             case "MinimizingMaria":
                 return new MinimizingMaria(color);
-            case "TerribleTerry":
-                return new TerribleTerry(color);
             case "DeepOthello":
                 return new TerribleTerry(color);
             case "Skumtomtarna":
                 return new Skumtomtarna(color);
             case "ChattanoogaFlowmasters":
                 return new ChattanoogaPlayer(color);
-            case "ForThello" : return new ForThello(color);
+            case "ForThello" :
+                return new ForThello(color);
+            case "Ox5f3759df" :
+                return new Ox5f3759df(color);
+
         }
 
         return player;
