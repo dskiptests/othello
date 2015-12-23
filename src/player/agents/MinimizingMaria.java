@@ -5,6 +5,7 @@ import game.Position;
 import player.Player;
 import game.Color;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 
@@ -27,7 +28,7 @@ public class MinimizingMaria extends Player {
     }
 
     @Override
-    public Position nextMove() {
+    public Position nextMove(GameBoard currentBoard, LinkedList<Position> currentLegalPositions) throws InterruptedException {
 
         int randomIndex = random.nextInt(currentLegalPositions.size());
         Position choosenPosition = this.currentLegalPositions.get(randomIndex);

@@ -33,7 +33,7 @@ public class ChattanoogaFlowMasters extends Player {
     }
 
     @Override
-    public Position nextMove() throws InterruptedException {
+    public Position nextMove(GameBoard currentBoard, LinkedList<Position> currentLegalPositions) throws InterruptedException {
 
         List<ImmutablePair<Position, Double>> positionScores = new ArrayList<>(currentLegalPositions.size());
 

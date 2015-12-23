@@ -99,7 +99,7 @@ public class ForThello extends Player {
     }
 
     @Override
-    public Position nextMove() {
+    public Position nextMove(GameBoard currentBoard, LinkedList<Position> currentLegalPositions) throws InterruptedException {
 
         int randomIndex = random.nextInt(currentLegalPositions.size());
         Position choosenPosition = this.currentLegalPositions.get(randomIndex);

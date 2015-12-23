@@ -1,8 +1,10 @@
 package player.agents;
 import game.Color;
+import game.GameBoard;
 import game.Position;
 import player.Player;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 
@@ -21,7 +23,8 @@ public class RandomRichard extends Player {
     }
 
     @Override
-    public Position nextMove() throws InterruptedException {int randomIndex = random.nextInt(currentLegalPositions.size());
+    public Position nextMove(GameBoard currentBoard, LinkedList<Position> currentLegalPositions) throws InterruptedException {
+        int randomIndex = random.nextInt(currentLegalPositions.size());
         return new Position(this.currentLegalPositions.get(randomIndex));
     }
 }

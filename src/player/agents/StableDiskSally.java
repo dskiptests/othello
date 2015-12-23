@@ -3,6 +3,8 @@ package player.agents;
 import game.*;
 import player.Player;
 
+import java.util.LinkedList;
+
 
 public class StableDiskSally extends Player {
 
@@ -16,14 +18,14 @@ public class StableDiskSally extends Player {
     @Override
     public void newGame() {
         scoreMatrix = new int[][]
-                {{  40,     1,      15,     3},
+                {{  40,     1,      15,     5},
                 {   1,      0,      3,      3},
                 {   15,     3,      5,      3},
-                {   3,      3,      3,      3}};
+                {   5,      3,      3,      3}};
     }
 
     @Override
-    public Position nextMove() throws InterruptedException {
+    public Position nextMove(GameBoard board, LinkedList<Position> currentLegalPositions) throws InterruptedException {
         int maxScore = Integer.MIN_VALUE;
         Position returnPosition = null;
 

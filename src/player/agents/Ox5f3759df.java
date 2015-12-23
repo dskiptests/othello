@@ -71,7 +71,7 @@ public class Ox5f3759df extends Player
 	}
 
 	@Override
-	public Position nextMove()
+    public Position nextMove(GameBoard currentBoard, LinkedList<Position> currentLegalPositions) throws InterruptedException
 	{
 		Node root = new Node();
 

@@ -29,7 +29,7 @@ public class Skumtomtarna extends Player {
         }
     }
 
-    public Position nextMove() throws InterruptedException {
+    public Position nextMove(GameBoard currentBoard, LinkedList<Position> currentLegalPositions) throws InterruptedException {
         RetValue ret = negamax(currentBoard,5, ourColor);
         return ret.pos;
     }
