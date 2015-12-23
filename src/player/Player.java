@@ -42,7 +42,6 @@ public abstract class Player implements Callable<Position> {
      */
     public abstract void newGame();
 
-
     /**
      * This method is called when it is the players turn to make a move. Time slot ~ 2 seconds.
      * If the player is not able to return a move within the given time slot, a random
@@ -51,9 +50,10 @@ public abstract class Player implements Callable<Position> {
      *
      * Before this method is called, all global variables are updated.
      *
+     * @param board A copy of the current Board. The same variable as the global board in this class.
+     * @param currentLegalPositions A copy of the legal positions. Same as the gloal list.
      * @return A choosen position for the next turn.
      * @throws InterruptedException
      */
-
     public abstract Position nextMove(GameBoard board, LinkedList<Position> currentLegalPositions) throws InterruptedException;
 }
