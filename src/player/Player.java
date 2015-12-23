@@ -33,7 +33,7 @@ public abstract class Player implements Callable<Position> {
 
     @Override
     public String toString() {
-        return NAME + " " + COLOR;
+        return NAME + " (" + COLOR + ")";
     }
 
     /**
