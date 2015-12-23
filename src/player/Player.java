@@ -9,7 +9,6 @@ import java.util.concurrent.Callable;
 
 public abstract class Player implements Callable<Position> {
 
-
     public GameBoard currentBoard;
     public LinkedList<Position> currentLegalPositions;
 
@@ -34,7 +33,7 @@ public abstract class Player implements Callable<Position> {
 
     @Override
     public String toString() {
-        return "" + COLOR;
+        return NAME + " " + COLOR;
     }
 
     /**
