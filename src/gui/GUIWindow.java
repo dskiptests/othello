@@ -1,14 +1,18 @@
 package gui;
 
-import game.*;
 import game.Color;
+import game.Game;
+import game.Position;
 import player.Player;
 import player.PlayerFactory;
+import scoreboard.ScoreBoard;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.event.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import static game.Color.*;
@@ -22,7 +26,7 @@ public class GUIWindow {
     private final JLabel txtBlack = new JLabel("Black : ");
     private final String DISPLAY = "Board";
     private final int BOARD_SIZE = 8;
-
+    private final ScoreBoard scoreBoard;
     private ImageIcon picture;
     private JPanel slotsPanel = new JPanel(new GridLayout(BOARD_SIZE, BOARD_SIZE));
     private JPanel[][] panelBoard = new JPanel[BOARD_SIZE][BOARD_SIZE];
@@ -41,11 +45,13 @@ public class GUIWindow {
 
 
     private Player newPlayer(String name, Color color) {
-      return playerFactory.newPlayer(name, color);
+        return playerFactory.newPlayer(name, color);
     }
 
 
     public GUIWindow() {
+
+        this.scoreBoard = new ScoreBoard();
 
         CreateUI();
 
@@ -211,8 +217,28 @@ public class GUIWindow {
         LinkedList<Position> legalPositions = game.getSlotsToColor();
         updateColorsOfSlots(legalPositions);
 
-        if(game.isFinished()) GUIConsole.display("The winner is .... (this functionallity is not implemented yet..)");
+        if(game.isFinished()) {
+            Player whitePlayer = game.getPlayerByColor(Color.WHITE);
+            int whiteScore = game.getPlayerScore(whitePlayer);
 
+            Player blackPlayer = game.getPlayerByColor(Color.BLACK);
+            int blackScore = game.getPlayerScore(blackPlayer);
+            scoreBoard.put(whitePlayer, whiteScore, blackPlayer, blackScore);
+
+            Player winningPlayer;
+            int winningScore;
+            if(whiteScore > blackScore) {
+                winningPlayer = whitePlayer;
+                winningScore = whiteScore;
+            } else if(blackScore > whiteScore) {
+                winningPlayer = blackPlayer;
+                winningScore = blackScore;
+            } else {
+                GUIConsole.display("It's a draw!!");
+                return;
+            }
+            GUIConsole.display("The winner is " + winningPlayer.NAME + " with " + winningScore + " disks!");
+        }
         slotsPanel.updateUI();
     }
 
@@ -244,15 +270,12 @@ public class GUIWindow {
                         }
                         break;
                 }
-
-
-
             }
         }
     }
 
     public void restart() {
-       playerFactory = new PlayerFactory();
+        playerFactory = new PlayerFactory();
 
         if(whiteString == null) whiteString = "EdgeEddie";
         if(blackString == null) blackString = "EdgeEddie";

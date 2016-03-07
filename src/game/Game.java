@@ -11,7 +11,7 @@ public class Game {
     private GameBoard gameBoard;
     private PlayerHandler playerHandler;
     private final long TIMESLOT = 2000;
-
+    private boolean result;
 
 
     public Game(Player whitePlayer, Player blackPlayer) {
@@ -74,8 +74,12 @@ public class Game {
     }
 
 
-
-    private Player getPlayerByColor(Color white) {
-        return null;
+    public Player getPlayerByColor(Color color) {
+        return playerHandler.getPlayerByColor(color);
     }
+
+    public int getPlayerScore(Player player) {
+        return gameBoard.getNumberOfDisksInColor(player.COLOR);
+    }
+
 }

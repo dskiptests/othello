@@ -31,7 +31,6 @@ public class ForThello extends Player {
     @Override
     public void newGame() {
         this.random = new Random();
-        System.out.println(NAME + " is alive! :)");
         this.boardSize = 8;
         listTurnsData = new ArrayList<TurnsData>();
     }

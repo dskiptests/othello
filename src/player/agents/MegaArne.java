@@ -6,12 +6,12 @@ import player.Player;
 import java.util.LinkedList;
 
 
-public class StableDiskSally extends Player {
+public class MegaArne extends Player {
 
     private int[][] scoreMatrix;
 
 
-    public StableDiskSally(Color color) {
+    public MegaArne(Color color) {
         super(color);
     }
 

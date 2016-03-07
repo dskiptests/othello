@@ -22,7 +22,6 @@ public class EdgeEddie extends Player {
     @Override
     public void newGame() {
         this.random = new Random();
-        System.out.println(NAME + " is alive! :)");
         this.boardSize = 8;
     }
 

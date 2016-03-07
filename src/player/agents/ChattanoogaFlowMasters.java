@@ -51,9 +51,8 @@ public class ChattanoogaFlowMasters extends Player {
     }
 
     private void printMove(List<ImmutablePair<Position, Double>> positionScores) {
-        System.out.println("***");
         for(ImmutablePair immutablePair : positionScores) {
-            System.out.println("Position: " + immutablePair.getLeft() + " Score: " + immutablePair.getRight());
+//            System.out.println("Position: " + immutablePair.getLeft() + " Score: " + immutablePair.getRight());
         }
     }
 

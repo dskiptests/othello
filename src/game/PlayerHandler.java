@@ -16,6 +16,13 @@ public class PlayerHandler {
     private boolean noReturnFromPlayer;
 
 
+
+    public Player getPlayerByColor(Color color) {
+        if(players[0].COLOR == color) {
+            return players[0];
+        } else return players[1];
+    }
+
     public Player getCurrentPlayer() {
 
         return players[turn];
@@ -113,9 +120,9 @@ public class PlayerHandler {
         turn = 0;
     }
 
-    public Player getPreviousPlayer() {
-        return players[(turn + 1) % 2];
-    }
+//    public Player getPreviousPlayer() {
+//        return players[(turn + 1) % 2];
+//    }
 
     public void setTimeLeft(Player player, long l) {
 
@@ -125,4 +132,5 @@ public class PlayerHandler {
     public long getSavedTime(Player p) {
         return this.time.get(p);
     }
+
 }
