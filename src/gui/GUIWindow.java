@@ -42,6 +42,7 @@ public class GUIWindow {
     private PlayerFactory playerFactory = new PlayerFactory();
     private String whiteString = null;
     private String blackString = null;
+    private JButton clearButton;
 
 
     private Player newPlayer(String name, Color color) {
@@ -135,8 +136,21 @@ public class GUIWindow {
             }
         });
         panel.add(actionButton);
+
+        this.clearButton = new JButton("Clear Score Board");
+        clearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                clearScoreBoard();
+            }
+        });
+        panel.add(clearButton);
         panel.setBorder(border);
+
         return panel;
+    }
+
+    private void clearScoreBoard() {
+        this.scoreBoard.clear();
     }
 
 

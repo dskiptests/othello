@@ -28,6 +28,8 @@ public class ScoreBoard {
     private JTable jTable;
     private JScrollPane jScrollPane;
     private DefaultTableModel tableModel;
+    private JButton jButton;
+    private JPanel jPanel;
 
     public ScoreBoard() {
         createGUI();
@@ -39,7 +41,11 @@ public class ScoreBoard {
         this.tableModel = new DefaultTableModel(getData(), this.columnNames);
         this.jTable = new JTable(tableModel);
         this.jScrollPane = new JScrollPane(jTable);
-
+        this.jButton = new JButton("Clear Score Board");
+        this.jPanel = new JPanel();
+        this.jPanel.add(this.jButton);
+        this.jPanel.setVisible(true);
+        this.jFrame.add(this.jPanel);
 
         jFrame.setSize(600, 600);
         jFrame.add(jScrollPane);
@@ -50,6 +56,10 @@ public class ScoreBoard {
         updateScore(player1, player1Score);
         updateScore(player2, player2Score);
 
+        clearAndAdd();
+    }
+
+    private void clearAndAdd() {
         while(tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
@@ -100,5 +110,8 @@ public class ScoreBoard {
     }
 
 
-
+    public void clear() {
+        this.scoreBoard = new HashMap<String, PlayerScore>();
+        clearAndAdd();
+    }
 }

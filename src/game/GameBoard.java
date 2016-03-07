@@ -197,16 +197,7 @@ public class GameBoard {
      * @return True if there are no empty disks on the Board, false otherwise
      */
     public boolean gameIsFinished() {
-        if(0 == getNumberOfDisksInColor(Color.EMPTY)) {
-           return true;
-        }
-        if(0 == getNumberOfDisksInColor(Color.WHITE)) {
-            return true;
-        }
-        if(0 == getNumberOfDisksInColor(Color.BLACK)) {
-            return true;
-        }
-        return false;
+        return 0 == getNumberOfDisksInColor(Color.EMPTY) || 0 == getNumberOfDisksInColor(Color.WHITE) || 0 == getNumberOfDisksInColor(Color.BLACK);
     }
 
     /**
