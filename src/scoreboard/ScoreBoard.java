@@ -53,6 +53,9 @@ public class ScoreBoard {
     }
 
     public void put(Player player1, int player1Score, Player player2, int player2Score) {
+
+        if(player1.NAME.equals(player2.NAME)) return;
+
         updateScore(player1, player1Score);
         updateScore(player2, player2Score);
 
@@ -69,7 +72,6 @@ public class ScoreBoard {
         }
         this.tableModel.fireTableDataChanged();
     }
-
 
     private Object[][] getData() {
         Object[][] data = new Object[scoreBoard.size()][7];

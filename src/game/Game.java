@@ -4,6 +4,7 @@ package game;
 import player.Player;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Game {
 
@@ -68,6 +69,8 @@ public class Game {
             this.gameBoard.placeDisk(player.COLOR,position);
         }
     }
+
+
 
     public Color colorOfPosition(Position position) {
         return gameBoard.getPositionColor(position);

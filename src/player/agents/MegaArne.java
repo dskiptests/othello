@@ -34,8 +34,6 @@ public class MegaArne extends Player {
             int neighbourRank = getNeighbourScoreForPosition(pos);
             int score = (naiveRank+ neighbourRank);
 
-            System.out.println(pos + " " + getNaiveScoreForPosition(pos) + " " + getNeighbourScoreForPosition(pos));
-
             if(score > maxScore) {
                 maxScore = score;
                 returnPosition = pos;

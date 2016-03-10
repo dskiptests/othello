@@ -13,7 +13,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
+import java.util.*;
 
 import static game.Color.*;
 
@@ -37,7 +37,7 @@ public class GUIWindow {
     private int bCount = 0;
     private Game game;
     private JButton actionButton;
-
+    private Map<String, String> availablePlayers = new HashMap<String, String>();
 
     private PlayerFactory playerFactory = new PlayerFactory();
     private String whiteString = null;
@@ -93,42 +93,6 @@ public class GUIWindow {
         });
         panel.add(automaticGame);
 
-
-
-
-
-        Border border2 = BorderFactory.createTitledBorder("Pizza Toppings");
-        panel.setBorder(border2);
-
-        JComboBox blackPlayers = new JComboBox(playerFactory.availablePlayers);
-        blackString = playerFactory.availablePlayers[0];
-
-        blackPlayers.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                blackString = blackPlayers.getSelectedItem().toString();
-            }
-        });
-
-        JLabel jlabel = new JLabel("Black");
-        jlabel.setFont(new Font("Verdana",1,12));
-        panel.add(jlabel);
-        JTextField whiteText = new JTextField(WHITE.toString());
-
-        JComboBox whitePlayers = new JComboBox(playerFactory.availablePlayers);
-        whiteString = playerFactory.availablePlayers[0];
-        whitePlayers.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                whiteString = whitePlayers.getSelectedItem().toString();
-            }
-        });
-
-        panel.add(blackPlayers);
-        jlabel = new JLabel("White");
-        jlabel.setFont(new Font("Verdana", 1, 12));
-        panel.add(jlabel);
-        panel.add(whitePlayers);
-
-
         this.actionButton = new JButton(TURN);
         actionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -136,6 +100,59 @@ public class GUIWindow {
             }
         });
         panel.add(actionButton);
+
+
+
+//        Border border2 = BorderFactory.createTitledBorder("Pizza Toppings");
+//        panel.setBorder(border2);
+
+        JComboBox blackPlayers = new JComboBox();
+        blackString = playerFactory.availablePlayers[0];
+
+        blackPlayers.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (blackPlayers.getSelectedItem() == null) {
+                    for (int i = 0; i < blackPlayers.getItemCount(); i = i) {
+                        blackPlayers.removeItemAt(0);
+                    }
+                    for (String s : parseList(availablePlayers)) {
+                        blackPlayers.addItem(s);
+                    }
+//                    blackPlayers.setSelectedIndex(0);
+                }
+                blackString = blackPlayers.getSelectedItem().toString();
+            }
+        });
+
+        JLabel blackTextLabel = new JLabel("Black");
+        blackTextLabel.setFont(new Font("Verdana", 0, 12));
+        JTextField whiteText = new JTextField(WHITE.toString());
+
+        JComboBox whitePlayers = new JComboBox();
+        whiteString = playerFactory.availablePlayers[0];
+        whitePlayers.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (whitePlayers.getSelectedItem() == null) {
+                    for (int i = 0; i < whitePlayers.getItemCount(); i = i) {
+                        whitePlayers.removeItemAt(0);
+                    }
+                    for (String s : parseList(availablePlayers)) {
+                        whitePlayers.addItem(s);
+                    }
+//                    whitePlayers.setSelectedIndex(0);
+                }
+                whiteString = whitePlayers.getSelectedItem().toString();
+            }
+        });
+
+//        panel.add(blackPlayers);
+        JLabel whiteTextLabel = new JLabel("White");
+        whiteTextLabel.setFont(new Font("Verdana", 0, 12));
+
+
+
+
+
 
         this.clearButton = new JButton("Clear Score Board");
         clearButton.addActionListener(new ActionListener() {
@@ -146,6 +163,57 @@ public class GUIWindow {
         panel.add(clearButton);
         panel.setBorder(border);
 
+
+        ActionListener aListener = new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                AbstractButton aButton = (AbstractButton) event.getSource();
+                boolean selected = aButton.getModel().isSelected();
+
+                if(selected) availablePlayers.put(aButton.getText(), "arne");
+                else availablePlayers.remove(aButton.getText());
+
+                for(int i = 0; i < whitePlayers.getItemCount(); i=i) {
+                    whitePlayers.removeItemAt(0);
+                }
+                for(int i = 0; i < blackPlayers.getItemCount(); i=i) {
+                    blackPlayers.removeItemAt(0);
+                }
+                for(String s : parseList(availablePlayers)) {
+                    whitePlayers.addItem(s);
+                    blackPlayers.addItem(s);
+                }
+
+            }
+        };
+
+        JPopupMenu playerMenu = new JPopupMenu();
+        for(String player : playerFactory.availablePlayers) {
+            JCheckBoxMenuItem jCheckBoxMenuItem = new JCheckBoxMenuItem(player);
+            jCheckBoxMenuItem.addActionListener(aListener);
+            playerMenu.add(jCheckBoxMenuItem);
+        }
+
+        final JButton button = new JButton();
+        button.setAction(new AbstractAction("Choose Agents") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                playerMenu.show(button, 0, button.getHeight());
+
+            }
+        });
+
+
+
+
+
+        JLabel textLabel = new JLabel("Player Selection");
+        textLabel.setFont(new Font("Verdana", 1, 12));;
+        panel.add(textLabel);
+        panel.add(button);
+        panel.add(whiteTextLabel);
+        panel.add(whitePlayers);
+        panel.add(blackTextLabel);
+        panel.add(blackPlayers);
         return panel;
     }
 
@@ -171,6 +239,16 @@ public class GUIWindow {
             turn();
             if(game.isFinished()) break;
         }
+    }
+
+    private String[] parseList(Map<String, String> map) {
+        String [] list = new String[map.size()];
+        int index = 0;
+        for(String key : map.keySet()) {
+            list[index] = key;
+            index++;
+        }
+        return list;
     }
 
     private JPanel CreateDisplay() {
@@ -289,7 +367,14 @@ public class GUIWindow {
     }
 
     public void restart() {
+
+
+
+        getAllGames();
+
         playerFactory = new PlayerFactory();
+
+        System.out.println(blackString + " " + whiteString);
 
         if(whiteString == null) whiteString = "EdgeEddie";
         if(blackString == null) blackString = "EdgeEddie";
@@ -307,10 +392,7 @@ public class GUIWindow {
         bCount = 0;
 
         String text = game.getNextTurn().NAME + " " + game.getNextTurn().COLOR;
-
         txtCurrentPlayer.setText(text);
-
-
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Color positionColor = game.colorOfPosition(new Position(i,j));
@@ -334,6 +416,22 @@ public class GUIWindow {
             System.err.println("Couldn't find the file: " + path);
             return null;
         }
+    }
+
+    public String[][] getAllGames() {
+        String[] tuples = new String[2];
+        Set<String[]> matches = new HashSet<String[]>();
+        for(String white : availablePlayers.keySet()) {
+            for(String black : availablePlayers.keySet()) {
+                if(! Objects.equals(white, black)) {
+                    matches.add(new String[]{white, black});
+                }
+            }
+        }
+        for(String[] s : matches) {
+            System.out.println("Match: " + s[0] + " " + s[1]);
+        }
+        return null;
     }
 
 
