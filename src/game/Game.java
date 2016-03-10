@@ -1,10 +1,10 @@
 package game;
 
 
+import gameschedule.Match;
 import player.Player;
 
 import java.util.LinkedList;
-import java.util.Map;
 
 public class Game {
 
@@ -85,4 +85,7 @@ public class Game {
         return gameBoard.getNumberOfDisksInColor(player.COLOR);
     }
 
+    public String getKey(Match match) {
+        return match.whitePlayer + match.blackPlayer;
+    }
 }

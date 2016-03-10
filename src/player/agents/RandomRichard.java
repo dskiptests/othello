@@ -18,7 +18,6 @@ public class RandomRichard extends Player {
 
     @Override
     public void newGame() {
-        System.out.println(NAME + " is alive! :) " + this.COLOR);
         this.random = new Random();
     }
 

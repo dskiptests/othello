@@ -29,6 +29,7 @@ public class MegaArne extends Player {
         int maxScore = Integer.MIN_VALUE;
         Position returnPosition = null;
 
+
         for(Position pos : this.currentLegalPositions) {
             int naiveRank = getNaiveScoreForPosition(pos);
             int neighbourRank = getNeighbourScoreForPosition(pos);

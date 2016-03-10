@@ -3,6 +3,8 @@ package gui;
 import game.Color;
 import game.Game;
 import game.Position;
+import gameschedule.GameSchedule;
+import gameschedule.Match;
 import player.Player;
 import player.PlayerFactory;
 import scoreboard.ScoreBoard;
@@ -14,6 +16,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.List;
 
 import static game.Color.*;
 
@@ -26,7 +29,8 @@ public class GUIWindow {
     private final JLabel txtBlack = new JLabel("Black : ");
     private final String DISPLAY = "Board";
     private final int BOARD_SIZE = 8;
-    private final ScoreBoard scoreBoard;
+    private ScoreBoard scoreBoard;
+    private GameSchedule gameSchedule;
     private ImageIcon picture;
     private JPanel slotsPanel = new JPanel(new GridLayout(BOARD_SIZE, BOARD_SIZE));
     private JPanel[][] panelBoard = new JPanel[BOARD_SIZE][BOARD_SIZE];
@@ -52,7 +56,7 @@ public class GUIWindow {
 
     public GUIWindow() {
 
-        this.scoreBoard = new ScoreBoard();
+
 
         CreateUI();
 
@@ -118,7 +122,7 @@ public class GUIWindow {
                     for (String s : parseList(availablePlayers)) {
                         blackPlayers.addItem(s);
                     }
-//                    blackPlayers.setSelectedIndex(0);
+                    blackPlayers.setSelectedIndex(0);
                 }
                 blackString = blackPlayers.getSelectedItem().toString();
             }
@@ -139,7 +143,7 @@ public class GUIWindow {
                     for (String s : parseList(availablePlayers)) {
                         whitePlayers.addItem(s);
                     }
-//                    whitePlayers.setSelectedIndex(0);
+                    whitePlayers.setSelectedIndex(0);
                 }
                 whiteString = whitePlayers.getSelectedItem().toString();
             }
@@ -151,13 +155,22 @@ public class GUIWindow {
 
 
 
+        JCheckBox showStatsCheckBox = new JCheckBox("Show stats");
+        showStatsCheckBox.setSelected(false);
+        showStatsCheckBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                showStats(showStatsCheckBox.isSelected());
+            }
+        });
+        panel.add(showStatsCheckBox);
 
 
-
-        this.clearButton = new JButton("Clear Score Board");
+        this.clearButton = new JButton("Clear all stats");
         clearButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                clearScoreBoard();
+
+                clearAllStatistics();
             }
         });
         panel.add(clearButton);
@@ -182,6 +195,11 @@ public class GUIWindow {
                     whitePlayers.addItem(s);
                     blackPlayers.addItem(s);
                 }
+
+                for(Match match : getAndPrintAllMatches()) {
+                    gameSchedule.put(match);
+                }
+
 
             }
         };
@@ -217,8 +235,35 @@ public class GUIWindow {
         return panel;
     }
 
-    private void clearScoreBoard() {
-        this.scoreBoard.clear();
+    private void showStats(boolean selected) {
+        if(selected) {
+            this.scoreBoard = new ScoreBoard();
+            this.gameSchedule = new GameSchedule();
+            for(Match match : getAndPrintAllMatches()) {
+                gameSchedule.put(match);
+            }
+        } else if(Objects.isNull(scoreBoard) || Objects.isNull(gameSchedule)){
+
+        } else {
+            this.scoreBoard.kill();
+            this.gameSchedule.kill();
+        }
+
+
+
+
+    }
+
+    private void clearAllStatistics() {
+        if(!Objects.isNull(scoreBoard)) {
+            this.scoreBoard.clear();
+        }
+        if(!Objects.isNull(gameSchedule)) {
+            this.gameSchedule.clear();
+            for(Match match : getAndPrintAllMatches()) {
+                gameSchedule.put(match);
+            }
+        }
     }
 
 
@@ -315,7 +360,14 @@ public class GUIWindow {
 
             Player blackPlayer = game.getPlayerByColor(Color.BLACK);
             int blackScore = game.getPlayerScore(blackPlayer);
-            scoreBoard.put(whitePlayer, whiteScore, blackPlayer, blackScore);
+
+            if(!Objects.isNull(scoreBoard)) {
+                scoreBoard.put(whitePlayer, whiteScore, blackPlayer, blackScore);
+            }
+            if(!Objects.isNull(gameSchedule)) {
+                gameSchedule.put(whitePlayer, whiteScore, blackPlayer, blackScore);
+            }
+
 
             Player winningPlayer;
             int winningScore;
@@ -370,11 +422,10 @@ public class GUIWindow {
 
 
 
-        getAllGames();
+
 
         playerFactory = new PlayerFactory();
 
-        System.out.println(blackString + " " + whiteString);
 
         if(whiteString == null) whiteString = "EdgeEddie";
         if(blackString == null) blackString = "EdgeEddie";
@@ -418,20 +469,27 @@ public class GUIWindow {
         }
     }
 
-    public String[][] getAllGames() {
+    public List<Match> getAndPrintAllMatches() {
+        List<Match> games = new ArrayList<Match>();
         String[] tuples = new String[2];
         Set<String[]> matches = new HashSet<String[]>();
         for(String white : availablePlayers.keySet()) {
             for(String black : availablePlayers.keySet()) {
                 if(! Objects.equals(white, black)) {
                     matches.add(new String[]{white, black});
+                    games.add(new Match(white, "0", black, "0"));
                 }
             }
         }
+        if(matches.isEmpty()) return games;
+        int index = 1;
+//        System.out.println("********************************* MATCHES *********************************");
         for(String[] s : matches) {
-            System.out.println("Match: " + s[0] + " " + s[1]);
+//            System.out.println("Match (" + index + ") " + s[0] + " vs. " + s[1]);
+            index++;
         }
-        return null;
+//        System.out.println("***************************************************************************");
+        return games;
     }
 
 

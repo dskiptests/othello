@@ -54,7 +54,7 @@ public class ScoreBoard {
 
     public void put(Player player1, int player1Score, Player player2, int player2Score) {
 
-        if(player1.NAME.equals(player2.NAME)) return;
+        if (player1.NAME.equals(player2.NAME)) return;
 
         updateScore(player1, player1Score);
         updateScore(player2, player2Score);
@@ -63,7 +63,7 @@ public class ScoreBoard {
     }
 
     private void clearAndAdd() {
-        while(tableModel.getRowCount() > 0) {
+        while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
 
@@ -77,7 +77,7 @@ public class ScoreBoard {
         Object[][] data = new Object[scoreBoard.size()][7];
         int index = 0;
         for (PlayerScore row : getSortedScores()) {
-            data[index] = new Object[] {
+            data[index] = new Object[]{
                     scoreBoard.get(row.name).name,
                     scoreBoard.get(row.name).played,
                     scoreBoard.get(row.name).wins,
@@ -95,7 +95,7 @@ public class ScoreBoard {
 
     private List<PlayerScore> getSortedScores() {
         ArrayList<PlayerScore> scoreList = new ArrayList<PlayerScore>();
-        for (String key : scoreBoard.keySet() ) {
+        for (String key : scoreBoard.keySet()) {
             scoreList.add(scoreBoard.get(key));
         }
         Collections.sort(scoreList);
@@ -104,7 +104,7 @@ public class ScoreBoard {
     }
 
     private void updateScore(Player player, int score) {
-        if(this.scoreBoard.containsKey(player.NAME)) {
+        if (this.scoreBoard.containsKey(player.NAME)) {
             this.scoreBoard.put(player.NAME, new PlayerScore(this.scoreBoard.get(player.NAME), score));
         } else {
             this.scoreBoard.put(player.NAME, new PlayerScore(player.NAME, score));
@@ -116,4 +116,13 @@ public class ScoreBoard {
         this.scoreBoard = new HashMap<String, PlayerScore>();
         clearAndAdd();
     }
+
+    public void kill() {
+        this.jFrame.hide();
+    }
+
+    public void show() {
+        this.jFrame.show();
+    }
+
 }
