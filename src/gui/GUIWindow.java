@@ -195,10 +195,12 @@ public class GUIWindow {
                     whitePlayers.addItem(s);
                     blackPlayers.addItem(s);
                 }
+                try {
+                    for(Match match : getAndPrintAllMatches()) {
+                        gameSchedule.put(match);
+                    }
+                } catch(Exception e){}
 
-                for(Match match : getAndPrintAllMatches()) {
-                    gameSchedule.put(match);
-                }
 
 
             }
