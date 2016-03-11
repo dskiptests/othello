@@ -53,7 +53,7 @@ public class TeamTakanashi extends Player {
         if (runs < 10) {
             runs++;
             Random r = new Random();
-            int i = r.nextInt(Math.abs(currentLegalPositions.size()-1));
+            int i = r.nextInt(Math.abs(currentLegalPositions.size() - 1));
             return currentLegalPositions.get(i);
         }
         GameBoard test = board.copyBoard();
@@ -61,8 +61,7 @@ public class TeamTakanashi extends Player {
 
 
         return position;
-    }
-
+    }       
     private LinkedList gain(LinkedList<Position> currentLegalPositions, GameBoard testBoard, Color color) {
         int best = testBoard.getNumberOfDisksInColor(color);
         LinkedList<Position> bestPos = new LinkedList<>();
