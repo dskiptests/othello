@@ -1,4 +1,4 @@
-package player.agents.forthello;
+package player.agents;
 
 import game.Position;
 
