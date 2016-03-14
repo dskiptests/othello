@@ -3,13 +3,13 @@ package player.agents;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 import java.util.Random;
 
 
-public class EdgeEddie extends Player {
+public class EdgeEddie extends Agent {
 
     private Random random;
     private int boardSize;

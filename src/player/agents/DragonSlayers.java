@@ -3,14 +3,14 @@ package player.agents;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.*;
 
 /**
  * Created by Brian on 2016-03-11.
  */
-public class DragonSlayers extends Player{
+public class DragonSlayers extends Agent {
 
     private Random random;
     private int boardSize;
@@ -53,8 +53,8 @@ public class DragonSlayers extends Player{
             int j = 0;
             Position currPosition = null;
             for(Position p : currentLegalPositions){
-                board.placeDisk(this.COLOR,p);
-                tmp2 = board.getNumberOfDisksInColor(this.COLOR);
+                board.placeDisk(this.color,p);
+                tmp2 = board.getNumberOfDisksInColor(this.color);
                 if(tmp2 > j){
 
                     if (p.row == 2 && (p.column == 1 || p.column == 2 || p.column == 3 || p.column == 4)){
@@ -83,8 +83,8 @@ public class DragonSlayers extends Player{
         int i = 100000;
         Position currPosition = null;
         for(Position p : currentLegalPositions){
-            board.placeDisk(this.COLOR,p);
-            tmp = board.getNumberOfDisksInColor(this.COLOR);
+            board.placeDisk(this.color,p);
+            tmp = board.getNumberOfDisksInColor(this.color);
             if(tmp < i){
 
                 if (p.row == 2 && (p.column == 1 || p.column == 2 || p.column == 3 || p.column == 4)){

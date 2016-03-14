@@ -3,14 +3,14 @@ package player.agents.forthello;
 import game.GameBoard;
 import game.Position;
 import game.Color;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 
 /**
  * Created by marcus on 2016-03-11.
  */
-public class Baewatch extends Player {
+public class Baewatch extends Agent {
 
     public Baewatch(Color c) {
         super(c);
@@ -19,7 +19,7 @@ public class Baewatch extends Player {
 
     private int[][] t;
 
-    private Color ourColour = this.COLOR;
+    private Color ourColour = this.color;
     private Color theirColour = getOtherColor();
 
 
@@ -70,7 +70,7 @@ public class Baewatch extends Player {
     }
 
     private Color getOtherColor() {
-        return (this.COLOR == Color.WHITE) ? Color.BLACK : COLOR.WHITE;
+        return (this.color == Color.WHITE) ? Color.BLACK : color.WHITE;
     }
 
     private int caculateScore() {

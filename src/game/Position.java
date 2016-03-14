@@ -7,7 +7,7 @@ public class Position {
     public final int column;
     private final int hashCode;
 
-    public Position(int row, int column) {
+    public Position(final int row, final int column) {
         this.row = Math.abs(row) % 8;
         this.column = Math.abs(column) % 8;
         this.hashCode = (this.row + "" + this.column).hashCode();
@@ -34,6 +34,14 @@ public class Position {
     public boolean equals(Object obj) {
         if(obj == null) return false;
         return obj.hashCode() == this.hashCode;
+    }
+
+    public Position copy() {
+        return new Position(row, column);
+    }
+
+    public static Position newPosition(Position position) {
+        return new Position(position.row, position.column);
     }
 
 }

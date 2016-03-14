@@ -1,22 +1,18 @@
 package player.agents;
 
 import game.Color;
-import game.Game;
 import game.GameBoard;
 import game.Position;
-import javafx.geometry.Pos;
-import player.Player;
+import player.Agent;
 
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.LinkedList;
 
-public class Rar extends Player {
+public class Rar extends Agent {
     int[][] t = new int[8][8];
     Color ourColor;
     Color enemyColor;
-    ArrayList<Player> list;
+    ArrayList<Agent> list;
 
     public Rar(Color color) {
         super(color);
@@ -24,17 +20,17 @@ public class Rar extends Player {
 
     @Override
     public void newGame() {
-        ourColor = this.COLOR;
-        enemyColor = getAntiColor(this.COLOR);
+        ourColor = this.color;
+        enemyColor = getAntiColor(this.color);
 
         list = new ArrayList<>();
 
-        EdgeEddie ee = new EdgeEddie(this.COLOR);
-        ForThello ft = new ForThello(this.COLOR);
-        MinimizingMaria mm = new MinimizingMaria(this.COLOR);
-        RandomRichard rr = new RandomRichard(this.COLOR);
-        Skumtomtarna st = new Skumtomtarna(this.COLOR);
-        //list.add(new DeepOthello(this.COLOR));
+        EdgeEddie ee = new EdgeEddie(this.color);
+        ForThello ft = new ForThello(this.color);
+        MinimizingMaria mm = new MinimizingMaria(this.color);
+        RandomRichard rr = new RandomRichard(this.color);
+        Skumtomtarna st = new Skumtomtarna(this.color);
+        //list.add(new DeepOthello(this.myColor));
         list.add(ee);
         list.add(ft);
         list.add(mm);
@@ -46,7 +42,7 @@ public class Rar extends Player {
     public Position nextMove(GameBoard board, LinkedList<Position> currentLegalPositions) throws InterruptedException {
         double bestUtility = Double.MIN_VALUE;
         Position bestMove = null;
-        for (Player p : list) {
+        for (Agent p : list) {
             GameBoard newBoard = board.copyBoard();
             Position pos = p.nextMove(board, currentLegalPositions);
             newBoard.placeDisk(ourColor, pos);
@@ -72,7 +68,7 @@ public class Rar extends Player {
 
     private double utility(GameBoard board, Color color) {
 
-        //remember to do something with color
+        //remember to do something with myColor
 
         double colorSign = -1;
         if (color.equals(ourColor))

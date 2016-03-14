@@ -7,12 +7,12 @@ import game.Position;
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
 
-public abstract class Player implements Callable<Position> {
+public abstract class Agent implements Callable<Position> {
 
     public GameBoard currentBoard;
     public LinkedList<Position> currentLegalPositions;
 
-    public final Color COLOR;
+    public final Color color;
     public final String NAME = this.getClass().getSimpleName();
 
     @Override
@@ -26,14 +26,14 @@ public abstract class Player implements Callable<Position> {
         return position;
     }
 
-    public Player(Color color) {
-        this.COLOR = color;
+    public Agent(Color color) {
+        this.color = color;
     }
 
 
     @Override
     public String toString() {
-        return NAME + " (" + COLOR + ")";
+        return NAME + " (" + color + ")";
     }
 
     /**

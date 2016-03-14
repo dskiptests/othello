@@ -1,5 +1,5 @@
 package scoreboard;
-import player.Player;
+import player.Agent;
 import java.util.HashMap;
 
 public class DataHandler {
@@ -16,16 +16,16 @@ public class DataHandler {
         return data;
     }
 
-    public void put(Player player1, int player1Score, Player player2, int player2Score) {
-        updateScore(player1, player1Score);
-        updateScore(player2, player2Score);
+    public void put(Agent agent1, int player1Score, Agent agent2, int player2Score) {
+        updateScore(agent1, player1Score);
+        updateScore(agent2, player2Score);
     }
 
-    private void updateScore(Player player, int score) {
-        if(this.scoreBoard.containsKey(player.NAME)) {
-            this.scoreBoard.put(player.NAME, new PlayerScore(this.scoreBoard.get(player.NAME), score));
+    private void updateScore(Agent agent, int score) {
+        if(this.scoreBoard.containsKey(agent.NAME)) {
+            this.scoreBoard.put(agent.NAME, new PlayerScore(this.scoreBoard.get(agent.NAME), score));
         } else {
-            this.scoreBoard.put(player.NAME, new PlayerScore(player.NAME, score));
+            this.scoreBoard.put(agent.NAME, new PlayerScore(agent.NAME, score));
         }
     }
 }

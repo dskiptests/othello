@@ -3,7 +3,7 @@ package player.agents;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -11,16 +11,16 @@ import java.util.Random;
 /**
  * Created by bystam on 11/03/16.
  */
-public class TeamTakanashi extends Player {
-    Color color;
+public class TeamTakanashi extends Agent {
+    Color myColor;
     Color enemyColor;
     int runs;
 
-    public TeamTakanashi(Color color) {
-        super(color);
-        this.color = color;
+    public TeamTakanashi(Color myColor) {
+        super(myColor);
+        this.myColor = myColor;
         runs = 0;
-        if (this.color == Color.BLACK) {
+        if (this.myColor == Color.BLACK) {
             enemyColor = Color.WHITE;
         }
         else enemyColor = Color.BLACK;
@@ -38,16 +38,16 @@ public class TeamTakanashi extends Player {
         Position bl = new Position(7, 0);
         Position br = new Position(7, 7);
 
-        if (board.isLegalMove(this.color, ul)) {
+        if (board.isLegalMove(this.myColor, ul)) {
             return ul;
         }
-        if (board.isLegalMove(this.color, ur)) {
+        if (board.isLegalMove(this.myColor, ur)) {
             return ur;
         }
-        if (board.isLegalMove(this.color, bl)) {
+        if (board.isLegalMove(this.myColor, bl)) {
             return bl;
         }
-        if (board.isLegalMove(this.color, br)) {
+        if (board.isLegalMove(this.myColor, br)) {
             return br;
         }
         if (runs < 10) {
@@ -57,7 +57,7 @@ public class TeamTakanashi extends Player {
             return currentLegalPositions.get(i);
         }
         GameBoard test = board.copyBoard();
-        Position position = destruction(currentLegalPositions, test, this.color);
+        Position position = destruction(currentLegalPositions, test, this.myColor);
 
 
         return position;

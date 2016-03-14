@@ -2,7 +2,7 @@ package game;
 
 
 import gameschedule.Match;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 
@@ -15,23 +15,24 @@ public class Game {
     private boolean result;
 
 
-    public Game(Player whitePlayer, Player blackPlayer) {
-        newGame(TIMESLOT, blackPlayer, whitePlayer);
+    public Game(Agent whiteAgent, Agent blackAgent) {
+        this.gameBoard = new GameBoard();
+        newGame(TIMESLOT, blackAgent, whiteAgent);
 
     }
 
-    public Player getNextTurn() {
+    public Agent getNextTurn() {
         return this.playerHandler.getCurrentPlayerForGUI();
     }
 
     public LinkedList<Position> getSlotsToColor() {
-        return this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayerForGUI().COLOR);
+        return this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayerForGUI().color);
     }
 
     public Position nextTurn() {
 
         playerHandler.turn();
-        LinkedList<Position> legalMovesForCurrentPlayer = this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayer().COLOR);
+        LinkedList<Position> legalMovesForCurrentPlayer = this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayer().color);
         if(legalMovesForCurrentPlayer.size() < 1 ) return null;
 
         Position position = playerHandler.getNextPlayerMove(gameBoard, legalMovesForCurrentPlayer);
@@ -40,21 +41,21 @@ public class Game {
 
     }
 
-    public void newGame(long timeslot, Player player1, Player player2) {
-        this.playerHandler = new PlayerHandler(player1, player2, timeslot);
+    public void newGame(long timeslot, Agent agent1, Agent agent2) {
+        this.playerHandler = new PlayerHandler(agent1, agent2, timeslot);
         playerHandler.restart();
-        this.gameBoard = new GameBoard();
+
 
     }
 
 
-    public boolean isLegalMove(Player player, Position newPosition) {
-        return gameBoard.isLegalMove(player.COLOR, newPosition);
+    public boolean isLegalMove(Agent agent, Position newPosition) {
+        return gameBoard.isLegalMove(agent.color, newPosition);
     }
 
 
     public boolean isLegal(Position position) {
-        return gameBoard.isLegalMove(playerHandler.getCurrentPlayerForGUI().COLOR, position);
+        return gameBoard.isLegalMove(playerHandler.getCurrentPlayerForGUI().color, position);
     }
 
 
@@ -64,25 +65,22 @@ public class Game {
 
 
     public void flip(Position position) {
-        Player player = playerHandler.getCurrentPlayer();
-        if(isLegalMove(player, position)) {
-            this.gameBoard.placeDisk(player.COLOR,position);
+        Agent agent = playerHandler.getCurrentPlayer();
+        if(isLegalMove(agent, position)) {
+            this.gameBoard.placeDisk(agent.color,position);
         }
     }
-
-
 
     public Color colorOfPosition(Position position) {
         return gameBoard.getPositionColor(position);
     }
 
-
-    public Player getPlayerByColor(Color color) {
+    public Agent getPlayerByColor(Color color) {
         return playerHandler.getPlayerByColor(color);
     }
 
-    public int getPlayerScore(Player player) {
-        return gameBoard.getNumberOfDisksInColor(player.COLOR);
+    public int getPlayerScore(Agent agent) {
+        return gameBoard.getNumberOfDisksInColor(agent.color);
     }
 
     public String getKey(Match match) {

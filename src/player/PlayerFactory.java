@@ -22,11 +22,11 @@ public class PlayerFactory {
         getAgentClassesFromPackage();
     }
 
-    public Player newPlayer(String name, Color color) {
+    public Agent newPlayer(String name, Color color) {
         Class c = playerMap.get(name);
-        Player player = mapClassToPlayerObject(playerMap.get(name), color);
+        Agent agent = mapClassToPlayerObject(playerMap.get(name), color);
 
-        return player;
+        return agent;
     }
 
     private void getAgentClassesFromPackage() {
@@ -44,7 +44,7 @@ public class PlayerFactory {
         List<String> playerList = new LinkedList<String>();
 
         for(Class c : classes) {
-            if(Player.class.isAssignableFrom(c)) {
+            if(Agent.class.isAssignableFrom(c)) {
                 this.playerMap.put(c.getSimpleName(), c);
                 playerList.add(c.getSimpleName());
             }
@@ -57,17 +57,17 @@ public class PlayerFactory {
 
     }
 
-    private Player mapClassToPlayerObject(Class<Player> c, Color color) {
+    private Agent mapClassToPlayerObject(Class<Agent> c, Color color) {
 
-        Constructor<Player> cons = null;
+        Constructor<Agent> cons = null;
         try {
             cons = c.getConstructor(Color.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        Player player = null;
+        Agent agent = null;
         try {
-            player = (Player) cons.newInstance(color);
+            agent = (Agent) cons.newInstance(color);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -77,7 +77,7 @@ public class PlayerFactory {
         }
 
 
-        return player;
+        return agent;
     }
 
     private static Class[] getClasses(String packageName) throws ClassNotFoundException, IOException {

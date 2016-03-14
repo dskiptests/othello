@@ -2,14 +2,14 @@ package player.agents;
 
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 import game.Color;
 
 import java.util.LinkedList;
 import java.util.Random;
 
 
-public class MinimizingMaria extends Player {
+public class MinimizingMaria extends Agent {
 
 
     private Random random;
@@ -38,7 +38,7 @@ public class MinimizingMaria extends Player {
         for(Position p : this.currentLegalPositions) {
 
             GameBoard tempBoard = this.currentBoard.copyBoard();
-            tempBoard.placeDisk(this.COLOR, p);
+            tempBoard.placeDisk(this.color, p);
             int numberOfMovesForOpponent = tempBoard.getAllLegalPositions(oppositeColor).size();
 
             if(numberOfMovesForOpponent < maxNumberOfMoves) {
@@ -51,7 +51,7 @@ public class MinimizingMaria extends Player {
     }
 
     private Color getOppositeColor() {
-        if(this.COLOR == Color.WHITE) return Color.BLACK;
-        return COLOR.WHITE;
+        if(this.color == Color.WHITE) return Color.BLACK;
+        return color.WHITE;
     }
 }

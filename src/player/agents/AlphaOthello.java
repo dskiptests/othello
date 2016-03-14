@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
-public class AlphaOthello extends Player{
+public class AlphaOthello extends Agent {
 	
 	int max_depth = 11;
 	int plays = 0;
@@ -33,7 +33,7 @@ public class AlphaOthello extends Player{
 		max_depth = Math.max(4,plays);
 		if(max_depth > 13)
 			max_depth = 13;
-		maxValue(alpha, beta, 1, board, COLOR, pos);
+		maxValue(alpha, beta, 1, board, color, pos);
 		plays++;
 		return pos[0];
 	}
@@ -103,10 +103,10 @@ public class AlphaOthello extends Player{
 	}
 	
 	public int utility(GameBoard state){
-		if(COLOR == Color.BLACK)
-			return state.getNumberOfDisksInColor(COLOR);// - state.getNumberOfDisksInColor(Color.WHITE);
+		if(color == Color.BLACK)
+			return state.getNumberOfDisksInColor(color);// - state.getNumberOfDisksInColor(Color.WHITE);
 		else
-			return state.getNumberOfDisksInColor(COLOR);// - state.getNumberOfDisksInColor(Color.BLACK);
+			return state.getNumberOfDisksInColor(color);// - state.getNumberOfDisksInColor(Color.BLACK);
 	}
 
 }

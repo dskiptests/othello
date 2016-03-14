@@ -1,6 +1,6 @@
 package gameschedule;
 
-import player.Player;
+import player.Agent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -42,9 +42,9 @@ public class GameSchedule {
         jFrame.setVisible(true);
     }
 
-    public void put(Player player1, int player1Score, Player player2, int player2Score) {
+    public void put(Agent agent1, int player1Score, Agent agent2, int player2Score) {
 
-        this.put(player1.NAME, String.valueOf(player1Score), player2.NAME, String.valueOf(player2Score));
+        this.put(agent1.NAME, String.valueOf(player1Score), agent2.NAME, String.valueOf(player2Score));
     }
     public void put(Match match) {
 

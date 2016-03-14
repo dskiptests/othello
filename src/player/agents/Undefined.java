@@ -3,12 +3,12 @@ package player.agents;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Undefined extends Player {
+public class Undefined extends Agent {
     private static final int MAX_DEPTH = 4;
     private static final int[][] BOARD_VALUES =
             {{20, -3, 11, 8, 8, 11, -3, 20},
@@ -34,7 +34,7 @@ public class Undefined extends Player {
         int maxScore = Integer.MIN_VALUE;
         Position bestPos = currentLegalPositions.get(0);
         for (Position pos : currentLegalPositions) {
-            int score = minmax(true, this.COLOR, board.copyBoard(), currentLegalPositions, 0);
+            int score = minmax(true, this.color, board.copyBoard(), currentLegalPositions, 0);
             if (score > maxScore) {
                 maxScore = score;
                 bestPos = pos;

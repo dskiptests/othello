@@ -2,13 +2,13 @@ package player.agents;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 import java.util.Random;
 
 
-public class RandomRichard extends Player {
+public class RandomRichard extends Agent {
 
     Random random;
 

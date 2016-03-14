@@ -5,10 +5,10 @@ import java.util.Random;
 
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 import game.Color;
 
-public class Ox5f3759df extends Player
+public class Ox5f3759df extends Agent
 {
 	private Color oppCOLOR;
 	private Random rand = new Random();
@@ -63,7 +63,7 @@ public class Ox5f3759df extends Player
 	@Override
 	public void newGame()
 	{
-		if (this.COLOR == Color.BLACK) {
+		if (this.color == Color.BLACK) {
 			this.oppCOLOR = Color.WHITE;
 		} else {
 			this.oppCOLOR = Color.BLACK;
@@ -91,7 +91,7 @@ public class Ox5f3759df extends Player
 		{
 			GameBoard board = rootBoard.copyBoard();
 			Node node = root;
-			Color currentColor = COLOR;
+			Color currentColor = color;
 
 			while (!board.gameIsFinished())
 			{
@@ -158,7 +158,7 @@ public class Ox5f3759df extends Player
 
 	private char colorChar(Color c)
 	{
-		return c==COLOR.BLACK?'x':c==COLOR.WHITE?'o':'.';
+		return c== color.BLACK?'x':c== color.WHITE?'o':'.';
 	}
 
 	private void backpropagate(GameBoard board, Node node, double score)
@@ -184,7 +184,7 @@ public class Ox5f3759df extends Player
 			for (int j = 0; j < 8; j++) {
 				if (cm[i][j] == Color.EMPTY) {
 					numEmpty++;
-				} else if (cm[i][j] == this.COLOR) {
+				} else if (cm[i][j] == this.color) {
 					myScore++;
 				} else {
 					oppScore++;
@@ -220,7 +220,7 @@ public class Ox5f3759df extends Player
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (cm[i][j] == this.COLOR) {
+				if (cm[i][j] == this.color) {
 					myScore += weights[i][j];
 				} else if (cm[i][j] == this.oppCOLOR) {
 					oppScore += weights[i][j];

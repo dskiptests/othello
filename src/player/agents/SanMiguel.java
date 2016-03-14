@@ -3,7 +3,7 @@ package player.agents;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Created by GarliC on 16-03-11.
  */
-public class SanMiguel extends Player{
+public class SanMiguel extends Agent {
 
     private Random random;
     private int boardSize;
@@ -38,16 +38,16 @@ public class SanMiguel extends Player{
 
     @Override
     public Position nextMove(GameBoard board, LinkedList<Position> currentLegalPositions) throws InterruptedException {
-        int currentScore = board.getNumberOfDisksInColor(COLOR);
+        int currentScore = board.getNumberOfDisksInColor(color);
         GameBoard boardBackUp = board.copyBoard();
 
         int highestScore = 0;
         Position bestPosition = currentLegalPositions.get(0);
 
         for(Position currentPosition : currentLegalPositions){
-            board.placeDisk(COLOR, currentPosition);
-            if((board.getNumberOfDisksInColor(COLOR)-currentScore)*squareWeights[currentPosition.row][currentPosition.column] > highestScore){
-                highestScore = (board.getNumberOfDisksInColor(COLOR)-currentScore)*squareWeights[currentPosition.row][currentPosition.column];
+            board.placeDisk(color, currentPosition);
+            if((board.getNumberOfDisksInColor(color)-currentScore)*squareWeights[currentPosition.row][currentPosition.column] > highestScore){
+                highestScore = (board.getNumberOfDisksInColor(color)-currentScore)*squareWeights[currentPosition.row][currentPosition.column];
                 bestPosition = currentPosition;
             }
             board = boardBackUp;

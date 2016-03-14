@@ -9,63 +9,63 @@ import java.util.concurrent.*;
 
 public class PlayerHandler {
 
-    private final Player[] players;
+    private final Agent[] agents;
     private int turn;
     public final long TIMESLOT;
-    private Map<Player, Long> time;
+    private Map<Agent, Long> time;
     private boolean noReturnFromPlayer;
 
 
 
-    public Player getPlayerByColor(Color color) {
-        if(players[0].COLOR == color) {
-            return players[0];
-        } else return players[1];
+    public Agent getPlayerByColor(Color color) {
+        if(agents[0].color == color) {
+            return agents[0];
+        } else return agents[1];
     }
 
-    public Player getCurrentPlayer() {
+    public Agent getCurrentPlayer() {
 
-        return players[turn];
-    }
-
-
-    public Player getCurrentPlayerForGUI() {
-        return players[(turn+1) % 2];
-
+        return agents[turn];
     }
 
 
-    public Player turn() {
+    public Agent getCurrentPlayerForGUI() {
+        return agents[(turn+1) % 2];
+
+    }
+
+
+    public Agent turn() {
         turn = (turn+1) % 2;
-        return players[turn];
+        return agents[turn];
     }
 
-    public PlayerHandler(Player player1, Player player2, long timeslot) {
+    public PlayerHandler(Agent agent1, Agent agent2, long timeslot) {
         this.TIMESLOT = timeslot;
-        this.players = new Player[]{player1, player2};
+        this.agents = new Agent[]{agent1, agent2};
         this.turn = 1;
-        this.time = new HashMap<Player, Long>();
+        this.time = new HashMap<Agent, Long>();
 
-        time.put(player1, 0l);
-        time.put(player2, 0l);
+        time.put(agent1, 0l);
+        time.put(agent2, 0l);
 
-        for(Player p : players) p.newGame();
+        for(Agent p : agents) p.newGame();
 
     }
 
     public Position getNextPlayerMove(GameBoard currentGameBoard, LinkedList<Position> legalPositions) {
         noReturnFromPlayer = true;
 
-        Player currentPlayer = players[turn];
-        currentPlayer.currentBoard = new GameBoard(currentGameBoard.copyMatrix());
-        currentPlayer.currentLegalPositions = copy(legalPositions);
-        Position playerPosition = getMove(currentPlayer);
+        Agent currentAgent = agents[turn];
+        currentAgent.currentBoard = new GameBoard(currentGameBoard.copyMatrix());
+        currentAgent.currentLegalPositions = copy(legalPositions);
+        Position playerPosition = getMove(currentAgent);
 
         if(playerMoveIsLegal(legalPositions, playerPosition)) {
             return playerPosition;
         }
 
-        if(noReturnFromPlayer) this.setTimeLeft(currentPlayer,0l);
+        if(noReturnFromPlayer) this.setTimeLeft(currentAgent,0l);
 
         return chooseARandomMove(legalPositions);
     }
@@ -91,12 +91,12 @@ public class PlayerHandler {
     }
 
 
-    private Position getMove(Player player) {
+    private Position getMove(Agent agent) {
 
         ExecutorService service = Executors.newFixedThreadPool(1);
-        Future<Position> futureResult = service.submit(player);
+        Future<Position> futureResult = service.submit(agent);
         Position result = null;
-        final long availableTime = TIMESLOT + getSavedTime(player);
+        final long availableTime = TIMESLOT + getSavedTime(agent);
         long timeBox = 0l;
 
         try{
@@ -110,7 +110,7 @@ public class PlayerHandler {
         }
         long diff = 0l;
         if(Math.abs(timeBox) < availableTime) diff = availableTime - timeBox;
-        setTimeLeft(player, diff);
+        setTimeLeft(agent, diff);
         service.shutdown();
         return result;
     }
@@ -124,12 +124,12 @@ public class PlayerHandler {
 //        return players[(turn + 1) % 2];
 //    }
 
-    public void setTimeLeft(Player player, long l) {
+    public void setTimeLeft(Agent agent, long l) {
 
-        this.time.put(player, l);
+        this.time.put(agent, l);
     }
 
-    public long getSavedTime(Player p) {
+    public long getSavedTime(Agent p) {
         return this.time.get(p);
     }
 

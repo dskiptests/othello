@@ -2,14 +2,14 @@ package player.agents;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 
 /**
  * Created by martinpettersson on 18/12/15.
  */
-public class Skumtomtarna extends Player {
+public class Skumtomtarna extends Agent {
     private Color ourColor;
     private Color enemyColor;
 
@@ -21,11 +21,11 @@ public class Skumtomtarna extends Player {
     }
 
     public void newGame(){
-        ourColor = COLOR;
-        if (COLOR.equals(COLOR.BLACK)) {
-            enemyColor = COLOR.WHITE;
+        ourColor = color;
+        if (color.equals(color.BLACK)) {
+            enemyColor = color.WHITE;
         } else {
-            enemyColor = COLOR.BLACK;
+            enemyColor = color.BLACK;
         }
     }
 
@@ -37,7 +37,7 @@ public class Skumtomtarna extends Player {
     private RetValue negamax(GameBoard board, int depth, Color color) {
 
         if (depth == 0 || board.gameIsFinished()) {
-            //System.err.println(utility(board, color));
+            //System.err.println(utility(board, myColor));
             return new RetValue(utility(board, color), null);
         }
 
@@ -48,10 +48,10 @@ public class Skumtomtarna extends Player {
             GameBoard childBoard = board.copyBoard();
             childBoard.placeDisk(color, childNode);
 
-            if (color.equals(COLOR.BLACK))
-                color = COLOR.WHITE;
+            if (color.equals(this.color.BLACK))
+                color = this.color.WHITE;
             else
-                color = COLOR.BLACK;
+                color = this.color.BLACK;
 
             RetValue retval = negamax(childBoard, depth-1, color);
             double val = -retval.value;
@@ -80,7 +80,7 @@ public class Skumtomtarna extends Player {
 
     private double utility(GameBoard board, Color color) {
 
-        //remember to do something with color
+        //remember to do something with myColor
 
         double colorSign = -1;
         if (color.equals(ourColor))

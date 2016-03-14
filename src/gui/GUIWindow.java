@@ -5,7 +5,7 @@ import game.Game;
 import game.Position;
 import gameschedule.GameSchedule;
 import gameschedule.Match;
-import player.Player;
+import player.Agent;
 import player.PlayerFactory;
 import scoreboard.ScoreBoard;
 
@@ -49,21 +49,16 @@ public class GUIWindow {
     private JButton clearButton;
 
 
-    private Player newPlayer(String name, Color color) {
+    private Agent newPlayer(String name, Color color) {
         return playerFactory.newPlayer(name, color);
     }
 
 
     public GUIWindow() {
-
-
-
         CreateUI();
-
-
     }
 
-    public void CreateUI() {
+    private void CreateUI() {
         JFrame window = new JFrame("Othello");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setBounds(200, 200, 800, 700);
@@ -104,11 +99,6 @@ public class GUIWindow {
             }
         });
         panel.add(actionButton);
-
-
-
-//        Border border2 = BorderFactory.createTitledBorder("Pizza Toppings");
-//        panel.setBorder(border2);
 
         JComboBox blackPlayers = new JComboBox();
         blackString = playerFactory.availablePlayers[0];
@@ -222,10 +212,6 @@ public class GUIWindow {
             }
         });
 
-
-
-
-
         JLabel textLabel = new JLabel("Player Selection");
         textLabel.setFont(new Font("Verdana", 1, 12));;
         panel.add(textLabel);
@@ -250,10 +236,6 @@ public class GUIWindow {
             this.scoreBoard.kill();
             this.gameSchedule.kill();
         }
-
-
-
-
     }
 
     private void clearAllStatistics() {
@@ -357,33 +339,33 @@ public class GUIWindow {
         updateColorsOfSlots(legalPositions);
 
         if(game.isFinished()) {
-            Player whitePlayer = game.getPlayerByColor(Color.WHITE);
-            int whiteScore = game.getPlayerScore(whitePlayer);
+            Agent whiteAgent = game.getPlayerByColor(Color.WHITE);
+            int whiteScore = game.getPlayerScore(whiteAgent);
 
-            Player blackPlayer = game.getPlayerByColor(Color.BLACK);
-            int blackScore = game.getPlayerScore(blackPlayer);
+            Agent blackAgent = game.getPlayerByColor(Color.BLACK);
+            int blackScore = game.getPlayerScore(blackAgent);
 
             if(!Objects.isNull(scoreBoard)) {
-                scoreBoard.put(whitePlayer, whiteScore, blackPlayer, blackScore);
+                scoreBoard.put(whiteAgent, whiteScore, blackAgent, blackScore);
             }
             if(!Objects.isNull(gameSchedule)) {
-                gameSchedule.put(whitePlayer, whiteScore, blackPlayer, blackScore);
+                gameSchedule.put(whiteAgent, whiteScore, blackAgent, blackScore);
             }
 
 
-            Player winningPlayer;
+            Agent winningAgent;
             int winningScore;
             if(whiteScore > blackScore) {
-                winningPlayer = whitePlayer;
+                winningAgent = whiteAgent;
                 winningScore = whiteScore;
             } else if(blackScore > whiteScore) {
-                winningPlayer = blackPlayer;
+                winningAgent = blackAgent;
                 winningScore = blackScore;
             } else {
                 GUIConsole.display("It's a draw!!");
                 return;
             }
-            GUIConsole.display("The winner is " + winningPlayer.NAME + " with " + winningScore + " disks!");
+            GUIConsole.display("The winner is " + winningAgent.NAME + " with " + winningScore + " disks!");
         }
         slotsPanel.updateUI();
     }
@@ -444,7 +426,7 @@ public class GUIWindow {
         wCount = 0;
         bCount = 0;
 
-        String text = game.getNextTurn().NAME + " " + game.getNextTurn().COLOR;
+        String text = game.getNextTurn().NAME + " " + game.getNextTurn().color;
         txtCurrentPlayer.setText(text);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

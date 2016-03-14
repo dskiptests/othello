@@ -2,10 +2,9 @@
 package player.agents;
 
 import game.Color;
-import game.Game;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -13,7 +12,7 @@ import java.util.Random;
 /**
  * Created by per on 3/11/16.
  */
-public class MedOmsorg extends Player{
+public class MedOmsorg extends Agent {
     private Random rand = new Random();
 
     public MedOmsorg(Color color) {
@@ -29,7 +28,7 @@ public class MedOmsorg extends Player{
     public Position nextMove(GameBoard board, LinkedList<Position> currentLegalPositions) throws InterruptedException {
         GameBoard currentBoard;
         Position bestMove = currentLegalPositions.get(rand.nextInt(currentLegalPositions.size()));
-        Color color = getOppositeColor(this.COLOR);
+        Color color = getOppositeColor(this.color);
         int depth = 5;
         int currentScore;
         double bestScore = -99;
@@ -119,7 +118,7 @@ public class MedOmsorg extends Player{
     }
     private Color getOppositeColor(Color color) {
         if(color == Color.WHITE) return Color.BLACK;
-        return COLOR.WHITE;
+        return this.color.WHITE;
     }
 
     private int getMultiplier(Color color) {

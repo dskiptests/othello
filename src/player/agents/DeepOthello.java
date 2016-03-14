@@ -2,7 +2,7 @@ package player.agents;
 import game.Color;
 import game.GameBoard;
 import game.Position;
-import player.Player;
+import player.Agent;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Created by DeepOthello on 18/12/2015.
  */
-public class DeepOthello extends Player{
+public class DeepOthello extends Agent {
     public DeepOthello(Color color) {
         super(color);
     }
@@ -122,14 +122,14 @@ public class DeepOthello extends Player{
             int ourCurrentValue = t[p.column][p.row];
             //int ourBoardValue = t[p.column][p.row];
 
-            tempBoard.placeDisk(this.COLOR, p);
+            tempBoard.placeDisk(this.color, p);
 
             int nOurColorBefore = 0;
             int nOurColorAfter = 0;
             for (int i = 0; i < 8; i++){
                 for (int j = 0; j < 8; j++) {
-                    if(this.currentBoard.getBoardMatrix()[i][j] == this.COLOR) nOurColorBefore++;
-                    if(tempBoard.getBoardMatrix()[i][j] == this.COLOR) nOurColorAfter++;
+                    if(this.currentBoard.getBoardMatrix()[i][j] == this.color) nOurColorBefore++;
+                    if(tempBoard.getBoardMatrix()[i][j] == this.color) nOurColorAfter++;
                 }
             }
             int diff = nOurColorAfter-nOurColorBefore;
@@ -207,7 +207,7 @@ public class DeepOthello extends Player{
 
 
     private Color getOppositeColor() {
-        if(this.COLOR == Color.WHITE) return Color.BLACK;
-        return COLOR.WHITE;
+        if(this.color == Color.WHITE) return Color.BLACK;
+        return color.WHITE;
     }
 }
