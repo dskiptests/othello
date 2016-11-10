@@ -319,12 +319,12 @@ public class GUIWindow {
         currentPanel.removeAll();
         JLabel picLabel;
         if (color == BLACK) {
-            picture = createImageIcon("./black.png");
+            picture = createImageIcon("black.png");
             picLabel = new JLabel((picture));
             currentPanel.add(picLabel);
 
         } else if (color == WHITE) {
-            picture = createImageIcon("./white.png");
+            picture = createImageIcon("white.png");
             picLabel = new JLabel((picture));
             currentPanel.add(picLabel);
 

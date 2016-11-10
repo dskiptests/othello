@@ -158,15 +158,17 @@ public class GameBoard {
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
                     if ((boardMatrix[xRow][xCol]) == (color == Color.BLACK ? Color.WHITE : Color.BLACK)) {
-                        for (int range = 0; range < 8; range++) {
+                        for (int range = 1; range < 8; range++) {
 
                             int nRow = position.row + range * chkRow;
                             int nCol = position.column + range * chkCol;
                             if (nRow < 0 || nRow > 7 || nCol < 0 || nCol > 7) {
                                 continue;
                             }
-
-                            if (boardMatrix[nRow][nCol] == color) {
+			    if (boardMatrix[nRow][nCol] == Color.EMPTY) {
+                                break;
+                            } 
+                            else if (boardMatrix[nRow][nCol] == color) {
                                 if (flip) {
                                     for (int flipDistance = 1; flipDistance < range; flipDistance++) {
                                         int finalRow = position.row + flipDistance * chkRow;

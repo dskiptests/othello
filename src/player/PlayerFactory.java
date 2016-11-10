@@ -6,8 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
+import java.net.*;
 import java.util.*;
+import java.util.jar.*;
 
 
 public class PlayerFactory {
@@ -49,7 +50,6 @@ public class PlayerFactory {
                 playerList.add(c.getSimpleName());
             }
         }
-
         this.availablePlayers = new String[playerList.size()];
         for(int i = 0; i < playerList.size(); i++) {
             availablePlayers[i] = playerList.get(i);
@@ -84,16 +84,29 @@ public class PlayerFactory {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
         String path = packageName.replace('.', '/');
-        Enumeration<URL> resources = classLoader.getResources(path);
-        List<File> dirs = new ArrayList<File>();
-        while (resources.hasMoreElements()) {
-            URL resource = resources.nextElement();
-            dirs.add(new File(resource.getFile()));
+        URL resource = classLoader.getResource(path);
+        
+        List<Class> classes = new ArrayList<Class>();
+        // in case we run with: java -jar othello-xyz.jar
+        if (resource.getProtocol().equals("jar")) {
+            String jarPath = resource.getPath().substring(5, resource.getPath().indexOf("!")); //strip out only the JAR file
+            JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
+            Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries
+            while(entries.hasMoreElements()) {
+                String name = entries.nextElement().getName();
+                if (name.endsWith("/")) { continue; }
+                if (name.startsWith(path)) { //filter according to the path
+                    String entryPkg = name.substring(path.length()+1).replace('/', '.');
+                    // Remove ".class"
+                    entryPkg=entryPkg.substring(0, entryPkg.length() - 6);
+                    classes.add(Class.forName(packageName + "." + entryPkg));
+                }
+            }
         }
-        ArrayList<Class> classes = new ArrayList<Class>();
-        for (File directory : dirs) {
-            classes.addAll(findClasses(directory, packageName));
+        else {
+            classes.addAll(findClasses(new File(resource.getFile()), packageName));
         }
+            
         return classes.toArray(new Class[classes.size()]);
     }
 
