@@ -30,7 +30,7 @@
  6. Right click on `src/main/Othello.java` -> _Run as_ -> _Java Application_
 
 ## Create an Agent
-Create a class in `src/player/agent` and make sures it src/player/agent the class `Player.java`. The name of the agent will be the team name.
+Create a class in `src/player/agent` and make sures it inherits the class `Player.java`. The name of the agent will be the team name.
 
 ## Ranking
 
