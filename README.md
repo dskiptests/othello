@@ -20,7 +20,7 @@
  3. _Next_ -> _..._ -> _Next_ -> _Finish_
  4. Right click on `src/main/Othello.java` -> _Run Othello.main()_
 
-### Eclipse
+###Eclipse
 
  1. Check out the code: `https://github.com/davstromb/othello.git` 
  2. _File_ -> _New..._ -> _Java Project_
@@ -34,15 +34,15 @@ Create a class in `src/player/agent` and make sures it src/player/agent the clas
 
 ## Ranking
 
- * Score system
-  - Win = 3 points
-  - Draw = 1 point
-  - Defeat = 0 points 
- *  If two or more teams are equal on points on completion of the group matches, the following criteria are applied in the order given to determine the rankings:
-  - superior score difference in all matches 
-  - superior score difference from the matches played among the agents in question
-  - higher number of positive scores 
-  - Knock-out ping-pong 
+* Score system
+  * Win = 3 points
+  * Draw = 1 point
+  * Defeat = 0 points 
+*  If two or more teams are equal on points on completion of the group matches, the following criteria are applied in the order given to determine the rankings:
+  * superior score difference in all matches 
+  * superior score difference from the matches played among the agents in question
+  * higher number of positive scores 
+  * Knock-out ping-pong 
 
 ## Hints
  * Every move is timed, unused time during a move will be saved to the next move, and so on.
