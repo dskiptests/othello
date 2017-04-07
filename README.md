@@ -34,11 +34,14 @@ Create a class in `src/player/agent` and make sures it src/player/agent the clas
 
 ## Ranking
 
-* Score system
+Score system
+
   * Win = 3 points
   * Draw = 1 point
   * Defeat = 0 points 
-*  If two or more teams are equal on points on completion of the group matches, the following criteria are applied in the order given to determine the rankings:
+
+If two or more teams are equal on points on completion of the group matches, the following criteria are applied in the order given to determine the rankings  
+
   1. superior score difference in all matches 
   2. superior score difference from the matches played among the agents in question
   3. higher number of positive scores 
