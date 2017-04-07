@@ -39,10 +39,10 @@ Create a class in `src/player/agent` and make sures it src/player/agent the clas
   * Draw = 1 point
   * Defeat = 0 points 
 *  If two or more teams are equal on points on completion of the group matches, the following criteria are applied in the order given to determine the rankings:
-  * superior score difference in all matches 
-  * superior score difference from the matches played among the agents in question
-  * higher number of positive scores 
-  * Knock-out ping-pong 
+  1. superior score difference in all matches 
+  2. superior score difference from the matches played among the agents in question
+  3. higher number of positive scores 
+  4. Knock-out ping-pong 
 
 ## Hints
  * Every move is timed, unused time during a move will be saved to the next move, and so on.
