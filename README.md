@@ -20,7 +20,7 @@
  3. _Next_ -> _..._ -> _Next_ -> _Finish_
  4. Right click on `src/main/Othello.java` -> _Run Othello.main()_
 
-###Eclipse
+### Eclipse
 
  1. Check out the code: `https://github.com/davstromb/othello.git` 
  2. _File_ -> _New..._ -> _Java Project_
