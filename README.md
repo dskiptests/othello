@@ -1,7 +1,7 @@
 # Othello AI Competition
 
 
-<img src="http://i.imgur.com/RswfbHi.png" alt="Drawing" style="width: 400px;"/>
+<img src="http://i.imgur.com/RswfbHi.png" alt="Drawing" style="width: 250px;"/>
 
 
 ## Prerequisites
