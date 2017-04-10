@@ -1,9 +1,6 @@
 # Othello AI Competition
 
 
-<img src="http://i.imgur.com/RswfbHi.png" alt="Drawing" style="width: 400px;"/>
-
-
 ## Prerequisites
  * Java 8
  * Maven and/or Eclipse/IntelliJ
@@ -58,6 +55,11 @@ If two or more teams are equal on points on completion of the group matches, the
  * There are some simple agents implemented already, use them as inspiration.
  * The method `newGame()` is triggered in the beginning of each new game.
  * The method `nextMove()` is triggered when it's your agent's turn.
+
+ ## Screenshot
+ 
+ <img src="http://i.imgur.com/RswfbHi.png" alt="Drawing" style="width: 400px;"/>
+
  
   
 
