@@ -7,6 +7,12 @@
   <version>1.0-SNAPSHOT</version>
   <name>othello</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,6 +20,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
   <build>
     <plugins>
@@ -30,27 +37,13 @@
               </goals>
               <configuration>
                 <sources>
-                  <source>${project.basedir}/src/main</source>
-                  <source>${project.basedir}/src/game</source>
-                  <source>${project.basedir}/src/gameschedule</source>
-                  <source>${project.basedir}/src/gui</source>
-                  <source>${project.basedir}/src/player</source>
-                  <source>${project.basedir}/src/scoreboard</source>
+                  <source>${project.basedir}/src/main/java</source>
                 </sources>
               </configuration>
             </execution>
           </executions>
         </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.5.1</version>
-          <configuration>
-            <encoding>UTF-8</encoding>
-            <source>1.8</source>
-            <target>1.8</target>
-          </configuration> 
-        </plugin>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
@@ -59,7 +52,7 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <mainClass>main.Othello</mainClass>
+                <mainClass>main.othello.Othello</mainClass>
               </manifest>
             </archive>
           </configuration>

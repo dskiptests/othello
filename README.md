@@ -1,4 +1,4 @@
-# Othello AI Competition
+# othello.Othello AI Competition
 
 
 ## Prerequisites
@@ -11,14 +11,14 @@
  1. Check out the code: `git clone https://github.com/davstromb/othello.git`
  2. Go to the root directory of this project
  3. Build the project by typing `mvn clean install`
- 4. Start the application by either running `jar-filen java -jar target/othello-1.0-SNAPSHOT.jar` or with Maven: `mvn exec:java -Dexec.mainClass=main.Othello`
+ 4. Start the application by either running `jar-filen java -jar target/othello-1.0-SNAPSHOT.jar` or with Maven: `mvn exec:java -Dexec.mainClass=main.othello.Othello`
 
  
 ### IntelliJ IDEA
  1. Check out the code: `git clone https://github.com/davstromb/othello.git`
  2. _File_ -> _New_ -> _Project from existing sources_ -> (choose the cloned pom.xml file)
  3. _Next_ -> _..._ -> _Next_ -> _Finish_
- 4. Right click on `src/main/Othello.java` -> _Run Othello.main()_
+ 4. Right click on `src/main/othello.Othello.java` -> _Run othello.Othello.main()_
 
 ### Eclipse
 
@@ -27,10 +27,10 @@
  3. Project name: othello
  4. Don't apply _"Use default location"_, instead you need to specify the catalogue where you cloned the repository
  5. _Finish_
- 6. Right click on `src/main/Othello.java` -> _Run as_ -> _Java Application_
+ 6. Right click on `src/main/othello.Othello.java` -> _Run as_ -> _Java Application_
 
 ## Create an Agent
-Create a class in `src/player/agent` and make sures it inherits the class `Player.java`. The name of the agent will be the team name.
+Create a class in `src/othello.player/agent` and make sures it inherits the class `Player.java`. The name of the agent will be the team name.
 
 ## Ranking
 
@@ -53,7 +53,7 @@ If two or more teams are equal on points on completion of the group matches, the
  * If the agent returns _null_ or an invalid value, a random move will be assigned to the agent. The saved time will not be affected.
  * Time is relative.
  * There are some simple agents implemented already, use them as inspiration.
- * The method `newGame()` is triggered in the beginning of each new game.
+ * The method `newGame()` is triggered in the beginning of each new othello.game.
  * The method `nextMove()` is triggered when it's your agent's turn.
 
  ## Screenshot
