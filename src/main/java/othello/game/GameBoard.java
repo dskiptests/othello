@@ -2,7 +2,7 @@ package othello.game;
 
 import java.util.LinkedList;
 
-public class GameBoard {
+public final class GameBoard {
 
     public final int BOARD_SIZE = 8;
     private final Color[][] boardMatrix;
@@ -88,13 +88,12 @@ public class GameBoard {
 
 
     public LinkedList<Position> getAllLegalPositions(Color color) {
-        LinkedList<Position> legalPositions = new LinkedList<Position>();
-        String m = "";
+        final LinkedList<Position> legalPositions = new LinkedList<Position>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (isLegalMove(color, new Position(i, j))) {
+                if (isLegalMove(color, Position.create(i, j))) {
                     if(boardMatrix[i][j] == Color.EMPTY) {
-                        legalPositions.add(new Position(i, j));
+                        legalPositions.add(Position.create(i, j));
                     }
                 }
             }
@@ -142,6 +141,7 @@ public class GameBoard {
      * @return True if the move is legal, false otherwise
      */
     public boolean isLegalMove(Color color, Position position) {
+
         return flip(color, position, false);
     }
 
@@ -153,15 +153,15 @@ public class GameBoard {
                 if (chkRow == 0 && chkCol == 0) {
                     continue;
                 }
-                int xRow = position.row + chkRow;
-                int xCol = position.column + chkCol;
+                int xRow = position.row() + chkRow;
+                int xCol = position.column() + chkCol;
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
                     if ((boardMatrix[xRow][xCol]) == (color == Color.BLACK ? Color.WHITE : Color.BLACK)) {
                         for (int range = 1; range < 8; range++) {
 
-                            int nRow = position.row + range * chkRow;
-                            int nCol = position.column + range * chkCol;
+                            int nRow = position.row() + range * chkRow;
+                            int nCol = position.column() + range * chkCol;
                             if (nRow < 0 || nRow > 7 || nCol < 0 || nCol > 7) {
                                 continue;
                             }
@@ -171,8 +171,8 @@ public class GameBoard {
                             else if (boardMatrix[nRow][nCol] == color) {
                                 if (flip) {
                                     for (int flipDistance = 1; flipDistance < range; flipDistance++) {
-                                        int finalRow = position.row + flipDistance * chkRow;
-                                        int finalCol = position.column + flipDistance * chkCol;
+                                        int finalRow = position.row() + flipDistance * chkRow;
+                                        int finalCol = position.column() + flipDistance * chkCol;
 
                                         boardMatrix[finalRow][finalCol] = color;
                                     }
@@ -186,7 +186,7 @@ public class GameBoard {
             }
         }
 
-        if(flip && isValid) boardMatrix[position.row][position.column] = color;
+        if(flip && isValid) boardMatrix[position.row()][position.column()] = color;
 
         return isValid;
     }
@@ -206,7 +206,7 @@ public class GameBoard {
      * @param position A position on the Board
      * @return The color of the position, can be Black, White or Empty.
      */
-    public Color getPositionColor(Position position) {
-        return getBoardMatrix()[position.row][position.column];
+    public Color colorOf(Position position) {
+        return getBoardMatrix()[position.row()][position.column()];
     }
 }

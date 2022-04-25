@@ -1,45 +1,92 @@
 package othello.player;
 
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import othello.game.Color;
 import othello.game.GameBoard;
 import othello.game.Position;
-import java.util.LinkedList;
+import othello.player.game.ServerCall;
+
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 public abstract class Agent implements Callable<Position> {
 
-    public final String NAME = this.getClass().getSimpleName();
-
-    public final Color color;
+    private static final String URL = "";
+    private static final String CONTENT_TYPE = "application/json";
+    private final String PLAYER_NAME = this.getClass().getSimpleName();
+    private final Color color;
+    private final ObjectMapper mapper;
+    private final HttpClient httpClient;
 
     public GameBoard currentBoard;
-    public LinkedList<Position> currentLegalPositions;
+    public List<Position> currentLegalPositions;
+    private String key = "";
 
     @Override
     public Position call() throws Exception {
         Position position = null;
         try{
             position = nextMove(this.currentBoard, this.currentLegalPositions);
-        }catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
         }
         return position;
     }
 
     public Agent(Color color) {
+        this.mapper = new ObjectMapper()
+                .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.color = color;
+        this.httpClient = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_1_1)
+                .followRedirects(HttpClient.Redirect.NORMAL)
+                .proxy(ProxySelector.getDefault())
+                .build();
     }
 
 
     @Override
     public String toString() {
-        return NAME + " (" + color + ")";
+        return PLAYER_NAME + " (" + color + ")";
     }
 
     /**
      *  This Method initializes the othello.player when a new othello.game starts. Time slot ~ 4 seconds.
      */
+
+    public final Position callForHelp(String url) {
+        try {
+            final HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(URL))
+                    .header("Content-Type", CONTENT_TYPE)
+                    .headers("Authorization", this.key)
+                    .POST(HttpRequest.BodyPublishers.ofString(this.mapper.writeValueAsString(
+                            new ServerCall(this.currentBoard, this.currentLegalPositions, this.color()))))
+                    .build();
+
+            final HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            return this.mapper.readValue(response.body(), Position.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public final String name() {
+        return PLAYER_NAME;
+    }
+
+    public final Color color() {
+        return this.color;
+    }
+
     public abstract void newGame();
 
     /**
@@ -55,5 +102,5 @@ public abstract class Agent implements Callable<Position> {
      * @return A choosen position for the next turn.
      * @throws InterruptedException
      */
-    public abstract Position nextMove(GameBoard board, LinkedList<Position> currentLegalPositions) throws InterruptedException;
+    public abstract Position nextMove(final GameBoard board, final List<Position> currentLegalPositions) ;
 }

@@ -3,8 +3,8 @@ package othello.gui;
 import othello.game.Color;
 import othello.game.Game;
 import othello.game.Position;
-import othello.gameschedule.GameSchedule;
-import othello.gameschedule.Match;
+import othello.gui.gameschedule.GameSchedule;
+import othello.gui.gameschedule.Match;
 import othello.player.Agent;
 import othello.player.PlayerFactory;
 import othello.scoreboard.ScoreBoard;
@@ -315,7 +315,7 @@ public class GUIWindow {
 
     public void setPicture(Color color, Position position) {
 
-        JPanel currentPanel = panelBoard[position.row][position.column];
+        JPanel currentPanel = panelBoard[position.row()][position.column()];
         currentPanel.removeAll();
         JLabel picLabel;
         if (color == BLACK) {
@@ -365,7 +365,7 @@ public class GUIWindow {
                 GUIConsole.display("It's a draw!!");
                 return;
             }
-            GUIConsole.display("The winner is " + winningAgent.NAME + " with " + winningScore + " disks!");
+            GUIConsole.display("The winner is " + winningAgent.name() + " with " + winningScore + " disks!");
         }
         slotsPanel.updateUI();
     }
@@ -375,23 +375,23 @@ public class GUIWindow {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 JPanel currentSlot = panelBoard[i][j];
                 currentSlot.removeAll();
-                Color colorOfPosition = game.colorOfPosition(new Position(i,j));
+                Color colorOfPosition = game.colorOfPosition(Position.create(i,j));
                 switch (colorOfPosition) {
                     case BLACK:
                         panelBoard[i][j].setBackground(GREEN);
-                        setPicture(BLACK, new Position(i, j));
+                        setPicture(BLACK, Position.create(i, j));
                         break;
                     case WHITE:
                         panelBoard[i][j].setBackground(GREEN);
-                        setPicture(WHITE, new Position(i, j));
+                        setPicture(WHITE, Position.create(i, j));
                         break;
                     case EMPTY:
-                        setPicture(EMPTY, new Position(i, j));
+                        setPicture(EMPTY, Position.create(i, j));
 
-                        if (game.isLegal(new Position(i, j))) {
+                        if (game.isLegal(Position.create(i, j))) {
 
                             for(Position m : legalPositions){
-                                if(m.row == i || m.column == j) {
+                                if(m.row() == i || m.column() == j) {
                                     panelBoard[i][j].setBackground(LIGHT_GREEN);
                                 }
                             }
@@ -426,11 +426,11 @@ public class GUIWindow {
         wCount = 0;
         bCount = 0;
 
-        String text = game.getNextTurn().NAME + " " + game.getNextTurn().color;
+        String text = game.getNextTurn().name() + " " + game.getNextTurn().color();
         txtCurrentPlayer.setText(text);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                Color positionColor = game.colorOfPosition(new Position(i,j));
+                Color positionColor = game.colorOfPosition(Position.create(i,j));
                 if (positionColor == WHITE) {
                     wCount++;
                 }

@@ -2,10 +2,7 @@ package othello.game;
 import othello.player.*;
 
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.*;
 
 public class PlayerHandler {
@@ -19,7 +16,7 @@ public class PlayerHandler {
 
 
     public Agent getPlayerByColor(Color color) {
-        if(agents[0].color == color) {
+        if(agents[0].color() == color) {
             return agents[0];
         } else return agents[1];
     }
@@ -54,7 +51,7 @@ public class PlayerHandler {
 
     }
 
-    public Position getNextPlayerMove(GameBoard currentGameBoard, LinkedList<Position> legalPositions) {
+    public Position getNextPlayerMove(GameBoard currentGameBoard, List<Position> legalPositions) {
         noReturnFromPlayer = true;
 
         final Agent currentAgent = agents[turn];
@@ -66,22 +63,22 @@ public class PlayerHandler {
             return playerPosition;
         }
 
-        if(noReturnFromPlayer) this.setTimeLeft(currentAgent,0l);
+        if(noReturnFromPlayer) this.setTimeLeft(currentAgent, 0L);
 
         return chooseARandomMove(legalPositions);
     }
 
-    private LinkedList<Position> copy(LinkedList<Position> legalPositions) {
-        final LinkedList<Position> copied = new LinkedList<Position>();
+    private List<Position> copy(List<Position> legalPositions) {
+        final List<Position> copied = new ArrayList<>();
 
-        for(Position p : legalPositions) {
-            copied.add(new Position(p.row,p.column));
-        }
+        legalPositions.stream()
+                .map(Position::copy)
+                .forEach(copied::add);
 
         return copied;
     }
 
-    private boolean playerMoveIsLegal(LinkedList<Position> legalPositions, Position position) {
+    private boolean playerMoveIsLegal(List<Position> legalPositions, Position position) {
         if(Objects.isNull(position)) {
             return false;
         } else if (!legalPositions.contains(position)) {
@@ -91,9 +88,11 @@ public class PlayerHandler {
     }
 
 
-    private Position chooseARandomMove(LinkedList<Position> positions) {
-        if(positions.size() < 1) return null;
-        return positions.getFirst();
+    private Position chooseARandomMove(List<Position> positions) {
+        if(positions.isEmpty()) {
+            return null;
+        }
+        return positions.get(0);
     }
 
 
@@ -110,7 +109,7 @@ public class PlayerHandler {
             result = futureResult.get(availableTime, TimeUnit.MILLISECONDS);
             timeBox = System.currentTimeMillis() - timeBox;
             noReturnFromPlayer = false;
-        }catch(Throwable t){
+        } catch(Throwable t){
             futureResult.cancel(true);
             t.printStackTrace();
         }
@@ -130,13 +129,13 @@ public class PlayerHandler {
 //        return players[(turn + 1) % 2];
 //    }
 
-    public void setTimeLeft(Agent agent, long l) {
+    public void setTimeLeft(Agent agent, long timeLeft) {
 
-        this.time.put(agent, l);
+        this.time.put(agent, timeLeft);
     }
 
-    public long getSavedTime(Agent p) {
-        return this.time.get(p);
+    public long getSavedTime(Agent agent) {
+        return this.time.get(agent);
     }
 
 }

@@ -1,7 +1,7 @@
 package othello.game;
 
 
-import othello.gameschedule.Match;
+import othello.gui.gameschedule.Match;
 import othello.player.Agent;
 
 import java.util.LinkedList;
@@ -26,13 +26,13 @@ public class Game {
     }
 
     public LinkedList<Position> getSlotsToColor() {
-        return this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayerForGUI().color);
+        return this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayerForGUI().color());
     }
 
     public Position nextTurn() {
 
         playerHandler.turn();
-        LinkedList<Position> legalMovesForCurrentPlayer = this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayer().color);
+        LinkedList<Position> legalMovesForCurrentPlayer = this.gameBoard.getAllLegalPositions(playerHandler.getCurrentPlayer().color());
         if(legalMovesForCurrentPlayer.size() < 1 ) return null;
 
         Position position = playerHandler.getNextPlayerMove(gameBoard, legalMovesForCurrentPlayer);
@@ -50,12 +50,12 @@ public class Game {
 
 
     public boolean isLegalMove(Agent agent, Position newPosition) {
-        return gameBoard.isLegalMove(agent.color, newPosition);
+        return gameBoard.isLegalMove(agent.color(), newPosition);
     }
 
 
     public boolean isLegal(Position position) {
-        return gameBoard.isLegalMove(playerHandler.getCurrentPlayerForGUI().color, position);
+        return gameBoard.isLegalMove(playerHandler.getCurrentPlayerForGUI().color(), position);
     }
 
 
@@ -67,12 +67,12 @@ public class Game {
     public void flip(Position position) {
         Agent agent = playerHandler.getCurrentPlayer();
         if(isLegalMove(agent, position)) {
-            this.gameBoard.placeDisk(agent.color,position);
+            this.gameBoard.placeDisk(agent.color(),position);
         }
     }
 
     public Color colorOfPosition(Position position) {
-        return gameBoard.getPositionColor(position);
+        return gameBoard.colorOf(position);
     }
 
     public Agent getPlayerByColor(Color color) {
@@ -80,7 +80,7 @@ public class Game {
     }
 
     public int getPlayerScore(Agent agent) {
-        return gameBoard.getNumberOfDisksInColor(agent.color);
+        return gameBoard.getNumberOfDisksInColor(agent.color());
     }
 
     public String getKey(Match match) {

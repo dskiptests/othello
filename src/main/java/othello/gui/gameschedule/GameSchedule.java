@@ -1,4 +1,4 @@
-package othello.gameschedule;
+package othello.gui.gameschedule;
 
 
 
@@ -19,10 +19,7 @@ public class GameSchedule {
 
     private HashMap<String, Match> games = new HashMap<String, Match>();
     private JFrame jFrame;
-    private JTable jTable;
-    private JScrollPane jScrollPane;
     private DefaultTableModel tableModel;
-    private JPanel jPanel;
 
     public GameSchedule() {
         createGUI();
@@ -32,12 +29,12 @@ public class GameSchedule {
         this.jFrame = new JFrame("Statistics");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.tableModel = new DefaultTableModel(getData(), this.columnNames);
-        this.jTable = new JTable(tableModel);
-        this.jScrollPane = new JScrollPane(jTable);
+        JTable jTable = new JTable(tableModel);
+        JScrollPane jScrollPane = new JScrollPane(jTable);
 
-        this.jPanel = new JPanel();
-        this.jPanel.setVisible(true);
-        this.jFrame.add(this.jPanel);
+        JPanel jPanel = new JPanel();
+        jPanel.setVisible(true);
+        this.jFrame.add(jPanel);
 
         jFrame.setSize(600, 600);
         jFrame.add(jScrollPane);
@@ -46,7 +43,7 @@ public class GameSchedule {
 
     public void put(Agent agent1, int player1Score, Agent agent2, int player2Score) {
 
-        this.put(agent1.NAME, String.valueOf(player1Score), agent2.NAME, String.valueOf(player2Score));
+        this.put(agent1.name(), String.valueOf(player1Score), agent2.name(), String.valueOf(player2Score));
     }
     public void put(Match match) {
 

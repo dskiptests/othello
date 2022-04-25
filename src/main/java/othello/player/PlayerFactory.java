@@ -13,21 +13,16 @@ import java.util.jar.*;
 
 public class PlayerFactory {
 
-
     public String[] availablePlayers;
     private Map<String, Class> playerMap;
     private final String AGENT_PACKAGE = "othello.player.agents";
-
 
     public PlayerFactory() {
         getAgentClassesFromPackage();
     }
 
     public Agent newPlayer(String name, Color color) {
-        Class c = playerMap.get(name);
-        Agent agent = mapClassToPlayerObject(playerMap.get(name), color);
-
-        return agent;
+        return mapClassToPlayerObject(playerMap.get(name), color);
     }
 
     private void getAgentClassesFromPackage() {
@@ -36,13 +31,11 @@ public class PlayerFactory {
         Class[] classes = null;
         try {
             classes = getClasses(AGENT_PACKAGE);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        List<String> playerList = new LinkedList<String>();
+        final List<String> playerList = new LinkedList<String>();
 
         for(Class c : classes) {
             if(Agent.class.isAssignableFrom(c)) {
@@ -54,28 +47,18 @@ public class PlayerFactory {
         for(int i = 0; i < playerList.size(); i++) {
             availablePlayers[i] = playerList.get(i);
         }
-
     }
 
-    private Agent mapClassToPlayerObject(Class<Agent> c, Color color) {
+    private Agent mapClassToPlayerObject(Class<Agent> clazz, Color color) {
 
-        Constructor<Agent> cons = null;
-        try {
-            cons = c.getConstructor(Color.class);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+        Constructor<Agent> constructor = null;
         Agent agent = null;
         try {
-            agent = (Agent) cons.newInstance(color);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+            constructor = clazz.getConstructor(Color.class);
+            return (Agent) constructor.newInstance(color);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return agent;
     }

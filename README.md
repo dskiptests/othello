@@ -2,7 +2,7 @@
 
 
 ## Prerequisites
- * Java 8
+ * Java 17
  * Maven and/or Eclipse/IntelliJ
 
 ## Get started
@@ -55,6 +55,10 @@ If two or more teams are equal on points on completion of the group matches, the
  * There are some simple agents implemented already, use them as inspiration.
  * The method `newGame()` is triggered in the beginning of each new othello.game.
  * The method `nextMove()` is triggered when it's your agent's turn.
+ * An Agent java file can only be 2 kB. 
+ * You can't provide any additional Java classes other than the Agent.
+ * If you want, you can utilize services outside this application. Feel free to call
+a server with the method `callForHelp("<URL>")`.
 
  ## Screenshot
  

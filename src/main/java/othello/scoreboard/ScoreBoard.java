@@ -54,7 +54,7 @@ public class ScoreBoard {
 
     public void put(Agent agent1, int player1Score, Agent agent2, int player2Score) {
 
-        if (agent1.NAME.equals(agent2.NAME)) return;
+        if (agent1.name().equals(agent2.name())) return;
 
         updateScore(agent1, player1Score);
         updateScore(agent2, player2Score);
@@ -104,10 +104,10 @@ public class ScoreBoard {
     }
 
     private void updateScore(Agent agent, int score) {
-        if (this.scoreBoard.containsKey(agent.NAME)) {
-            this.scoreBoard.put(agent.NAME, new PlayerScore(this.scoreBoard.get(agent.NAME), score));
+        if (this.scoreBoard.containsKey(agent.name())) {
+            this.scoreBoard.put(agent.name(), new PlayerScore(this.scoreBoard.get(agent.name()), score));
         } else {
-            this.scoreBoard.put(agent.NAME, new PlayerScore(agent.NAME, score));
+            this.scoreBoard.put(agent.name(), new PlayerScore(agent.name(), score));
         }
     }
 

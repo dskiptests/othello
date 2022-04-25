@@ -6,8 +6,10 @@ public enum Color {
     WHITE ("White"),
     EMPTY ("Empty");
 
-    Color(String black) {
+    private final String color;
 
+    Color(String color) {
+        this.color = color;
     }
 
     /**
