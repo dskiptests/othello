@@ -1,5 +1,6 @@
 package othello.game;
 import othello.player.*;
+import othello.player.remote.RemoteAgent;
 
 
 import java.util.*;
@@ -9,7 +10,9 @@ public class PlayerHandler {
 
     private final Agent[] agents;
     private int turn;
-    public final long TIMESLOT;
+    public final long timeslot;
+    public final static long TIME_BOOST_FOR_REMOTE_AGENT = 1500;
+
     private Map<Agent, Long> time;
     private boolean noReturnFromPlayer;
 
@@ -39,7 +42,7 @@ public class PlayerHandler {
     }
 
     public PlayerHandler(Agent agent1, Agent agent2, long timeslot) {
-        this.TIMESLOT = timeslot;
+        this.timeslot = timeslot;
         this.agents = new Agent[]{agent1, agent2};
         this.turn = 1;
         this.time = new HashMap<Agent, Long>();
@@ -57,13 +60,15 @@ public class PlayerHandler {
         final Agent currentAgent = agents[turn];
         currentAgent.currentBoard = new GameBoard(currentGameBoard.copyMatrix());
         currentAgent.currentLegalPositions = copy(legalPositions);
-        Position playerPosition = getMove(currentAgent);
+        final Position playerPosition = getMove(currentAgent);
 
         if(playerMoveIsLegal(legalPositions, playerPosition)) {
             return playerPosition;
         }
 
-        if(noReturnFromPlayer) this.setTimeLeft(currentAgent, 0L);
+        if(noReturnFromPlayer) {
+            this.setTimeLeft(currentAgent, 0L);
+        }
 
         return chooseARandomMove(legalPositions);
     }
@@ -96,16 +101,17 @@ public class PlayerHandler {
     }
 
 
-    private Position getMove(Agent agent) {
+    private Position getMove(final Agent agent) {
 
         ExecutorService service = Executors.newFixedThreadPool(1);
         Future<Position> futureResult = service.submit(agent);
         Position result = null;
-        final long availableTime = TIMESLOT + getSavedTime(agent);
+        final long availableTime = getAvailableTime(agent);
         long timeBox = 0l;
 
         try{
             timeBox = System.currentTimeMillis();
+            setAvailableTimeLeft(agent, availableTime);
             result = futureResult.get(availableTime, TimeUnit.MILLISECONDS);
             timeBox = System.currentTimeMillis() - timeBox;
             noReturnFromPlayer = false;
@@ -114,10 +120,26 @@ public class PlayerHandler {
             t.printStackTrace();
         }
         long diff = 0l;
-        if(Math.abs(timeBox) < availableTime) diff = availableTime - timeBox;
+        if(Math.abs(timeBox) < availableTime) {
+            diff = availableTime - timeBox;
+        }
         setTimeLeft(agent, diff);
         service.shutdown();
         return result;
+    }
+
+    private long getAvailableTime(Agent agent) {
+        final long savedTime = timeslot + getSavedTime(agent);
+
+        if(agent instanceof RemoteAgent) {
+            return TIME_BOOST_FOR_REMOTE_AGENT + savedTime;
+        }
+
+        return savedTime;
+    }
+
+    private void setAvailableTimeLeft(final Agent agent, final long availableTime) {
+        agent.setAvailableTimeLeft(availableTime);
     }
 
 

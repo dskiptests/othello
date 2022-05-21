@@ -64,19 +64,19 @@ public class PlayerFactory {
     }
 
     private static Class[] getClasses(String packageName) throws ClassNotFoundException, IOException {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
-        String path = packageName.replace('.', '/');
-        URL resource = classLoader.getResource(path);
+        final String path = packageName.replace('.', '/');
+        final URL resource = classLoader.getResource(path);
         
-        List<Class> classes = new ArrayList<Class>();
+        final List<Class> classes = new ArrayList<Class>();
         // in case we run with: java -jar othello-xyz.jar
         if (resource.getProtocol().equals("jar")) {
-            String jarPath = resource.getPath().substring(5, resource.getPath().indexOf("!")); //strip out only the JAR file
-            JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
-            Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries
+            final String jarPath = resource.getPath().substring(5, resource.getPath().indexOf("!")); //strip out only the JAR file
+            final JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
+            final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries
             while(entries.hasMoreElements()) {
-                String name = entries.nextElement().getName();
+                final String name = entries.nextElement().getName();
                 if (name.endsWith("/")) { continue; }
                 if (name.startsWith(path)) { //filter according to the path
                     String entryPkg = name.substring(path.length()+1).replace('/', '.');
@@ -94,8 +94,8 @@ public class PlayerFactory {
     }
 
     private static List<Class> findClasses(File directory, String packageName) throws ClassNotFoundException {
-        List<Class> classes = new ArrayList<Class>();
-        if (!directory.exists()) {
+        final List<Class> classes = new ArrayList<Class>();
+        if ( ! directory.exists()) {
             return classes;
         }
         File[] files = directory.listFiles();

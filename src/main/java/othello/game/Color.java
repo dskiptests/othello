@@ -1,5 +1,8 @@
 package othello.game;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public enum Color {
 
     BLACK ("Black"),

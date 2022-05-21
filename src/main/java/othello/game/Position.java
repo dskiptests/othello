@@ -1,11 +1,14 @@
 package othello.game;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 public class Position {
 
     private final int row;
     private final int column;
+    @JsonIgnore
     private final int hashCode;
 
     private Position(final int row, final int column) {

@@ -1,9 +1,12 @@
 package othello.game;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.LinkedList;
 
 public final class GameBoard {
-
+    @JsonProperty("boardSize")
     public final int BOARD_SIZE = 8;
     private final Color[][] boardMatrix;
 
