@@ -106,7 +106,7 @@ public class PlayerHandler {
         ExecutorService service = Executors.newFixedThreadPool(1);
         Future<Position> futureResult = service.submit(agent);
         Position result = null;
-        final long availableTime = getAvailableTime(agent);
+        final long availableTime = generateAvailableTime(agent);
         long timeBox = 0l;
 
         try{
@@ -128,7 +128,7 @@ public class PlayerHandler {
         return result;
     }
 
-    private long getAvailableTime(Agent agent) {
+    private long generateAvailableTime(final Agent agent) {
         final long savedTime = timeslot + getSavedTime(agent);
 
         if(agent instanceof RemoteAgent) {

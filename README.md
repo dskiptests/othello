@@ -77,7 +77,7 @@ from this repository.
 ### Hints for Remote Agents
 
  * The Java file size can only be 2 kB
- * The Agent has longer time to execute
+ * With each turn, the remote agent will receive `availableTime`, which is how many milliseconds it has left.
  * The Remote API must always return `200 OK`, otherwise the move is considered illegal.
 
 ### New Game
@@ -112,7 +112,7 @@ $ curl --location --request POST 'https://<YOUR-HOST>/othello/next-move' \
 				["EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY"]],
       "boardSize":8
    },
-   "currentLegalPositions":[
+   "possibleMoves":[
       {
          "row":2,
          "column":4
@@ -130,7 +130,7 @@ $ curl --location --request POST 'https://<YOUR-HOST>/othello/next-move' \
          "column":3
       }
    ],
-   "availableTime": 2000
+   "availableTime": 2500,
    "color":"WHITE"
 }'
 ```
