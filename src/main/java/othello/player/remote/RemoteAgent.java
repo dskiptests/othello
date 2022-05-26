@@ -88,9 +88,9 @@ public abstract class RemoteAgent extends Agent {
                 return null;
             }
 
-            System.out.println("------------");
-            System.out.println(response.body());
-            return this.mapper.readValue(response.body(), Position.class);
+            NextMoveResponseBody nextMoveResponseBody = this.mapper.readValue(response.body(), NextMoveResponseBody.class);
+
+            return Position.create(nextMoveResponseBody.row(), nextMoveResponseBody.column())
         } catch (Exception e) {
             System.out.println(e);
             return null;
