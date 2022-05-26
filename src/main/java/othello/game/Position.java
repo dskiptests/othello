@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class Position {
 
-    private final int row;
-    private final int column;
+    public final int row;
+    public final int column;
     @JsonIgnore
     private final int hashCode;
 
@@ -44,11 +44,11 @@ public class Position {
         return obj.hashCode() == this.hashCode;
     }
 
-    public int row() {
+    public int getRow() {
         return this.row;
     }
 
-    public int column() {
+    public int getColumn() {
         return this.column;
     }
 

@@ -1,7 +1,6 @@
 package othello.game;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.LinkedList;
 
@@ -156,15 +155,15 @@ public final class GameBoard {
                 if (chkRow == 0 && chkCol == 0) {
                     continue;
                 }
-                int xRow = position.row() + chkRow;
-                int xCol = position.column() + chkCol;
+                int xRow = position.getRow() + chkRow;
+                int xCol = position.getColumn() + chkCol;
 
                 if (xRow >= 0 && xRow <= 7 && xCol >= 0 && xCol <= 7) {
                     if ((boardMatrix[xRow][xCol]) == (color == Color.BLACK ? Color.WHITE : Color.BLACK)) {
                         for (int range = 1; range < 8; range++) {
 
-                            int nRow = position.row() + range * chkRow;
-                            int nCol = position.column() + range * chkCol;
+                            int nRow = position.getRow() + range * chkRow;
+                            int nCol = position.getColumn() + range * chkCol;
                             if (nRow < 0 || nRow > 7 || nCol < 0 || nCol > 7) {
                                 continue;
                             }
@@ -174,8 +173,8 @@ public final class GameBoard {
                             else if (boardMatrix[nRow][nCol] == color) {
                                 if (flip) {
                                     for (int flipDistance = 1; flipDistance < range; flipDistance++) {
-                                        int finalRow = position.row() + flipDistance * chkRow;
-                                        int finalCol = position.column() + flipDistance * chkCol;
+                                        int finalRow = position.getRow() + flipDistance * chkRow;
+                                        int finalCol = position.getColumn() + flipDistance * chkCol;
 
                                         boardMatrix[finalRow][finalCol] = color;
                                     }
@@ -189,7 +188,7 @@ public final class GameBoard {
             }
         }
 
-        if(flip && isValid) boardMatrix[position.row()][position.column()] = color;
+        if(flip && isValid) boardMatrix[position.getRow()][position.getColumn()] = color;
 
         return isValid;
     }
@@ -210,6 +209,6 @@ public final class GameBoard {
      * @return The color of the position, can be Black, White or Empty.
      */
     public Color colorOf(Position position) {
-        return getBoardMatrix()[position.row()][position.column()];
+        return getBoardMatrix()[position.getRow()][position.getColumn()];
     }
 }

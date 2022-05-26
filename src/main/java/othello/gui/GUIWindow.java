@@ -315,7 +315,7 @@ public class GUIWindow {
 
     public void setPicture(Color color, Position position) {
 
-        JPanel currentPanel = panelBoard[position.row()][position.column()];
+        JPanel currentPanel = panelBoard[position.getRow()][position.getColumn()];
         currentPanel.removeAll();
         JLabel picLabel;
         if (color == BLACK) {
@@ -391,7 +391,7 @@ public class GUIWindow {
                         if (game.isLegal(Position.create(i, j))) {
 
                             for(Position m : legalPositions){
-                                if(m.row() == i || m.column() == j) {
+                                if(m.getRow() == i || m.getColumn() == j) {
                                     panelBoard[i][j].setBackground(LIGHT_GREEN);
                                 }
                             }
