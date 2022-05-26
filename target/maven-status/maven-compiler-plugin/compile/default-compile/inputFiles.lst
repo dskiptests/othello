@@ -1,5 +1,6 @@
 /home/david/code/othello/src/main/java/othello/player/remote/NewGameRequestBody.java
 /home/david/code/othello/src/main/java/othello/gui/gameschedule/Match.java
+/home/david/code/othello/src/main/java/othello/player/remote/NextMoveResponseBody.java
 /home/david/code/othello/src/main/java/othello/player/remote/NextMoveRequestBody.java
 /home/david/code/othello/src/main/java/othello/player/Agent.java
 /home/david/code/othello/src/main/java/othello/game/Position.java

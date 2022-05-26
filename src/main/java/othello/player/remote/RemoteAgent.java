@@ -90,7 +90,7 @@ public abstract class RemoteAgent extends Agent {
 
             NextMoveResponseBody nextMoveResponseBody = this.mapper.readValue(response.body(), NextMoveResponseBody.class);
 
-            return Position.create(nextMoveResponseBody.row(), nextMoveResponseBody.column())
+            return Position.create(nextMoveResponseBody.row(), nextMoveResponseBody.column());
         } catch (Exception e) {
             System.out.println(e);
             return null;

@@ -15,6 +15,7 @@ othello/game/PlayerHandler.class
 othello/gui/GUIWindow$9.class
 othello/gui/GUIWindow$5.class
 othello/player/remote/RemoteAgent.class
+othello/player/remote/NextMoveResponseBody.class
 othello/gui/gameschedule/GameSchedule.class
 othello/scoreboard/PlayerScore.class
 othello/player/PlayerFactory.class
