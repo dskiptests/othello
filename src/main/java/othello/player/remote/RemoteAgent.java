@@ -67,14 +67,14 @@ public abstract class RemoteAgent extends Agent {
 
     @Override
     public final Position nextMove(final GameBoard currentBoard, final List<Position> currentLegalPositions) {
-        return this.remoteNextGame();
+        return this.remoteNextMove(currentBoard, currentLegalPositions);
     }
 
-    public final Position remoteNextGame() {
+    public final Position remoteNextMove(final GameBoard currentBoard, final List<Position> currentLegalPositions) {
 
         try {
             final String requestBody = this.mapper.writeValueAsString(
-                    new NextMoveRequestBody(this.currentBoard, this.currentLegalPositions, this.color(), availableTime()));
+                    new NextMoveRequestBody(currentBoard, currentLegalPositions, this.color(), availableTime()));
             final HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(this.path() + "next-move/"))
                     .header("Content-Type", CONTENT_TYPE)
